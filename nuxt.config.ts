@@ -28,7 +28,7 @@ export default defineNuxtConfig({
     }
   },
   image: {
-    // provider:"vercel"
+    provider:"vercel"
   },
   icon: {
     customCollections: [
@@ -41,5 +41,6 @@ export default defineNuxtConfig({
   notivue: {
     limit: 3,
     avoidDuplicates: true,
-  }
+  },
+  
 })
