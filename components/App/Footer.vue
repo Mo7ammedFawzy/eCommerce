@@ -7,7 +7,7 @@ import { FooterLinks } from "~/constants"
 <template>
  <main id='footer' class='py-20 bg-white text-center dark:bg-[#162031] ring-1 dark:ring-gray-700 ring-gray-700/30'>
   <div class="footer-wrapper max-w-3xl mx-auto">
-   <HomeNewsletter />
+   <HomeNewsletter has-wrapper/>
 
    <div class="footer-links my-8">
     <div

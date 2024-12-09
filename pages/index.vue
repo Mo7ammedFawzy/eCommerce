@@ -19,7 +19,7 @@ import { HomeItems } from "~/constants"
     <HomeBestSeller />
     <div class="my-20" />
     <!-- brands-autoplay-carousel -->
-    <HomeBrands has-wrapper />
+    <HomeBrands class="!max-w-5xl mx-auto" has-wrapper />
     <div class="my-20" />
     <!--services base(horizental-cards) -->
     <HomeServices has-wrapper />
