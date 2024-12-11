@@ -12,7 +12,7 @@ defineProps<{ item: ServiceCard }>()
  <!-- <UCard class=''>
 
  </UCard> -->
- <div class="service-card w-full max-w-xs mx-auto relative overflow-hidden text-white text-center bg-main rounded-lg px-8 py-6">
+ <div class="service-card w-full h-full max-w-sm mx-auto relative overflow-hidden text-white text-center bg-main rounded-lg px-8 py-6">
 
   <div class="servicce-card__wrapper  space-y-3">
    <div class="servicce-card__icon">

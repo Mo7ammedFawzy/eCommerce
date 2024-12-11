@@ -1,25 +1,31 @@
-<script setup lang=ts>
-import { HomeItems } from "~/constants"
+<script setup lang="ts">
+import { HomeItems } from "~/constants";
 </script>
 <template>
-  <main id='home-page' class='min-h-screen'>
+  <main id="home-page" class="min-h-screen">
     <!-- landing(carousel) -->
     <!-- 2cards-base(semi-card)-used-with-carousel -->
     <HomeLanding />
-    <BaseWrapper class="">
+    <BaseWrapper>
       <!-- categories-base(avatar) -->
-      <HomeCategories />
+      <HomeCategories class="my-40" />
       <!-- top-collections-base(card) -->
       <HomeTopCollections />
     </BaseWrapper>
     <!-- banner-base(semi-card) -->
-    <BaseSemiCard is-brand :item="HomeItems.landing.brandSection" />
+    <div class="flex">
+      <BaseSemiCard
+        is-brand
+        name="brand"
+        :item="HomeItems.landing.brandSection"
+      />
+    </div>
     <div class="my-20" />
     <!-- bestSeller-base(card)+carousel -->
     <HomeBestSeller />
     <div class="my-20" />
     <!-- brands-autoplay-carousel -->
-    <HomeBrands class="!max-w-5xl mx-auto" has-wrapper />
+    <HomeBrands class="mx-auto !max-w-5xl" has-wrapper />
     <div class="my-20" />
     <!--services base(horizental-cards) -->
     <HomeServices has-wrapper />

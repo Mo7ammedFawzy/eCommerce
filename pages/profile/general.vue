@@ -1,7 +1,5 @@
 <template>
-  <div>
-    
-  </div>
+  <BasePlaceholder label="Profile General"/>
 </template>
 
 <script lang="ts" setup>

@@ -1,0 +1,27 @@
+
+Todo:
+  ☐ /
+    ☐ <AppHeader />: 
+      ✔ edit profile btn as a menu @done(24-12-11 17:24)
+      ✘ add categories <UDropdown /> @cancelled(24-12-11 19:05)
+      ✔ add search products @started(24-12-11 19:05) @done(24-12-11 23:00) @lasted(3h55m23s)
+  ☐ <ProductCard />
+    ☐ add view card option
+    ☐ add favourites
+  ☐ <ProductCardWrapper />
+    ☐ add more btn(pagination) to show more products
+  ☐ <Products />
+    ☐ /products/:id
+    ☐ add a filter navigation in small window
+    ☐ add a show btn to show a limit of products
+  ☐ /cart 
+    ☐ cart features
+  ☐ /profile/general
+    ☐ add features[upload photo and load it in the image banner]
+  ☐ /auth/:[login,signup]:google
+    ☐ auth with  nuxt/auth 
+  ☐ /checkout 
+    ☐ add page
+  ☐ /orders
+    ☐ /order/:id
+    ☐ add order page

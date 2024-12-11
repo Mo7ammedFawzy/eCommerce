@@ -1,7 +1,9 @@
 export interface ListItem {
  icon?: string,
- title: string,
- text?: string
+ title?: string,
+ text?: string,
+ img?: string,
+ id?: number
 }
 
 export interface HeaderAction extends Omit<HeaderLink, 'query'> {
@@ -9,6 +11,8 @@ export interface HeaderAction extends Omit<HeaderLink, 'query'> {
  hasChip?: boolean,
  color?: 'orange' | 'blue',
  mobile?: boolean,
+ isMenu?: boolean,
+ isPopover?: boolean
 }
 
 export interface HeaderLink {
@@ -17,33 +21,36 @@ export interface HeaderLink {
  category?: string
 }
 
-export interface SemiCard extends ListItem {
- btns?: Btns[],
- img: string,
+
+export interface SemiCard {
+ title: string,
  subTitle?: string,
- bg?: string,
- shape_bg?: string,
- class_color?: string,
- isBlue?: boolean,
+ text: string,
+ btns: Btns[],
+ img: string,
+ name: string,
 }
 
 export interface Btns {
  path: string,
- title: string,
- color: string, style?: string
+ title: string
 }
 
 export interface ProfileLink extends ListItem {
  hasSwitch?: boolean,
- path?: string
+ path?: string,
+ label?: string,
+ slot?: string,
+ disabled?: boolean
 
 }
 
 
 
 export interface Category {
- img: string,
- title: string
+ img?: string,
+ title: string,
+ radioTitle?: string
 }
 
 export interface ProductCard extends ListItem {
@@ -65,3 +72,28 @@ export interface FooterLink {
  color?: string
 }
 
+
+export interface API_Product {
+ id: number,
+ title: string,
+ price: number,
+ description: string,
+ category: string,
+ image: string,
+ rating: Rating,
+ colors?: string[],
+ discount?: number
+}
+export interface Rating {
+ rate: number,
+ count: number
+}
+
+export interface MainHeader {
+ title: string,
+ text?: string
+}
+
+export interface PageHeader extends MainHeader {
+ path: string
+}

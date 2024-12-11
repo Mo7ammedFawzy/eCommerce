@@ -1,64 +1,153 @@
 <script setup lang="ts">
+import type { SemiCard } from "~/types";
+type Color = {
+  shape: string;
+  bg: string;
+  name: string;
+  btn: string[];
+};
 
-import type { SemiCard } from '~/types';
+const { $viewport } = useNuxtApp();
 
-const { $viewport } = useNuxtApp()
+// title,subtitle,text,btns,img,shape
 
-withDefaults(defineProps<{ item: SemiCard, large?: boolean, isBrand?: boolean }>(), { large: true, isBrand: false })
+const {
+  item: props,
+  double = false,
+  name,
+} = defineProps<{
+  item: SemiCard;
+  double?: boolean;
+  name: string;
+}>();
+const { title, subTitle, text, btns, img } = props;
 
-// const class_color = "bg-red-900"
-// const colors = "bg-teal-600"
-const brandColors = {
-  text: "text-[#26c196] dark:text-[#26c196]",
-  bg: "!bg-[#caece5] dark:!bg-[#143940]",
-  shape: "!bg-[#26c196]"
-}
+// colors first
+const blueColor = "bg-main-400 hover:!bg-main-500";
+const purpleColor = "!bg-[#f55da4] hover:!bg-[#ef458f]";
+
+const colors: Color[] = [
+  {
+    name: "landing",
+    shape: "bg-[#FBCA66]",
+    bg: "bg-[#F6E5BE] dark:bg-[#393736]",
+    btn: [blueColor, purpleColor],
+  },
+  {
+    shape: "bg-[#26C196]",
+    bg: "bg-[#CAECE5] dark:bg-[#143940]",
+    name: "brand",
+    btn: ["!bg-[#26C196] hover:!bg-[#148769]"],
+  },
+  {
+    bg: "bg-[#A4D0FB] dark:bg-[#0A3566]",
+    shape: "bg-[#007EFC]",
+    name: "men",
+    btn: [blueColor],
+  },
+  {
+    bg: "bg-[#F6D3E5] dark:bg-[#5B2C50]",
+    shape: "bg-[#F55DA4]",
+    name: "women",
+    btn: [purpleColor],
+  },
+];
+
+const cardColors = computed(() => {
+  return colors.find((el) => el.name === name) ?? colors[0];
+});
 </script>
+<!--  -->
 <template>
-  <!--  bg-amber-100 dark:bg-stone-700 -->
-  <!-- :style="{ backgroundColor: item.bg }" -->
-  <div class="landing-home relative overflow-hidden"
-    :class="[{ 'rounded-lg ring-1 ring-black/10 dark:ring-white/10': !large }, { 'bg-amber-100 dark:bg-stone-700': large, 'bg-blue-300 dark:bg-sky-900': !large && item.isBlue, 'bg-pink-200 dark:bg-[#5B2C50]': !large && !item.isBlue, [brandColors.bg]: large && isBrand, 'sm:pt-24': large && isBrand }]">
-    <UContainer
-      class="pl-8 pr-0 md:pr-4 h-full rounded-none gap-2 md:gap-4 grid !grid-cols-3 sm:!grid-cols-2 w-full max-w-7xl"
-      :class="{ '!grid-cols-7 sm:!grid-cols-7 !p-0': !large }">
-      <!-- <NuxtImg :src="`/${item.img}.webp`" /> -->
-
-      <!-- header -->
-      <div :class="{ 'col-span-5 sm:!col-span-4 !space-y-3  !py-8 !pl-6': !large }"
-        class="col-span-2 sm:!col-span-1 left-side py-32 md:py-14 space-y-5 z-[2] relative">
-        <!-- <template #header> -->
+  <div
+    class="semi-card w-full overflow-hidden"
+    :class="[
+      !double
+        ? 'min-h-96'
+        : 'rounded-lg ring-1 ring-black/35 dark:ring-white/45',
+      cardColors.bg,
+    ]"
+  >
+    <div
+      class="semi-card__wrapper grid h-full"
+      has-wrapper
+      :class="[
+        !double
+          ? 'grid-cols-7 lg:grid-cols-2'
+          : 'grid-cols-7 pr-0 lg:grid-cols-2',
+      ]"
+    >
+      <div
+        class="semi-card__left--content z-[1] col-span-6 flex flex-col justify-center space-y-2 lg:col-span-1"
+        :class="[!double ? 'p-6' : 'px-3 py-4 lg:p-6']"
+      >
+        <!-- :class="[double?'':'']" -->
+        <!-- title -->
         <div
-          :class="{ '!text-xl md:!text-2xl dark:text-white text-gray-800': !large, [brandColors.text]: isBrand, 'text-gray-800': isBrand }"
-          class="text-xl sm:text-4xl text-black dark:text-white md:text-5xl font-bold capitalize" v-text="item.title" />
-        <div v-if="!large" v-html="item.subTitle" class="text-black/80 [&>span]:font-bold dark:text-gray-300 text-sm "
-          :class="{ 'dark:[&>span]:text-blue-400 [&>span]:text-blue-700': !large && item.isBlue, '[&>span]:text-pink-500': !large && !item.isBlue }" />
-        <!-- </template> -->
-        <div v-text="item.text" class="text-gray-600 dark:text-gray-400 text-sm sm:text-md md:text-md"
-          :class="{ '!text-xs text-gray-800': !large }" />
-        <!-- actions -->
-        <div class="actions mt-4 space-x-3 space-y-3">
-          <UButton v-for="           { title, color, style, path }            in            item.btns           "
-            :style="{ backgroundColor: style }" class="capitalize !text-white  text-xs  sm:text-sm px-5 sm:px-8"
-            :to="path" :size="$viewport.isLessThan('mobileWide') ? 'lg' : 'xl'">
-            {{ title }}</UButton>
+          v-text="title"
+          class="font-black capitalize"
+          :class="[
+            !double
+              ? 'text-3xl sm:text-4xl md:text-5xl'
+              : 'text-xl lg:text-2xl',
+          ]"
+        />
+        <!-- subtitle -->
+        <div
+          name="subtitle"
+          v-if="double"
+          class="text-base sm:text-lg"
+          v-html="subTitle"
+        />
+        <!-- text -->
+        <p
+          name="text"
+          class="text-sm sm:text-base"
+          :class="[{ '!text-xs sm:text-base': double }]"
+          v-text="text"
+        />
+        <!-- btns -->
+        <div class="btns--btns-group">
+          <div class="btns__wrapper mt-3 flex items-center gap-2">
+            <template v-for="({ title }, index) in btns">
+              <!-- color="primary" -->
+              <UButton
+                variant="solid"
+                :class="cardColors.btn[index]"
+                class="px-4 capitalize dark:text-white"
+                size="lg"
+                >{{ title }}</UButton
+              >
+            </template>
+          </div>
         </div>
       </div>
-      <div :class="{ 'col-span-2 sm:col-span-3 !mr-0': !large }"
-        class="col-span-1 img-side h-full relative bg-gra-200 md:mr-3">
-        <NuxtImg class="hidden md:block absolute top-0 translate-y-4 z-[2] h-full left-1/2 -translate-x-1/2"
-          :src="`/home/${item.img}.webp`"
-          :class="{ '!w-full !h-full !aspect-auto  !bottom-0 !translate-y-0 !top-auto  !object-contain object-bottom': !large }" />
-        <span
-          :class="{ 'w-full z-[1] left-auto h-full rounded-none !translate-y-0 !top-0 bottom-0 rounded-l-full': !large, [brandColors.shape]: large && isBrand, '!': isBrand }"
-          :style="{ backgroundColor: item.shape_bg }"
-          class="absolute top-1/2 md:top-0  md:-right-1/2 h-full md:h-auto md:w-full aspect-square bg-orange-300 z-[1] rounded-[50%] md:-translate-x-1/2 -translate-y-1/2 left-1/2 right-auto md:left-auto md:translate-y-[15%]" />
-        <!-- class="absolute  md:-right-1/2 w-full aspect-square top-0 translate-y-[10%]  bg-orange-300 z-[1] rounded-[50%] md:-translate-x-1/2 left-1/2 right-auto md:left-auto" /> -->
+      <div
+        class="semi-card__right--img col-span-1 lg:col-span-1 lg:overflow-hidden"
+        :class="[!double ? '' : '']"
+      >
+        <div class="h-full w-full" :class="[double ? '' : 'lg:pl-8 lg:pt-8']">
+          <div class="semi-card__img--wrapper relative h-full w-full">
+            <!-- img -->
+            <NuxtImg
+              :src="`/home/${img}.webp`"
+              class="absolute left-0 top-0 z-[1] hidden h-full w-full object-bottom lg:block"
+              :class="[double ? 'object-contain' : 'object-contain']"
+            />
+            <!-- shape -->
+            <BaseCircle
+              :class="cardColors.shape"
+              v-if="!double"
+              class="left-0 top-1/2 z-[0] h-full w-auto -translate-y-1/2 lg:left-1/2 lg:right-auto lg:top-0 lg:h-auto lg:w-full lg:-translate-x-1/2 lg:translate-y-[10%]"
+            />
+            <BaseCircle
+              v-else
+              :class="cardColors.shape"
+              class="top-1/2 z-[0] aspect-square h-full w-auto -translate-y-1/2 rounded-r-none lg:right-0 lg:top-1/2 lg:w-full"
+            />
+          </div>
+        </div>
       </div>
-      <!-- semi-shape -->
-    </UContainer>
-    <span v-if="isBrand"
-      class="absolute top-0 z-[1] -translate-y-[25%] left-1/2 -translate-x-1/2 w-40 aspect-square rounded-full"
-      :class="brandColors.shape" />
+    </div>
   </div>
 </template>

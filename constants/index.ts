@@ -1,5 +1,6 @@
-import type { Category, FooterLink, HeaderAction, HeaderLink, ProductCard, ProfileLink, SemiCard, ServiceCard } from "~/types";
-
+import type { Category, FooterLink, HeaderAction, HeaderLink, ProductCard, API_Product, ProfileLink, SemiCard, ServiceCard } from "~/types";
+import jsonProducts from "./products.json"
+export const API_URL = "https://fakestoreapi.com";
 export const HEADER_ACTIONS: HeaderAction[] = [
  {
   title: "home",
@@ -12,6 +13,7 @@ export const HEADER_ACTIONS: HeaderAction[] = [
   title: "search",
   icon: "material-symbols-light:search",
   route: "/search",
+  isPopover: true
  },
  {
   title: "products",
@@ -36,6 +38,8 @@ export const HEADER_ACTIONS: HeaderAction[] = [
   title: "user",
   icon: "material-symbols-light:person-outline",
   route: "/profile",
+  isMenu: true
+
  }
 ]
 
@@ -43,47 +47,53 @@ export const HEADER_LINKS: HeaderLink[] = [
  {
   title: "home", route: "/",
  },
+ // TODO delete-this
+ // {
+ //  title: "test", route: "/test",
+ // },
  { title: "products", route: '/products', },
- { title: "men", route: "/products", category: 'men' },
- { title: "women", route: "/products", category: "women" },
- { title: "kids", route: "/products", category: "kids" }
+ { title: "men", route: "/products", category: "men's clothing" },
+ { title: "women", route: "/products", category: "women's clothing" },
+ { title: "electronics", route: "/products", category: "electronics" }
 ]
 
 export const ProfileLinks: ProfileLink[] = [
+ // 
  {
   icon: "i-circum-dark",
-  title: "theme mode",
+  label: "theme mode",
   hasSwitch: true,
+
  },
  {
   icon: "iconamoon:home-thin",
-  title: 'home',
+  label: 'home',
   path: "/"
  },
- {
-  icon: "material-symbols-light:dashboard-outline",
-  title: "dashboard",
-  path: "/cart"
- },
+ // {
+ //  icon: "material-symbols-light:dashboard-outline",
+ //  label: "dashboard",
+ //  path: "/cart"
+ // },
  {
   icon: "line-md:heart",
-  title: "wishlist",
+  label: "wishlist",
   path: "/profile/wishlist"
  },
- {
-  icon: "iconamoon:invoice-thin",
-  title: "invoice",
-  path: "/"
- },
+ // {
+ //  icon: "iconamoon:invoice-thin",
+ //  label: "invoice",
+ //  path: "/"
+ // },
  {
   icon: "line-md:person",
-  title: "profile",
-  path: "/profile"
+  label: "profile",
+  path: "/profile/general"
  },
  {
   icon: "material-symbols-light:key-outline",
-  title: "change password",
-  path: "/"
+  label: "change password",
+  path: "/profile/change-password"
  },
 ]
 
@@ -93,49 +103,39 @@ export const HomeItems = {
    title: "top products of the year!",
    text: "It is a long established fact that a reader will be distracted by the readable.",
    img: "slide-1",
-   class_color: "bg-red-900 dark:!bg-green-600",
    btns: [
     {
-     title: 'shop now', path: '/products', color: 'blue', style: 'rgb(0, 126, 252)'
+     title: 'shop now', path: '/products'
     },
     {
-     title: "see all", path: '/products', color: 'orange', style: 'rgb(245, 93, 164)'
+     title: "see all", path: '/products'
     }
    ]
   },
   secondSection: <SemiCard[]>[
    {
-    shape_bg: "#007efc",
-    bg: "#2e97ff66",
+    name: "men",
     title: "Men Latest Fashion",
     subTitle: "<span>25%</span> Off on first order",
     text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
     img: "men",
-    class_color: "bg-red-900",
-    isBlue: true,
     btns: [
      {
       title: "shop now",
-      path: "/products?category=men",
-      color: "blue",
-      style: 'rgb(0, 126, 252)'
+      path: "/products?category=men"
      }
     ]
    },
    {
-    bg: "#f99ec866",
-    shape_bg: "#f55da4",
+    name: 'women',
     title: "Women Latest Fashion",
     subTitle: "<span>25%</span> Off on first order",
     text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
     img: "women",
-    class_color: "bg-red-900",
     btns: [
      {
       title: "shop now",
       path: "/products?category=women",
-      color: "red",
-      style: 'rgb(245, 93, 164)'
      }
     ]
    },
@@ -143,12 +143,11 @@ export const HomeItems = {
   brandSection: <SemiCard>{
    img: "brand",
    title: "UK Premier Store for Wrist Watches",
-   text: "Welcome to our world of horological excellence, where timepieces become timeless statements of elegance. Our collection showcases an unparalleled selection of premium watches, curated from renowned luxury brands around the globe.",
+   text: "Welcome to our world of horological excellence, featuring timeless, elegant watches from renowned luxury brands worldwide.",
    btns: [
     {
      title: "view more",
-     path: "/products",
-     style: "#26c196"
+     path: "/products"
     }
    ]
   }
@@ -156,112 +155,60 @@ export const HomeItems = {
 }
 
 export const Categories: Category[] = [
+ // img path : "/home/categoires/.png"
  {
-  img: "shirts",
-  title: "shirts"
+  title: "electronics",
+  radioTitle: "electronics"
  },
  {
-  img: "pants",
-  title: "pants"
- }
+  title: "jewelery",
+  radioTitle: "jewelery"
+  // img: "https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_QL65_ML3_.jpg"
+ },
+ {
+  title: "men's clothing",
+  radioTitle: "men",
+  // img: "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg"
+ },
+ {
+  title: "women's clothing",
+  radioTitle: "women",
+  // img: "https://fakestoreapi.com/img/51eg55uWmdL._AC_UX679_.jpg"
+ },
+ // {
+ //  title: "electronics",
+ //  img: "https://fakestoreapi.com/img/81Zt42ioCgL._AC_SX679_.jpg"
+ // },
+ // {
+ //  title: "jewelery",
+ //  img: "https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_QL65_ML3_.jpg"
+ // },
+ // {
+ //  title: "men's clothing",
+ //  img: "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg"
+ // },
+ // {
+ //  title: "women's clothing",
+ //  img: "https://fakestoreapi.com/img/51eg55uWmdL._AC_UX679_.jpg"
+ // },
+ // {
+ //  img: "shirts",
+ //  title: "shirts"
+ // },
+ // {
+ //  img: "pants",
+ //  title: "pants"
+ // }
+ //output
+ // [
+ //  "electronics",
+ //  "jewelery",
+ //  "men's clothing",
+ //  "women's clothing"
+ // ]
 ]
 
-export const Products: ProductCard[] = [
- {
-  title: "Black Bold Floral Printed Half Sleeve how many years Black Bold Floral Printed Half Sleeve how many years Black Bold Floral Printed Half Sleeve how many years Black Bold Floral Printed Half Sleeve how many years",
-  price: 34,
-  discount: 32,
-  rating: 4.5,
-  colors: ['black', 'white', 'yellow']
- },
- {
-  title: "Black Bold Floral Printed Half Sleeve how many years",
-  price: 34,
-  discount: 32,
-  rating: 4.5,
-  colors: ['black', 'white', 'yellow'],
-  img: "2",
- },
- {
-  title: "Black Bold",
-  price: 34,
-  discount: 32,
-  rating: 4.5,
-  colors: ['black', 'white', 'yellow'],
-  img: 3,
- },
- {
-  title: "Black Bold Floral Printed Half Sleeve how many years",
-  price: 34,
-  discount: 32,
-  rating: 4.5,
-  colors: ['black', 'white', 'yellow'],
-  img: 4
- },
- {
-  title: "Black Bold Floral Printed Half Sleeve how many years Black Bold Floral Printed Half Sleeve how many years Black Bold Floral Printed Half Sleeve how many years Black Bold Floral Printed Half Sleeve how many years",
-  price: 34,
-  discount: 32,
-  rating: 4.5,
-  colors: ['black', 'white', 'yellow']
- },
- {
-  title: "Black Bold Floral Printed Half Sleeve how many years",
-  price: 34,
-  discount: 32,
-  rating: 4.5,
-  colors: ['black', 'white', 'yellow'],
-  img: "2",
- },
- {
-  title: "Black Bold",
-  price: 34,
-  discount: 32,
-  rating: 4.5,
-  colors: ['black', 'white', 'yellow'],
-  img: 3,
- },
- {
-  title: "Black Bold Floral Printed Half Sleeve how many years",
-  price: 34,
-  discount: 32,
-  rating: 4.5,
-  colors: ['black', 'white', 'yellow'],
-  img: 4
- },
- {
-  title: "Black Bold Floral Printed Half Sleeve how many years Black Bold Floral Printed Half Sleeve how many years Black Bold Floral Printed Half Sleeve how many years Black Bold Floral Printed Half Sleeve how many years",
-  price: 34,
-  discount: 32,
-  rating: 4.5,
-  colors: ['black', 'white', 'yellow']
- },
- {
-  title: "Black Bold Floral Printed Half Sleeve how many years",
-  price: 34,
-  discount: 32,
-  rating: 4.5,
-  colors: ['black', 'white', 'yellow'],
-  img: "2",
- },
- {
-  title: "Black Bold",
-  price: 34,
-  discount: 32,
-  rating: 4.5,
-  colors: ['black', 'white', 'yellow'],
-  img: 3,
- },
- {
-  title: "Black Bold Floral Printed Half Sleeve how many years",
-  price: 34,
-  discount: 32,
-  rating: 4.5,
-  colors: ['black', 'white', 'yellow'],
-  img: 4
- },
-]
-
+export const Products: API_Product[] = jsonProducts
 
 export const Services: ServiceCard[] = [
  {

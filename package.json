@@ -29,7 +29,12 @@
     "@nuxt/ui": "^2.18.3",
     "@vueuse/core": "^10.11.0",
     "@vueuse/nuxt": "^10.11.0",
+    "i": "^0.3.7",
+    "npm": "^10.9.2",
     "nuxt-marquee": "^1.0.4",
+    "prettier": "3.4.2",
+    "prettier-plugin-organize-attributes": "^1.0.0",
+    "prettier-plugin-tailwindcss": "^0.6.9",
     "typescript": "^5.5.4"
   },
   "overrides": {
