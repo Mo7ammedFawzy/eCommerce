@@ -21,7 +21,7 @@ const exist = computed(
       class="mx-auto grid grid-cols-[repeat(auto-fill,minmax(135px,1fr))] gap-3 xs:grid-cols-[repeat(auto-fill,minmax(170px,1fr))] sm:grid-cols-[repeat(auto-fill,minmax(195px,1fr))] md:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] lg:grid-cols-[repeat(auto-fill,minmax(230px,1fr))]"
       v-if="true"
     >
-      <!-- status:{{ props.status }} -->
+      <!-- status:{{ { length: props.products.length, status: props.status } }} -->
       <template v-if="exist">
         <BaseProductCard v-for="product in products" :product="product" />
       </template>

@@ -1,83 +1,8 @@
-<script setup lang="ts">
-import { Categories } from "~/constants";
-
-const modifiedCategories = Categories.map((el) => ({
-  label: el.radioTitle,
-  value: el.title,
-}));
-const selected = ref();
-
-const router = useRouter();
-const route = useRoute();
-
-const loadFilters = () => {
-  selected.value = route.query.category ?? "";
-};
-
-watch(selected, () => {
-  // console.log("changed");
-  const queryOptions: { category?: string } = {};
-  if (selected.value) {
-    queryOptions.category = selected.value;
-  }
-  router.push({ query: queryOptions });
-});
-watch(
-  () => route.query,
-  (value) => {
-    // selected.value = value.category ?? "";
-    loadFilters();
-    // console.log(value, "hell");
-  },
-);
-
-const clearFilters = () => {
-  selected.value = "";
-  console.log("ds");
-};
-
-onMounted(() => {
-  loadFilters();
-});
-</script>
-
 <template>
   <section
     id="products-filter"
     class="main-shadow w-full rounded-lg bg-white py-6 ring-1 ring-gray-300 dark:bg-background dark:ring-gray-700"
   >
-    <div class="filter__header flex items-center justify-between px-4">
-      <div class="text-xl font-bold" v-text="'Filter'" />
-
-      <UButton
-        icon="ic:baseline-clear"
-        @click="clearFilters"
-        square
-        class="rounded-full"
-        variant="ghost"
-        color="gray"
-        size="xl"
-      />
-    </div>
-    <UDivider :ui="{ border: { base: 'border-gray-300' } }" class="my-3" />
-    <!-- categories -->
-    <div class="products-categories__wrapper px-4">
-      <div v-text="'Categories'" class="mb-3 text-lg font-bold" />
-      <div class="products-categories__group">
-        <!-- {{ modifiedCategories }} -->
-        <URadioGroup
-          v-model="selected"
-          :options="modifiedCategories"
-          :ui="{ fieldset: 'grid grid-cols-2 gap-2 w-full' }"
-          :ui-radio="{
-            ring: 'ring-red-900',
-            border: 'border-gray-400',
-            base: 'cursor-pointer bg-red-900 w-5 h-5',
-            label: 'capitalize text-sm',
-          }"
-        />
-        <!-- <URadio label="" v-for="" /> -->
-      </div>
-    </div>
+    <ProductsFIlterContent/>
   </section>
 </template>

@@ -5,8 +5,8 @@ export default defineAppConfig({
     button: {
       base: "select-none",
       color: {
-        white: { solid: "!text-green-900" },
-        black: { solid: "!text-red-900" }
+        // white: { solid: "!text-green-900" },
+        // black: { solid: "!text-red-900" }
       },
       default: {
         color: "main",

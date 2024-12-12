@@ -1,0 +1,68 @@
+<script setup lang="ts">
+import type { API_Product } from "~/types";
+
+const { $viewport } = useNuxtApp();
+
+const BASE_URL = "https://fakestoreapi.com/products";
+const route = useRoute();
+const API_URL = computed(() => {
+  //[] dot it
+  if (route.query.category) {
+    return BASE_URL + `/category/${route.query.category}`;
+  } else {
+    return BASE_URL;
+  }
+});
+// const API_URL = ref(`https://fakestoreapi.com/products/${id.value}`);
+
+const { data, refresh, status } = useFetch<API_Product[]>(API_URL);
+
+const limit = ref(6);
+
+const dataWithLimitProducts = computed(() =>
+  data.value?.splice(0, limit.value),
+);
+
+watch(
+  () => route.query,
+  (value) => {
+    console.log({ value });
+    if (value.limit) {
+      limit.value = Number(value.limit);
+    }
+  },
+);
+</script>
+
+
+<template>
+  <!-- <ClientOnly> -->
+  <main id="products-page" class="mx-auto max-w-5xl pt-4 sm:max-w-7xl">
+    <BaseWrapper>
+      <BasePageHeader />
+      <!-- URL:{{ URL }} -->
+      {{ { dataWithLimitProducts: dataWithLimitProducts?.length } }}
+      <div class="products-page__wrapper mb-10 grid grid-cols-7 gap-6 lg:mt-5">
+        <!-- left_filter -->
+        <div class="products__filter col-span-7 mx-auto max-w-xs lg:col-span-2">
+          <ProductsFilter class="sticky top-24 hidden lg:block" />
+          <!-- v-if="$viewport.isGreaterOrEquals('desktop')" -->
+          <!-- <AppSlideoverFilter  v-else/> -->
+        </div>
+        <!-- PRODUCTS_CONTAINER -->
+        <div class="products__container col-span-7 lg:col-span-5">
+          <ProductsLimiter class="mb-8" />
+          <BaseProductWrapper
+            :products="dataWithLimitProducts"
+            v-if="true"
+            :status="status"
+          />
+          <div v-else>
+            {{ data }}
+          </div>
+        </div>
+      </div>
+    </BaseWrapper>
+  </main>
+  <!-- </ClientOnly> -->
+</template>

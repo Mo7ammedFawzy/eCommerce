@@ -7,7 +7,7 @@ type Color = {
   btn: string[];
 };
 
-const { $viewport } = useNuxtApp();
+// const { $viewport } = useNuxtApp();
 
 // title,subtitle,text,btns,img,shape
 
@@ -29,25 +29,25 @@ const purpleColor = "!bg-[#f55da4] hover:!bg-[#ef458f]";
 const colors: Color[] = [
   {
     name: "landing",
-    shape: "bg-[#FBCA66]",
+    shape: "!bg-[#FBCA66]",
     bg: "bg-[#F6E5BE] dark:bg-[#393736]",
     btn: [blueColor, purpleColor],
   },
   {
-    shape: "bg-[#26C196]",
+    shape: "!bg-[#26C196]",
     bg: "bg-[#CAECE5] dark:bg-[#143940]",
     name: "brand",
     btn: ["!bg-[#26C196] hover:!bg-[#148769]"],
   },
   {
     bg: "bg-[#A4D0FB] dark:bg-[#0A3566]",
-    shape: "bg-[#007EFC]",
+    shape: "!bg-[#007EFC]",
     name: "men",
     btn: [blueColor],
   },
   {
     bg: "bg-[#F6D3E5] dark:bg-[#5B2C50]",
-    shape: "bg-[#F55DA4]",
+    shape: "!bg-[#F55DA4]",
     name: "women",
     btn: [purpleColor],
   },

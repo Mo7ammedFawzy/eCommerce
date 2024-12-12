@@ -9,11 +9,11 @@ Todo:
     ☐ add view card option
     ☐ add favourites
   ☐ <ProductCardWrapper />
-    ☐ add more btn(pagination) to show more products
+    ✔ add more btn(pagination) to show more products @done(24-12-12 20:05)
   ☐ <Products />
     ☐ /products/:id
-    ☐ add a filter navigation in small window
-    ☐ add a show btn to show a limit of products
+    ✔ add a filter navigation in small window @started(24-12-12 13:32) @done(24-12-12 20:04) @lasted(6h32m53s)
+    ✔ add a show btn to show a limit of products @done(24-12-12 20:04)
   ☐ /cart 
     ☐ cart features
   ☐ /profile/general

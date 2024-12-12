@@ -69,7 +69,7 @@ watch(search, () => {
           <!--  load all proudcts -->
           <div v-text="'brands'" class="my-8 text-xl font-bold md:my-2" />
           <UDivider
-             class="md:hidden"
+            class="md:hidden"
             :ui="{ border: { base: 'dark:border-gray-600 border-gray-500' } }"
           />
           <div
@@ -85,13 +85,17 @@ watch(search, () => {
               />
             </template>
           </div>
-          <div v-else-if="isTyping" class="max-h-[500px] md:max-h-[350px] overflow-y-auto" main-scroll>
+          <div
+            v-else-if="isTyping"
+            class="max-h-[500px] overflow-y-auto md:max-h-[350px]"
+            main-scroll
+          >
             <BaseListItemSkeletonLoader v-for="n in 6" />
           </div>
           <div v-else>
             <NuxtImg
               src="/products/no-product.png"
-              class="mx-auto my-8 md:my-1 p-20"
+              class="mx-auto my-8 p-20 md:my-1"
             />
           </div>
           <UDivider

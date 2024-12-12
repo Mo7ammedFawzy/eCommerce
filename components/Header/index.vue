@@ -4,6 +4,17 @@ const { $viewport } = useNuxtApp();
 const TRoute = useRoute();
 
 const modal = ref(false);
+
+const queryOptions = computed(() => (category: string = "") => {
+  // if (TRoute.name != "products") return;
+  const storage = { ...TRoute.query, category };
+
+  // check if there is a null value in query {?limit=}
+  // Object.keys
+  removeNullValuesFromObj(storage);
+
+  return storage;
+});
 </script>
 <template>
   <!-- header down in (md) -->
@@ -30,7 +41,7 @@ const modal = ref(false);
       >
         <NuxtLink
           v-for="{ title, route, category } in HEADER_LINKS"
-          :to="{ path: route, query: { category } }"
+          :to="{ path: route, query: queryOptions(category) }"
         >
           <li
             v-text="title"
@@ -60,7 +71,9 @@ const modal = ref(false);
           </HeaderProfileMenuBtn>
           <!-- SEARCH_MODEL -->
           <HeaderSearchModalBtn
-            v-else-if="btnOptions.isPopover && $viewport.isGreaterOrEquals('tablet')"
+            v-else-if="
+              btnOptions.isPopover && $viewport.isGreaterOrEquals('tablet')
+            "
             v-model="modal"
           >
             <BaseBtn :btn-options="btnOptions" @click="modal = !modal" />

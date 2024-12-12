@@ -97,3 +97,8 @@ export interface MainHeader {
 export interface PageHeader extends MainHeader {
  path: string
 }
+
+export interface Query {
+ limit?: number,
+ category?: string
+}
