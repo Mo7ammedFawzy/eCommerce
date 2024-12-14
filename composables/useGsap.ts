@@ -1,8 +1,6 @@
 import gsap from "gsap"
 import { ScrollToPlugin } from "gsap/ScrollToPlugin"
-import { CSSPlugin } from "gsap/CSSPlugin"
 gsap.registerPlugin(ScrollToPlugin)
-gsap.registerPlugin(CSSPlugin)
 
 export const useGsap = () => {
 
