@@ -2,11 +2,10 @@
 
 // const quantity = ref(1)
 
-const store = useCartStore()
 
 // const quantity = computed(() => store.getProductQuantity)
 
-defineProps<{ maxItems: number, quantity: number }>()
+defineProps<{ maxItems: number, quantity: number, small?: boolean }>()
 
 const emit = defineEmits(['increase-quantity', 'decrease-quantity'])
 
@@ -14,7 +13,8 @@ const emit = defineEmits(['increase-quantity', 'decrease-quantity'])
 
 <template>
   <div class='quantity-controller'>
-    <div class="controller__wrapper py-2 px-3 md:px-4 t-ring flex items-center justify-center gap-2 md:gap-3">
+    <div class="controller__wrapper  t-ring flex items-center justify-center "
+      :class="[small ? 'py-2 px-2 sm:px-2 gap-1' : 'gap-2 py-2 px-3 md:px-4 md:gap-3']">
       <!-- minus-btn -->
       <UButton icon="i-heroicons-minus" square class="rounded-full" size="xs" color="white"
         @click="emit('decrease-quantity')" :disabled="quantity <= 1" />

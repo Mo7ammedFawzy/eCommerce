@@ -14,11 +14,14 @@ const attr = ({
 }: Partial<Pick<HeaderAction, "isMenu" | "isPopover">>) =>
   (isMenu || isPopover) && $viewport.isGreaterOrEquals("tablet") ? "" : "to";
 
-const props = defineProps<{ btnOptions: HeaderAction; isMenuOpen?: boolean }>();
+const props = defineProps<{ btnOptions: HeaderAction; isMenuOpen?: boolean, cartLength?: number }>();
 props.btnOptions.icon = props.btnOptions.icon ?? "mdi-home";
 
 const { icon, route, title, color, hasChip, isMenu, mobile, isPopover } =
   props.btnOptions;
+
+const isActiveInSameRoute = computed(() => TRoute.path === route)
+
 
 </script>
 
@@ -28,12 +31,13 @@ const { icon, route, title, color, hasChip, isMenu, mobile, isPopover } =
     :class="{
       'flex md:hidden': mobile,
       'hidden md:flex': mobile === false,
-      'bg-black/10 dark:bg-white/10': isMenuOpen,
+      'bg-black/10 dark:bg-white/10': isMenuOpen || isActiveInSameRoute,
     }" variant="ghost">
     <span class="absolute left-0 top-0 block h-full w-full rounded-none md:hidden md:rounded-full"
       :class="{ '!bg-blue-600 !text-white': TRoute.path === route }" />
 
-    <UChip :show="hasChip === true" :color="color" class="" :ui="{ base: 'dark:text-white' }" text="3" size="2xl">
+    <UChip :show="hasChip === true" :color="color" class="" :ui="{ base: 'dark:text-white' }" :text="cartLength ?? 2"
+      size="2xl">
       <div class="btn-content flex flex-col items-center justify-center" :class="{
         'text-white dark:text-white/70 md:text-black/70':
           TRoute.path === route,

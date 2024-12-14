@@ -27,9 +27,9 @@ const colorMode = useColorMode()
             <!-- shopping-cart__items -->
             <div class="cart__items my-3 space-y-2" v-if="cartLength > 0">
               <!-- TEMPLATE -->
-              <div class="product-controller__wrapper--template grid grid-cols-6 font-semibold">
+              <div class="product-controller__wrapper--template text-center grid grid-cols-6 font-semibold">
                 <!-- info -->
-                <div class="product__info col-span-3" v-text="'Product'" />
+                <div class="product__info col-span-3 text-left" v-text="'Product'" />
                 <!-- quantity -->
                 <div class="quantity col-span-1" v-text="'Quantity'" />
                 <!-- total__price -->
@@ -37,7 +37,7 @@ const colorMode = useColorMode()
                 <!-- action(delete_btn) -->
                 <div class="action col-span-1" v-text="'Action'" />
               </div>
-              <CartProductController v-for="product in store.cart" :product="product" />
+              <CartProductController v-for="product in store.cart" :cart-item="product" />
             </div>
             <!-- empty_cart -->
             <div v-else>

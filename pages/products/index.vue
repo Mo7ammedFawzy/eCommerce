@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { API_Product } from "~/types";
-
+const { __scrollTo__ } = useGsap()
 const pageCount = ref<number | string>(3); // page-count
 const BASE_URL = "https://fakestoreapi.com/products";
 const page = ref(1);
@@ -26,11 +26,11 @@ const TData = computed(() => {
 });
 
 watch(() => route.query, () => {
-  UScrollTo("#products-wrapper")
+  __scrollTo__("#products-wrapper")
   page.value = 1
 })
 watch(page, () => {
-  UScrollTo("#products-wrapper")
+  __scrollTo__("#products-wrapper")
   // page.value = 1
 })
 </script>

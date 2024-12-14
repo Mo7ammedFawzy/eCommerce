@@ -5,6 +5,8 @@ const TRoute = useRoute();
 
 const modal = ref(false);
 
+
+
 const queryOptions = computed(() => (category: string = "") => {
   // if (TRoute.name != "products") return;
   const storage = { ...TRoute.query, category };
@@ -15,71 +17,55 @@ const queryOptions = computed(() => (category: string = "") => {
 
   return storage;
 });
+
+const store = useCartStore()
+
+
+
 </script>
 <template>
   <!-- header down in (md) -->
   <header
-    class="main-shadow fixed bottom-0 left-0 z-40 max-h-20 w-full bg-white rounded-none t-ring backdrop-blur-md dark:bg-[#162031]  md:top-0"
-  >
+    class="main-shadow fixed bottom-0 left-0 z-40 max-h-20 w-full bg-white rounded-none t-ring backdrop-blur-md dark:bg-[#162031]  md:top-0">
     <BaseWrapper
-      class="header__wrapper flex min-h-14 grid-cols-1 items-center justify-between !px-0 md:min-h-20 md:!px-4 lg:grid lg:grid-cols-3"
-    >
+      class="header__wrapper flex min-h-14 grid-cols-1 items-center justify-between !px-0 md:min-h-20 md:!px-4 lg:grid lg:grid-cols-3">
       <!-- LOGO@on-page-color-mode-switch-change-image -->
       <ClientOnly>
         <div class="header__img">
           <NuxtLink to="/">
-            <NuxtImg
-              :src="`/logo-${useColorMode().value}.webp`"
-              class="hidden aspect-square w-12 md:inline-block"
-            />
+            <NuxtImg :src="`/logo-${useColorMode().value}.webp`" class="hidden aspect-square w-12 md:inline-block" />
           </NuxtLink>
         </div>
       </ClientOnly>
       <!-- LINKS -->
-      <ul
-        class="links hidden items-center justify-center gap-3 text-sm capitalize md:inline-flex"
-      >
-        <NuxtLink
-          v-for="{ title, route, category } in HEADER_LINKS"
-          :to="{ path: route, query: queryOptions(category) }"
-        >
-          <li
-            v-text="title"
-            class="cursor-pointer transition-colors hover:text-blue-600"
-            :class="{
-              'text-blue-600':
-                TRoute.path == route && TRoute.query.category == category,
-            }"
-          />
+      <ul class="links hidden items-center justify-center gap-3 text-sm capitalize md:inline-flex">
+        <NuxtLink v-for="{ title, route, category } in HEADER_LINKS" :to="{ path: route, query: queryOptions(category) }">
+          <li v-text="title" class="cursor-pointer transition-colors hover:text-blue-600" :class="{
+            'text-blue-600':
+              TRoute.path == route && TRoute.query.category == category,
+          }" />
           <!-- <span>
             {{ category }}
           </span> -->
         </NuxtLink>
       </ul>
       <!-- ACTIONS -->
-      <div
-        v-if="true"
-        class="actions grid h-full w-full grid-cols-5 items-center justify-between md:!flex md:w-auto md:justify-end md:gap-1"
-      >
+      <div v-if="true"
+        class="actions grid h-full w-full grid-cols-5 items-center justify-between md:!flex md:w-auto md:justify-end md:gap-1">
         <template v-for="btnOptions in HEADER_ACTIONS">
-          <HeaderProfileMenuBtn
-            v-if="btnOptions.isMenu && $viewport.isGreaterOrEquals('tablet')"
-            v-slot="{ isMenuOpen }"
-          >
+          <HeaderProfileMenuBtn v-if="btnOptions.isMenu && $viewport.isGreaterOrEquals('tablet')" v-slot="{ isMenuOpen }">
             <!-- PROFILE_MENU -->
             <BaseBtn :btn-options="btnOptions" :is-menu-open="isMenuOpen" />
           </HeaderProfileMenuBtn>
           <!-- SEARCH_MODEL -->
-          <HeaderSearchModalBtn
-            v-else-if="
-              btnOptions.isPopover && $viewport.isGreaterOrEquals('tablet')
-            "
-            v-model="modal"
-          >
+          <HeaderSearchModalBtn v-else-if="btnOptions.isPopover && $viewport.isGreaterOrEquals('tablet')
+            " v-model="modal">
             <BaseBtn :btn-options="btnOptions" @click="modal = !modal" />
           </HeaderSearchModalBtn>
           <!-- OTHER_BTNS -->
-          <BaseBtn :btn-options="btnOptions" v-else />
+          <BaseBtn :btn-options="btnOptions" v-else
+            v-bind="btnOptions.hasChip && btnOptions.title === 'cart' ? { 'cart-length': store.getCartLength } : {}" />
+          <!-- <BaseBtn  :cart-length="index==0?length:''"/> -->
         </template>
         <AppColorModeSwitcher />
         <!-- colorModeSwitcher -->
