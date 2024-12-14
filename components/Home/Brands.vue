@@ -11,7 +11,7 @@
       <NuxtMarquee class="" pause-on-click auto-fill>
         <div class="brands__wrapper items-center grid grid-cols-8 max-w-4xl">
           <div class="brands__img w-full py-1 px-2.5" v-for="n in 8">
-            <NuxtImg draggable="false" class="main-shadow aspect-square w-full rounded-lg ring-1 ring-gray-300"
+            <NuxtImg draggable="false" class="main-shadow aspect-square w-full rounded-lg t-ring"
               :src="`/home/brands/${n}.webp`" />
           </div>
         </div>

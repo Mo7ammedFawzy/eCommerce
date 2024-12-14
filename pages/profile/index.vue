@@ -55,7 +55,7 @@ const toggleDarkMode = (hasSwitch: boolean = false) => {
       <UButton
         icon="line-md:log-out"
         label="logout"
-        class="!capitalize ring-1 ring-black/30 hover:bg-black/10 hover:ring-black/10 dark:ring-white/20 dark:hover:bg-white/10 dark:hover:ring-white/10"
+        class="!capitalize hover:bg-black/10 hover:ring-black/10 t-ring dark:hover:bg-white/10 dark:hover:ring-white/10"
         variant="outline"
         block
         size="lg"

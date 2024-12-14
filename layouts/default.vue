@@ -1,6 +1,6 @@
 <template>
  <Header />
- <AppScrollToTopBtn v-if="false" />
+ <AppScrollToTopBtn v-if="true" />
  <!-- <BaseWrapper> -->
  <slot />
  <AppFooter />

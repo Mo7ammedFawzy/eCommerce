@@ -19,7 +19,7 @@ const queryOptions = computed(() => (category: string = "") => {
 <template>
   <!-- header down in (md) -->
   <header
-    class="main-shadow fixed bottom-0 left-0 z-40 max-h-20 w-full bg-white ring-1 ring-black/20 backdrop-blur-md dark:bg-[#162031] dark:ring-white/10 md:top-0"
+    class="main-shadow fixed bottom-0 left-0 z-40 max-h-20 w-full bg-white rounded-none t-ring backdrop-blur-md dark:bg-[#162031]  md:top-0"
   >
     <BaseWrapper
       class="header__wrapper flex min-h-14 grid-cols-1 items-center justify-between !px-0 md:min-h-20 md:!px-4 lg:grid lg:grid-cols-3"

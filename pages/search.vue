@@ -6,7 +6,6 @@ const canSeeSearchPage = computed(() => !$viewport.isGreaterOrEquals("tablet"));
 const router = useRouter();
 
 router.beforeEach((to, from) => {
-  // console.log({ to, from });
   if (!canSeeSearchPage.value) {
     return to.name !== "search";
   }

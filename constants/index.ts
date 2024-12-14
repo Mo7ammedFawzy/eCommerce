@@ -1,6 +1,8 @@
 import type { Category, FooterLink, HeaderAction, HeaderLink, ProductCard, API_Product, ProfileLink, SemiCard, ServiceCard } from "~/types";
 import jsonProducts from "./products.json"
 export const API_URL = "https://fakestoreapi.com";
+export const API_DELAY = 850
+export const MAX_ITEMS= 5
 export const HEADER_ACTIONS: HeaderAction[] = [
  {
   title: "home",

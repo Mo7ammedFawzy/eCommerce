@@ -64,7 +64,7 @@ const cardColors = computed(() => {
     :class="[
       !double
         ? 'min-h-96'
-        : 'rounded-lg ring-1 ring-black/35 dark:ring-white/45',
+        : 'rounded-lg t-ring',
       cardColors.bg,
     ]"
   >

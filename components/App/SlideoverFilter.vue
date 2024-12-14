@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const model = ref(false);
-const rouet =useRoute() 
+const rouet = useRoute()
 
 watch(
   () => rouet.query,
@@ -26,7 +26,7 @@ watch(
     <div class="model-content p-4 py-6">
       <!-- <AppProductsFilte /> -->
       <!-- <AppProductsFilte /> -->
-      <ProductsFIlterContent />
+      <ProductsFIlterContent @clear-filters="model &&= false" />
     </div>
   </USlideover>
 </template>

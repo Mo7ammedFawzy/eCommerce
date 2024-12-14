@@ -4,7 +4,7 @@ import { Categories } from "~/constants";
 </script>
 
 <template>
-  <section id="categories" class="my-12 text-center">
+  <section id="categories" class="text-center">
     <BaseHeader title="categories" />
     <!-- {{ data }} -->
     <BaseWrapper

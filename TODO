@@ -6,16 +6,16 @@ Todo:
       ✘ add categories <UDropdown /> @cancelled(24-12-11 19:05)
       ✔ add search products @started(24-12-11 19:05) @done(24-12-11 23:00) @lasted(3h55m23s)
   ☐ <ProductCard />
-    ☐ add view card option
+    ✔ add view card option @started(24-12-14 14:15) @done(24-12-14 16:02) @lasted(1h47m29s)
     ☐ add favourites
   ☐ <ProductCardWrapper />
     ✔ add more btn(pagination) to show more products @done(24-12-12 20:05)
   ☐ <Products />
-    ☐ /products/:id
+    ✔ /products/:id @started(24-12-13 13:29) || <BaseProductContentSkeleton /> finish it @done(24-12-14 14:15) @lasted(1d46m45s)
     ✔ add a filter navigation in small window @started(24-12-12 13:32) @done(24-12-12 20:04) @lasted(6h32m53s)
     ✔ add a show btn to show a limit of products @done(24-12-12 20:04)
   ☐ /cart 
-    ☐ cart features
+    ☐ cart features @started(24-12-14 16:03)
   ☐ /profile/general
     ☐ add features[upload photo and load it in the image banner]
   ☐ /auth/:[login,signup]:google
@@ -25,3 +25,6 @@ Todo:
   ☐ /orders
     ☐ /order/:id
     ☐ add order page
+
+  ☐ finished:
+    ☐ create latest nuxt project version with(nuxt-ui:v3-alpha,vue(3.5))

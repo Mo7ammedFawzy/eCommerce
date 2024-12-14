@@ -5,7 +5,7 @@
 </script>
 
 <template>
- <div class='skeleton-card w-full h-full rounded-lg ring-1 ring-gray-300 dark:ring-gray-800   lg:max-w-full'>
+ <div class='skeleton-card w-full h-full rounded-lg t-ring lg:max-w-full'>
   <USkeleton class="w-full aspect-square" />
   <div class="skeleton-card__body p-4">
    <USkeleton class="w-full h-2" />

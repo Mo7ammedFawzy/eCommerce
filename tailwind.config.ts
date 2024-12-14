@@ -15,6 +15,10 @@ export default <Partial<Config>>{
    },
    colors: {
     background: "hsl(var(--background))",
+    app: {
+     DEFAULT: "#162031",
+     foreground: "#0F1729",
+    },
     'main': {
      // DEFAULT: "#007efc", // blue-600
      // foreground: "#f9a600" //amber-500

@@ -102,3 +102,15 @@ export interface Query {
  limit?: number,
  category?: string
 }
+
+
+export interface TUscrollto {
+ duration: number,
+ ease: string,
+ scrollTo: number
+}
+
+export interface ICart {
+ product: API_Product,
+ quantity: number
+}

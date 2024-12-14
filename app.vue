@@ -21,6 +21,6 @@ const notivueThemeToggler = computed(() =>
     <Notivue v-slot="item">
       <Notification :item="item" :theme="notivueThemeToggler" />
     </Notivue>
-    <NuxtPage class="pb-20 md:pb-0 md:pt-20" />
+    <NuxtPage class="pb-6 md:pb-0 md:pt-20" />
   </NuxtLayout>
 </template>

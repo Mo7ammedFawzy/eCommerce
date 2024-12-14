@@ -1,42 +1,32 @@
 <script setup lang='ts'>
-type Head = {
- title: string,
- path: string
-}
 
-// const props = defineProps<{ data: Head }>()
-// const { title, path } = props.data
-// path
+const props = defineProps<{ title?: string, lastTitle?: string }>()
 
 const route = useRoute()
 // const links = ref([])
-const headTitle = computed(() => route.name)
-const headPath = computed(() => {
- const arr = ("home" + route.path).split("/").filter(el => el) // ['home','products','']
- const links: any[] = []
- arr.forEach((el: string, index) => {
-  if (index === 0) {
-   links.push({ label: el, to: "/" })
-  } else {
-   links.push({ label: el })
+const headTitle = computed(() => props.title ?? route.name)
 
-  }
- })
- return links
-}
-)
+// /products
+const breadcrumbLinks = computed(() => {
+  // const fullPath = route.fullPath.
+  const home = 'home'
+  // const TFullpath = 
+  return home.concat(route.path).split("/").filter(el => el).map((el, index, array) => index !== array.length - 1 ? ({ label: el, to: { name: el } }) : ({ label: props.lastTitle ?? el })) // ['home','products','']
+})
+
 
 </script>
 
 <template>
- <div id='page-header' class='relative rounded-lg bg-gradient-to-r from-main to-main-500  !text-white p-6 overflow-hidden my-5'>
-  <div v-text="headTitle" class="capitalize mb-4 text-3xl font-bold" />
-  <!-- <div v-text="headPath" /> -->
+  <div id='page-header'
+    class='relative rounded-lg bg-gradient-to-r from-main to-main-500  !text-white p-6 overflow-hidden mb-5'>
+    <div v-text="headTitle" class="capitalize mb-4 text-3xl font-bold" />
+    <!-- <div v-text="headPath" /> -->
 
-  <UBreadcrumb :links="headPath" class="text-white  capitalize"
-   :ui="{ active: 'text-white/80 !text-xs dark:text-white/80', inactive: 'text-white !text-xs hover:text-white hover:underline', divider: { base: 'text-white w-4' } }" />
-   <BaseCircle class="top-1/2 -translate-y-1/2 right-0 translate-x-1/4"/>
-   <BaseCircle class="bottom-0 -translate-x-1/2 left-1/2 translate-y-1/4"/>
-   <BaseCircle class="top-0 -translate-x-full left-1/4 -translate-y-1/4"/>
- </div>
+    <UBreadcrumb :links="breadcrumbLinks" class="text-white  capitalize"
+      :ui="{ active: 'text-white/80 !text-xs dark:text-white/80 three-dots max-w-48', inactive: '!text-white dark:text-white !text-xs hover:text-white hover:underline', divider: { base: 'text-white w-4' } }" />
+    <BaseCircle class="top-1/2 -translate-y-1/2 right-0 translate-x-1/4" />
+    <BaseCircle class="bottom-0 -translate-x-1/2 left-1/2 translate-y-1/4" />
+    <BaseCircle class="top-0 -translate-x-full left-1/4 -translate-y-1/4" />
+  </div>
 </template>

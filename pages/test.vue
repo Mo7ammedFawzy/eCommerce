@@ -2,7 +2,7 @@
 import { API_URL, Products } from "~/constants";
 import type { API_Product } from "~/types";
 
-const { data } = await useFetch<API_Product[]>(API_URL + "/products");
+const { data } = await useFetch<API_Product[]>(API_URL + "/products", { lazy: true });
 // const TData = computed(() => data ?? []);
 </script>
 

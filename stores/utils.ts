@@ -5,7 +5,9 @@ export const useMyUtilsStore = defineStore({
     baseAPIURL: "https://fakestoreapi.com"
   }),
   actions: {
-
+    addToCart() {
+      this.baseAPIURL
+    }
   }
 })
 // import { defineStore } from 'pinia'

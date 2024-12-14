@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { HomeItems } from "~/constants";
+definePageMeta({
+  name: "home"
+})
 </script>
 <template>
   <main id="home-page" class="min-h-screen">
@@ -8,17 +11,13 @@ import { HomeItems } from "~/constants";
     <HomeLanding />
     <BaseWrapper>
       <!-- categories-base(avatar) -->
-      <HomeCategories class="my-40" />
+      <HomeCategories class="my-24" />
       <!-- top-collections-base(card) -->
       <HomeTopCollections />
     </BaseWrapper>
     <!-- banner-base(semi-card) -->
     <div class="flex">
-      <BaseSemiCard
-        is-brand
-        name="brand"
-        :item="HomeItems.landing.brandSection"
-      />
+      <BaseSemiCard is-brand name="brand" :item="HomeItems.landing.brandSection" />
     </div>
     <div class="my-20" />
     <!-- bestSeller-base(card)+carousel -->
