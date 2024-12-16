@@ -25,7 +25,7 @@ const TData = computed(() => {
   return ted;
 });
 
-watch(() => route.query, () => {
+watch(() => route.path, () => {
   __scrollTo__("#products-wrapper")
   page.value = 1
 })
