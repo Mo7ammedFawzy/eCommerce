@@ -17,9 +17,10 @@ Todo:
   ☐ /cart 
     ✔ cart features @started(24-12-14 16:03) @done(24-12-14 23:30) @lasted(7h27m33s)
     ☐ payment
+  ☐ /orders @started(24-12-15 23:58)
   ☐ /profile/general
     ☐ add features[upload photo and load it in the image banner]
-  ☐ /auth/:[login,signup]:google
+  ☐ /auth/:[login,signup]:google 
     ☐ auth with  nuxt/auth 
   ☐ /checkout 
     ☐ add page

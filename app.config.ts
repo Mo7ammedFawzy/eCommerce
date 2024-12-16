@@ -18,9 +18,12 @@ export default defineAppConfig({
     },
     dropdown: { item: { disabled: "opacity-100", base: "select-none", label: 'capitalize' }, },
     divider: {
-      border:{
-        base:"border-gray-300 dark:border-gray-600"
+      border: {
+        base: "border-gray-300 dark:border-gray-600"
       }
+    },
+    input: {
+      base: "h-14"
     }
     // dropdown:{
     //   default:{

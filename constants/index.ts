@@ -1,9 +1,18 @@
-import type { Category, FooterLink, HeaderAction, HeaderLink, ProductCard, API_Product, ProfileLink, SemiCard, ServiceCard } from "~/types";
+import type { Category, FooterLink, HeaderAction, HeaderLink, ProductCard, API_Product, ProfileLink, SemiCard, ServiceCard, IOrder } from "~/types";
 import jsonProducts from "./products.json"
 export const API_URL = "https://fakestoreapi.com";
 export const API_DELAY = 850
 export const MAX_ITEMS = 5
 export const DISCOUNT = 40
+export const SHIPPING_TAX = 8 // $8
+export const API_COUNTRIES = "https://restcountries.com/v3.1/independent?status=true&fields=name"
+export const DELAY_TIME = 4000
+export const PAYMENT_METHODS: IOrder['paymentMethod'][] = ['cash_on_delivery', "credit_card", "paypal"]
+export const T_PAYMENT_METHOD: IOrder['paymentMethod'] = 'cash_on_delivery'
+export const REGEX = {
+ phoneNumber: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
+ zipCode: /^\d{5,7}$/
+}
 export const HEADER_ACTIONS: HeaderAction[] = [
  {
   title: "home",
@@ -83,11 +92,11 @@ export const ProfileLinks: ProfileLink[] = [
   label: "wishlist",
   path: "/profile/wishlist"
  },
- // {
- //  icon: "iconamoon:invoice-thin",
- //  label: "invoice",
- //  path: "/"
- // },
+ {
+  icon: "iconamoon:invoice-thin",
+  label: "orders",
+  path: "/orders"
+ },
  {
   icon: "line-md:person",
   label: "profile",

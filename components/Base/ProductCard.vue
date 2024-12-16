@@ -31,12 +31,14 @@ const productPagePath = computed(() => `/products/${props.product.id}`);
     class="product-card mx-auto h-full w-full max-w-80 overflow-hidden rounded-lg bg-white shadow-lg shadow-gray-200 t-ring transition-all hover:ring-blue-600 dark:bg-background dark:shadow-gray-900 dark:hover:ring-main">
     <div class="product-card__wrapper flex h-full w-full flex-col">
       <!-- img -->
-      <NuxtLink :to="productPagePath" v-if="true" class="relative w-full aspect-square">
+      <NuxtLink :to="productPagePath" v-if="true" class="relative w-full aspect-square bg-white">
         <!-- img ratio is 1:1 -->
         <!-- <div class="product-card__img w-full h-full relative"> -->
         <NuxtImg
-          class="product-card__img  mix-blend-multiply dark:mix-blend-normal square absolute top-0 left-0 w-full h-full"
-          :src="props.product.image" />
+          class="product-card__img mix-blend-multiply dark:mix-blend-normal object-contain square absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full aspect-auto max-h-full scale-75"
+          :src="props.product.image" quality="60" :alt="props.product.title" format="webp"
+          placeholder="/svg/spinner-circle.svg" loading="lazy" />
+        <!-- placeholder-class=" !w-full !h-full max-w-full" -->
         <!-- </div> -->
 
       </NuxtLink>
@@ -48,6 +50,7 @@ const productPagePath = computed(() => `/products/${props.product.id}`);
             v-if="true" />
         </NuxtLink>
         <div class="flex-grow" />
+        <!-- <div class="spinner"/> -->
         <!-- rating+colors -->
         <div class="product-card__rating-colors my-2 flex items-center justify-between" v-if="true">
           <div class="rating flex items-center gap-1 text-xs">

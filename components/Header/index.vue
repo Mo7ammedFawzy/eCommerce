@@ -2,9 +2,8 @@
 import { HEADER_LINKS, HEADER_ACTIONS } from "~/constants";
 const { $viewport } = useNuxtApp();
 const TRoute = useRoute();
-
 const modal = ref(false);
-
+const colorMode = useColorMode()
 
 
 const queryOptions = computed(() => (category: string = "") => {
@@ -26,17 +25,20 @@ const store = useCartStore()
 <template>
   <!-- header down in (md) -->
   <header
-    class="main-shadow fixed bottom-0 left-0 z-40 max-h-20 w-full bg-white rounded-none t-ring backdrop-blur-md dark:bg-[#162031]  md:top-0">
+    class="main-shadow max-h-fit fixed bottom-0 left-0 z-40 w-full bg-white rounded-none t-ring backdrop-blur-md dark:bg-[#162031] md:top-0">
     <BaseWrapper
-      class="header__wrapper flex min-h-14 grid-cols-1 items-center justify-between !px-0 md:min-h-20 md:!px-4 lg:grid lg:grid-cols-3">
+      class="header__wrapper flex max-h-16 h-16 grid-cols-1 items-center justify-between !px-0 md:!px-4 lg:grid lg:grid-cols-3">
       <!-- LOGO@on-page-color-mode-switch-change-image -->
-      <ClientOnly>
-        <div class="header__img">
-          <NuxtLink to="/">
-            <NuxtImg :src="`/logo-${useColorMode().value}.webp`" class="hidden aspect-square w-12 md:inline-block" />
-          </NuxtLink>
-        </div>
-      </ClientOnly>
+      <!-- <ClientOnly> -->
+      <!-- <div class="header__img py-6"> -->
+      <NuxtLink class="header__img max-h-full" to="/">
+        <NuxtImg :src="`/logo-${colorMode.value}.webp`" class="hidden w-12 aspect-square md:inline-block" quality="60"
+          alt="`commerce-logo`" format="webp"
+          placeholder-class="animate-pulse  rounded-full w-12 aspect-square  bg-gray-300 dark:bg-gray-800" placeholder
+          loading="lazy" />
+      </NuxtLink>
+      <!-- </div> -->
+      <!-- </ClientOnly> -->
       <!-- LINKS -->
       <ul class="links hidden items-center justify-center gap-3 text-sm capitalize md:inline-flex">
         <NuxtLink v-for="{ title, route, category } in HEADER_LINKS" :to="{ path: route, query: queryOptions(category) }">

@@ -1,22 +1,5 @@
-<script setup lang='ts'>
-
-const props = defineProps<{ title?: string, items?: any[] }>()
-
-const route = useRoute()
-// const links = ref([])
-const headTitle = computed(() => props.title ?? route.name)
-const headPath = computed(() => {
-  const arr = ("home" + route.path).split("/").filter(el => el) // ['home','products','']
-  const links: any[] = []
-  arr.forEach((el: string, index) => {
-    if (index === 0) {
-      links.push({ label: el, to: "/" })
-    } else {
-      links.push({ label: el })
-    }
-  })
-  return links
-}
-)
-
-</script>
+<template>
+<CheckoutUserInfoForm  />
+<UButton block label="Place Order" color="primary" @click="placeOrder"
+  class="dark:text-white mt-3 transition-colors" size="xl" />
+</template>

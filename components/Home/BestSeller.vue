@@ -2,7 +2,7 @@
 import { API_URL } from "~/constants";
 import type { API_Product } from "~/types";
 // const data
-const { data } = useFetch<API_Product[] | null>(API_URL + "/products?limit=8", { lazy: true });
+const { data } = useFetch<API_Product[] | null>(API_URL + "/products?limit=7", { lazy: true });
 
 </script>
 

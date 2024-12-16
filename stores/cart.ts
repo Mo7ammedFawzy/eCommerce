@@ -1,5 +1,5 @@
 import { defineStore } from "pinia"
-import { MAX_ITEMS } from "~/constants"
+import { MAX_ITEMS, SHIPPING_TAX } from "~/constants"
 import type { API_Product, ICart } from "~/types"
 
 export const useCartStore = defineStore('cart-store', {
@@ -54,11 +54,20 @@ export const useCartStore = defineStore('cart-store', {
    if (!isProductExist) return; //already removed
    // canRemove
    this.cart = this.cart.filter((el) => el.product.id !== isProductExist.product.id)
+  },
+  emptyCart() {
+   if (this.cart.length === 0) return;
+   this.cart.length = 0
   }
  },
  getters: {
-  getProductQuantity: (state) => (product: API_Product) => state.cart.find((el) => el.product.id === product.id)?.quantity ?? 0,
-  getCartLength: (state) => state.cart.length ?? 0,
-  isCartEmpty: (state) => state.cart.length === 0
+  getProductQuantity: (state) => (product: API_Product): number => state.cart.find((el) => el.product.id === product.id)?.quantity ?? 0,
+  getCartLength: (state): number => state.cart.length ?? 0,
+  isCartEmpty: (state): boolean => state.cart.length === 0,
+  getTotalPrice: (state): string => formatNumber(state.cart.reduce((total, curr) => total + curr.product.price * curr.quantity, 0)), //0 is initial value
+  getTotalPricePlus: (state): string => formatNumber(state.cart.map(el => el.product.price * el.quantity).reduce((prev, curr) => prev + curr, 0)),
+  getTotalPriceAfterShipping(state): string {
+   return formatNumber(state.cart.map(el => el.product.price * el.quantity).reduce((prev, curr) => prev + curr, 0) + SHIPPING_TAX)
+  }
  }
 })

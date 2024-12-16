@@ -110,3 +110,43 @@ export interface ICart {
  product: API_Product,
  quantity: number
 }
+
+export interface ICountry {
+ name: Name
+}
+
+export interface Name {
+ common: string;
+ official: string;
+ nativeName: { [key: string]: NativeName };
+}
+
+export interface NativeName {
+ official: string;
+ common: string;
+}
+
+
+
+
+export interface ICustomer {
+ firstName: string,
+ lastName: string,
+ email: string,
+ phoneNumber: string,
+ address: string,
+ townCity: string,
+ state: string,
+ zip: string,
+ country: string
+}
+
+export interface IOrder {
+ id: string,
+ customer: ICustomer,
+ items: ICart[],
+ total: number | string,
+ state: "pending" | 'confirmed' | 'shippd' | 'delivered' | 'canceled',
+ paymentMethod: 'cash_on_delivery' | 'paypal' | 'credit_card',
+ createdAt: Date
+}

@@ -1,4 +1,4 @@
-export const { format: formatNumber } = Intl.NumberFormat('en-GB', {
- notation: 'compact',
- maximumFractionDigits: 2
+export const { format: formatNumber } = Intl.NumberFormat('en-IN', {
+ // notation: 'compact',
+ maximumFractionDigits: 1
 })

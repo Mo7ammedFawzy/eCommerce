@@ -15,8 +15,14 @@ const isDark = computed(() => useColorMode().value === "dark");
 const notivueThemeToggler = computed(() =>
   isDark.value ? TDarkTheme : TLightTheme,
 );
+
+const ui = /* ui */ {
+  background: 'bg-white dark:bg-slate-900 text-'
+}
 </script>
 <template>
+  <NuxtLoadingIndicator />
+
   <NuxtLayout>
     <Notivue v-slot="item">
       <Notification :item="item" :theme="notivueThemeToggler" />

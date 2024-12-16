@@ -43,5 +43,8 @@ export default <Partial<Config>>{
     // lg: ""
    }
   }
- }
+ },
+ content: [
+  'docs/content/**/*.md'
+ ]
 }

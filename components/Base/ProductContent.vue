@@ -48,7 +48,10 @@ const productLink = computed(() => window?.location?.href ?? 'http://localhost:3
       <div class="product__img">
         <div class="img__wrapper px-4 py-6 max-w-md mx-auto bg-white t-ring ">
 
-          <NuxtImg :src="image" fit="content" class="object-contain w-full aspect-auto max-h-64 lg:max-h-72" />
+          <NuxtImg :src="image" fit="content" class="object-contain w-full aspect-auto max-h-64 lg:max-h-72" quality="60"
+            :alt="props.product.title" format="webp"
+            placeholder-class="!w-full  h-64 max-h-64 max-w-full" placeholder="/svg/spinner-circle.svg"
+            loading="lazy" />
         </div>
       </div>
       <div class="product__content">

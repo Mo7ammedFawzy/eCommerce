@@ -108,11 +108,3 @@ watch(search, () => {
   </main>
 </template>
 
-<style lang="postcss" scoped>
-[main-scroll]::-webkit-scrollbar {
-  @apply w-2 rounded-lg bg-gray-300 dark:bg-gray-400;
-}
-[main-scroll]::-webkit-scrollbar-thumb {
-  @apply rounded-lg bg-gray-600 dark:bg-gray-800;
-}
-</style>

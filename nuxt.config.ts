@@ -1,3 +1,4 @@
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
@@ -20,8 +21,10 @@ export default defineNuxtConfig({
   ],
   css: [
     'notivue/notification.css', // Only needed if using built-in notifications
-    'notivue/animations.css' // Only needed if using built-in animations
+    'notivue/animations.css', // Only needed if using built-in animations
+    '~/assets/css/global.css'
   ],
+
   colorMode: {
     preference: "light",
     fallback: "light",
@@ -34,7 +37,7 @@ export default defineNuxtConfig({
     }
   },
   image: {
-    provider:"vercel"
+    // provider:"vercel"
   },
   icon: {
     customCollections: [
@@ -46,7 +49,7 @@ export default defineNuxtConfig({
   },
   notivue: {
     limit: 3,
-    
+
     // avoidDuplicates: true,
   },
 
