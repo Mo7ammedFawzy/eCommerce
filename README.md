@@ -1,5 +1,6 @@
 # E-commerce Website
-
+[![My Skills](https://skillicons.dev/icons?i=nuxt,tailwind,vue,pinia,typescript)](https://skillicons.dev)
+## [🔗 Live Demo](https://nuxt-ecommerce-iota.vercel.app/) 
 This is an e-commerce web application built using modern web technologies, focusing on creating a clean, responsive, and user-friendly interface. The project is entirely frontend-based and relies on a fake API for product and user data.
 
 ## Features
@@ -45,7 +46,7 @@ This is an e-commerce web application built using modern web technologies, focus
   - Allows users to toggle between light and dark themes.
 
 ## Technologies Used
-
+[![My Skills](https://skillicons.dev/icons?i=nuxt,vue,typescript,tailwind,pinia,vuetify,html,css,js&perline=5)](https://skillicons.dev)
 - **Framework**: Nuxt 3
 - **UI Framework**: TailwindCSS
 - **Component Library**: Nuxt UI
