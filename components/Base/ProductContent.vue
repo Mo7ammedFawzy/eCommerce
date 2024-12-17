@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 
-import { FooterLinks, MAX_ITEMS } from '~/constants';
+import { FooterLinks, MAX_ITEMS, DISCOUNT } from '~/constants';
 import type { API_Product } from '~/types';
 
 const store = useCartStore()
@@ -13,7 +13,7 @@ const props = defineProps<{ product: API_Product, isModal?: boolean }>()
 
 const modal = defineModel({ required: false, default: false })
 
-const { image, title, price, category, rating, discount = 40, colors = ['black', 'red', 'green'] } = props.product
+const { image, title, price, category, rating, discount = DISCOUNT, colors = ['black', 'red', 'green'] } = props.product
 
 const purpleColor = "!bg-[#f55da4] hover:!bg-[#ef458f]";
 
@@ -24,7 +24,7 @@ const productInfo = [
   },
   {
     label: "discount",
-    value: `$${Number(price * discount / 100).toFixed(2)} &nbsp; <span class='text-orange-600 dark:text-orange-500'>(${discount}% Discount)</span>`
+    value: `$${PriceAfterDiscount(price)} &nbsp; <span class='text-orange-600 dark:text-orange-500'>(${DISCOUNT}% Discount)</span>`
   },
   {
     label: "Available",
@@ -49,9 +49,8 @@ const productLink = computed(() => window?.location?.href ?? 'http://localhost:3
         <div class="img__wrapper px-4 py-6 max-w-md mx-auto bg-white t-ring ">
 
           <NuxtImg :src="image" fit="content" class="object-contain w-full aspect-auto max-h-64 lg:max-h-72" quality="60"
-            :alt="props.product.title" format="webp"
-            placeholder-class="!w-full  h-64 max-h-64 max-w-full" placeholder="/svg/spinner-circle.svg"
-            loading="lazy" />
+            :alt="props.product.title" format="webp" placeholder-class="!w-full  h-64 max-h-64 max-w-full"
+            placeholder="/svg/spinner-circle.svg" loading="lazy" />
         </div>
       </div>
       <div class="product__content">
@@ -69,7 +68,7 @@ const productLink = computed(() => window?.location?.href ?? 'http://localhost:3
           <!-- price -->
           <div class="price">
             <div class="space-x-1">
-              <del class="text-xs">$100.0</del>
+              <del class="text-xs text-gray-600 dark:text-gray-400">${{ Number(price + 10).toFixed(2) }}</del>
               <span v-text="`$${price}`" class="font-bold text-base" />
             </div>
           </div>

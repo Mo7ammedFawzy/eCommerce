@@ -1,9 +1,14 @@
-<template>
+<script setup>
 
- <Header v-if="true"/>
- <AppScrollToTopBtn v-if="true" />
- <!-- <BaseWrapper> -->
+const route = useRoute()
+
+const canShowFooter = computed(() => route.name === 'home')
+
+</script>
+
+<template>
+ <Header />
+ <AppScrollToTopBtn />
  <slot />
- <AppFooter />
- <!-- </BaseWrapper> -->
+ <AppFooter v-if="canShowFooter" />
 </template>

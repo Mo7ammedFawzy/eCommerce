@@ -8,7 +8,6 @@ export const useCartStore = defineStore('cart-store', {
  }),
  actions: {
   addToCart(product: API_Product) {
-   console.log('add to cart')
    // check first if the product is in cart
    const isProductExist = this.cart.find((el: ICart) => el.product.id === product.id)
 
@@ -64,10 +63,11 @@ export const useCartStore = defineStore('cart-store', {
   getProductQuantity: (state) => (product: API_Product): number => state.cart.find((el) => el.product.id === product.id)?.quantity ?? 0,
   getCartLength: (state): number => state.cart.length ?? 0,
   isCartEmpty: (state): boolean => state.cart.length === 0,
-  getTotalPrice: (state): string => formatNumber(state.cart.reduce((total, curr) => total + curr.product.price * curr.quantity, 0)), //0 is initial value
-  getTotalPricePlus: (state): string => formatNumber(state.cart.map(el => el.product.price * el.quantity).reduce((prev, curr) => prev + curr, 0)),
+  // withDiscount
+  getTotalPrice: (state): string => formatNumber(state.cart.reduce((total, curr) => total + Number(PriceAfterDiscount(curr.product.price)) * curr.quantity, 0)), //0 is initial value
+  getTotalPricePlus: (state): string => formatNumber(state.cart.map(el => Number(PriceAfterDiscount(el.product.price)) * el.quantity).reduce((prev, curr) => prev + curr, 0)),
   getTotalPriceAfterShipping(state): string {
-   return formatNumber(state.cart.map(el => el.product.price * el.quantity).reduce((prev, curr) => prev + curr, 0) + SHIPPING_TAX)
+   return formatNumber(state.cart.map(el => Number(PriceAfterDiscount(el.product.price)) * el.quantity).reduce((prev, curr) => prev + curr, 0) + SHIPPING_TAX)
   }
  }
 })

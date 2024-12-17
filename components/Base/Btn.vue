@@ -6,7 +6,7 @@ const { $viewport } = useNuxtApp();
 const TRoute = useRoute();
 
 /**
- * @param {object} ahmed toggler for profile menu
+ * @param {object} toggler for profile menu
  */
 const attr = ({
   isMenu = false,
@@ -21,7 +21,6 @@ const { icon, route, title, color, hasChip, isMenu, mobile, isPopover } =
   props.btnOptions;
 
 const isActiveInSameRoute = computed(() => TRoute.path === route)
-
 
 </script>
 

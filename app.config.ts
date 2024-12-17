@@ -23,7 +23,7 @@ export default defineAppConfig({
       }
     },
     input: {
-      base: "h-14"
+      base: "h-12"
     }
     // dropdown:{
     //   default:{

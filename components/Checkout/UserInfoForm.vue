@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { API_COUNTRIES, REGEX } from "~/constants"
+import { API_COUNTRIES_URL, REGEX } from "~/constants"
 import { z } from "zod"
 import type { FormSubmitEvent } from "#ui/types"
 import type { ICountry, ICustomer, IOrder } from "~/types";
@@ -7,9 +7,9 @@ import { v4 as uuidv4 } from 'uuid';
 const orderStore = useOrderStore()
 const cartStore = useCartStore()
 
-const { start, finish } = useLoadingIndicator()
-
 const form = ref<HTMLFormElement>()
+
+const { getCountries } = useAPI()
 
 const schema = z.object({
  // username | email | passcode | phoneNumber
@@ -40,12 +40,10 @@ type Schema = z.output<typeof schema>
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
  // check if there is items in cart first 
+ if (props.general) return;
  if (cartStore.isCartEmpty) {
   return navigateTo('/products')
  };
- console.log('checked-out', { event: event.data })
- // console.log(typeof event.data)
- // return event.data
 
  const order: IOrder = {
   createdAt: new Date(),
@@ -54,7 +52,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
   state: "pending", //first state is pending
   total: cartStore.getTotalPriceAfterShipping,
   customer: { ...event.data },
-  items: cartStore.cart
+  items: [...cartStore.cart]
  }
 
  // push to orders
@@ -62,38 +60,14 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
  push.success('Order Successfully has ben placed')
 }
 
-const { data, execute, pending } = useFetch(API_COUNTRIES, {
- immediate: true,
- lazy: true,
- default: () => ['US', 'EGYPT'],
- onRequest() {
-  console.log('request,start')
-  start()
- },
- onResponse() {
-  console.log('request,end')
-  // setTimeout(() => {
-  delay(finish)
-  // }, 4000)
- },
- // pick: ['name'],
- // transform: (countries) => {
- //  return countries.map(country => ({ name: country.name.common }))
- // }
+const { data } = getCountries()
 
- transform: (countries: ICountry[]) => {
-  return countries.map((country) => country.name.common)
- }
-
-})
-
-// const props = defineProps<{ placeOrder: Function }>()
 defineExpose<{ form: Ref<HTMLFormElement | undefined>, onSubmit: Function }>({
  onSubmit,
  form
 })
 
-const props = defineProps<{ selectedPaymentMethod: IOrder['paymentMethod'] }>()
+const props = withDefaults(defineProps<{ selectedPaymentMethod?: IOrder['paymentMethod'], general?: boolean }>(), { general: false, selectedPaymentMethod: "cash_on_delivery" })
 
 </script>
 
@@ -128,7 +102,7 @@ const props = defineProps<{ selectedPaymentMethod: IOrder['paymentMethod'] }>()
     <UInput v-model="state.zip" size="xl" />
    </UFormGroup>
   </div>
-  <UFormGroup class="col-span-full custom" name="country" label="Country">
+  <UFormGroup v-if="!general" class="col-span-full custom" name="country" label="Country">
    <USelectMenu v-model="state.country" :options="data" color="white" size="xl" />
   </UFormGroup>
  </UForm>

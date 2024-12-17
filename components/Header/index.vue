@@ -19,8 +19,6 @@ const queryOptions = computed(() => (category: string = "") => {
 
 const store = useCartStore()
 
-
-
 </script>
 <template>
   <!-- header down in (md) -->
@@ -31,12 +29,14 @@ const store = useCartStore()
       <!-- LOGO@on-page-color-mode-switch-change-image -->
       <!-- <ClientOnly> -->
       <!-- <div class="header__img py-6"> -->
-      <NuxtLink class="header__img max-h-full" to="/">
-        <NuxtImg :src="`/logo-${colorMode.value}.webp`" class="hidden w-12 aspect-square md:inline-block" quality="60"
-          alt="`commerce-logo`" format="webp"
-          placeholder-class="animate-pulse  rounded-full w-12 aspect-square  bg-gray-300 dark:bg-gray-800" placeholder
-          loading="lazy" />
-      </NuxtLink>
+      <ColorScheme tag="span" class="w-12 aspect-square t-skeleton   rounded-full">
+        <NuxtLink class="header__img max-h-full" to="/">
+          <NuxtImg :src="`/logo-${colorMode.value}.webp`" class="hidden w-12 aspect-square md:inline-block" quality="60"
+            alt="`commerce-logo`" format="webp"
+            placeholder-class="animate-pulse  rounded-full w-12 aspect-square  bg-gray-300 dark:bg-gray-800" placeholder
+            loading="lazy" />
+        </NuxtLink>
+      </ColorScheme>
       <!-- </div> -->
       <!-- </ClientOnly> -->
       <!-- LINKS -->

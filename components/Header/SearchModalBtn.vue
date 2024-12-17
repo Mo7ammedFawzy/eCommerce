@@ -1,5 +1,13 @@
 <script setup lang="ts">
 const modal = defineModel({ required: true, default: false });
+
+const route = useRoute()
+
+watch(() => route.path, () => {
+  // TODO: ENABLE IT
+  modal.value = false
+})
+
 </script>
 
 <template>

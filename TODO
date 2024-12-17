@@ -11,24 +11,30 @@ Todo:
   ☐ <ProductCardWrapper />
     ✔ add more btn(pagination) to show more products @done(24-12-12 20:05)
   ☐ <Products />
-    ☐ on page /products only without querires page mounted add scroll to products__wrapper
+    ✔ on page /products only without querires page mounted add scroll to products__wrapper @done(24-12-17 04:20)
     ☐ on every fetch add nuxtLoadingIndicator
     ✔ /products/:id @started(24-12-13 13:29) || <BaseProductContentSkeleton /> finish it @done(24-12-14 14:15) @lasted(1d46m45s)
     ✔ add a filter navigation in small window @started(24-12-12 13:32) @done(24-12-12 20:04) @lasted(6h32m53s)
     ✔ add a show btn to show a limit of products @done(24-12-12 20:04)
   ☐ /cart 
     ✔ cart features @started(24-12-14 16:03) @done(24-12-14 23:30) @lasted(7h27m33s)
-    ☐ payment
-  ☐ /orders @started(24-12-15 23:58)
-  ☐ /profile/general
+    ☐ payment other methods ?!
+  ✔ /orders @started(24-12-15 23:58) @done(24-12-17 04:19) @lasted(1d4h21m52s)
+  ☐ /checkout
+    ☐ add error form at place order for place order button to make customer notice that the form is missing
+  ☐ /profile/general @started(24-12-17 17:57)
     ☐ add features[upload photo and load it in the image banner]
   ☐ /auth/:[login,signup]:google 
     ☐ auth with  nuxt/auth 
-  ☐ /checkout 
-    ☐ add page
-  ☐ /orders
-    ☐ /order/:id
-    ☐ add order page
+  ✔ /checkout @done(24-12-17 16:25)
+    ✔ add page @done(24-12-17 16:25)
+  ✔ /orders @done(24-12-17 16:25)
+    ✔ /order/:id @done(24-12-17 16:25)
+    ✔ add order page @done(24-12-17 16:25)
+
+  ☐ other
+   ☐ add dynamic discount for every product like math.random
+   ☐ there a auto scroll to top when router change
 
   ☐ finished:
     ☐ create latest nuxt project version with(nuxt-ui:v3-alpha,vue(3.5))

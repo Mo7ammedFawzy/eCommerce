@@ -57,8 +57,8 @@ export const useGsap = () => {
    target = scrollTo // number
   }
   // we got target as a number
-  if (window.scrollY === target) return;
-  console.log('scroll')
+  const scrollDiff = 24
+  if (window.scrollY - scrollDiff === target) return;
   gsap.to(window, { duration: 1, ease: "power4.inOut", scrollTo: { offsetY: scrollTo ? 80 : 0, y: scrollTo } })
  }
 

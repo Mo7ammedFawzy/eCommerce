@@ -7,7 +7,7 @@ const store = useCartStore()
 </script>
 
 <template>
- <div class="payment__summary--wrapper bg-white dark:bg-app t-ring p-4 lg:p-6 mb-3">
+ <div class="payment__summary--wrapper bg-white dark:bg-app t-ring p-4 lg:p-6">
   <!-- title -->
   <div class="text-base font-bold lg:text-xl" v-text="'Payment Summary'" />
   <div class="pay-info-group my-3">

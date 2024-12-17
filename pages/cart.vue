@@ -1,20 +1,18 @@
 <script setup lang='ts'>
-import { SHIPPING_TAX } from '~/constants';
-
 
 const store = useCartStore()
 
 const cartLength = computed(() => store.getCartLength);
 
-const isCartEmpty = computed(() => store.isCartEmpty)
 
 const colorMode = useColorMode()
+
 
 </script>
 
 <template>
-  <main id='cart-page' class='my-6'>
-    <BaseWrapper>
+  <main id='cart-page'>
+    <BaseWrapper class='mt-8'>
       <BasePageHeader title="Cart" />
 
       <div class="cart__wrapper grid grid-cols-7 gap-4 lg:gap-5">
@@ -44,14 +42,19 @@ const colorMode = useColorMode()
                 </div>
               </div>
 
-              <CartProductController v-for="product in store.cart" :cart-item="product" />
+              <template v-for="(product, index) in store.cart">
+                <CartProductController :cart-item="product" />
+                <UDivider v-if="index !== store.getCartLength - 1" />
+              </template>
             </div>
             <!-- empty_cart -->
             <div v-else>
-              <NuxtImg :src="`/products/empty-cart-${colorMode.value}.webp`"
-                class="max-w-xs  aspect-auto max-h-60 mt-8 mx-auto" quality="60" alt="empty-cart" format="webp"
-                placeholder-class="w-full max-w-60 h-60 aspect-square  max-h-60 max-w-full"
-                placeholder="/svg/spinner.svg" loading="lazy" />
+              <ColorScheme tag="div" class="w-60 aspect-square mx-auto t-skeleton rounded-full">
+                <NuxtImg :src="`/products/empty-cart-${colorMode.value}.webp`"
+                  class="max-w-xs  aspect-auto max-h-60 mt-8 mx-auto" quality="60" alt="empty-cart" format="webp"
+                  placeholder-class="w-full max-w-60 h-60 aspect-square  max-h-60 max-w-full"
+                  placeholder="/svg/spinner.svg" loading="lazy" />
+              </ColorScheme>
               <!-- <NuxtImg /> -->
               <UDivider class="my-6" />
               <UButton icon="i-heroicons-arrow-left" label="Contiue Shopping" size="xl" color="gray" variant="ghost"
@@ -60,7 +63,7 @@ const colorMode = useColorMode()
           </div>
         </div>
         <!-- checkout -->
-        <div class="payment__summary col-span-full md:col-span-2">
+        <div class="payment__summary col-span-full md:col-span-2 t-cards-gap-y">
           <CheckoutPaymentSummary />
           <!-- TODO :disabled="isCartEmpty" -->
           <UButton block to="/checkout"

@@ -14,16 +14,13 @@ const isDark = computed({
   },
 });
 
-// Set an initial value for color mode before page reload
-onMounted(() => {
-  if (!colorMode.value) {
-    colorMode.preference = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  }
-});
+
 </script>
 
 <template>
-  <UButton :icon="icon" @click="isDark = !isDark" square size="lg"
-    class="hidden items-center justify-center rounded-none text-black/70 hover:bg-black/10 dark:hover:bg-white/10 md:flex md:rounded-full"
-    variant="ghost" color="gray" />
+  <ColorScheme tag="span" class="t-skeleton w-10 aspect-square rounded-full">
+    <UButton :icon="icon" @click="isDark = !isDark" square size="lg"
+      class="hidden items-center justify-center rounded-none text-black/70 hover:bg-black/10 dark:hover:bg-white/10 md:flex md:rounded-full"
+      variant="ghost" color="gray" />
+  </ColorScheme>
 </template>

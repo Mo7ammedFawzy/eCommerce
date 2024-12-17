@@ -1,6 +1,6 @@
 export default defineNuxtRouteMiddleware((to, from) => {
  const store = useCartStore()
- console.log('store.isCartEmpty', store.isCartEmpty)
+ // TODO delete this global watch
  watch(store.cart, () => {
   if (store.isCartEmpty) navigateTo('/')
  })

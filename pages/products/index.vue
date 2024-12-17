@@ -1,18 +1,17 @@
 <script setup lang="ts">
-import type { API_Product } from "~/types";
+
+const { getProductsOnQueryChange } = useAPI()
+
+
 const { __scrollTo__ } = useGsap()
+
 const pageCount = ref<number | string>(3); // page-count
-const BASE_URL = "https://fakestoreapi.com/products";
 const page = ref(1);
+
 const route = useRoute();
-const API_URL = computed(() => {
-  if (route.query.category) {
-    return BASE_URL + `/category/${route.query.category}`;
-  } else {
-    return BASE_URL;
-  }
-});
-const { data, refresh, status } = await useFetch<API_Product[]>(API_URL, { lazy: true });
+
+
+const { data, status } = getProductsOnQueryChange()
 
 const TData = computed(() => {
   let ted: any[] = [];
@@ -24,11 +23,18 @@ const TData = computed(() => {
   }
   return ted;
 });
+watch(pageCount, () => page.value = 1)
 
-watch(() => route.query, () => {
+watch(() => route.fullPath, () => {
   __scrollTo__("#products-wrapper")
   page.value = 1
 })
+
+onMounted(() => {
+  __scrollTo__("#products-wrapper")
+
+})
+
 watch(page, () => {
   __scrollTo__("#products-wrapper")
   // page.value = 1
@@ -37,17 +43,16 @@ watch(page, () => {
 
 <template>
   <!-- <ClientOnly> -->
-  <main id="products-page" class="mx-auto max-w-5xl pt-4 sm:max-w-7xl my-6">
-    <BaseWrapper>
+  <main id="products-page" class="mx-auto max-w-5xl sm:max-w-7xl">
+    <BaseWrapper class="mt-8">
       <BasePageHeader />
       <!-- <UInput v-model="page" type="number" /> -->
       <!-- URL:{{ URL }} -->
-      <div id="products-wrapper" class="products-page__wrapper mb-10 grid grid-cols-7 gap-6 lg:mt-5">
+      <div id="products-wrapper" class="products-page__wrapper mb-8 grid grid-cols-7 gap-6 lg:mt-5">
         <!-- left_filter -->
-        <div class="products__filter col-span-7 mx-auto max-w-xs lg:col-span-2">
-          <ProductsFilter class="sticky top-24 hidden lg:block" />
+        <div class="products__filter col-span-7 hidden lg:block mx-auto max-w-xs lg:col-span-2">
+          <ProductsFilter class="sticky top-24" />
           <!-- v-if="$viewport.isGreaterOrEquals('desktop')" -->
-          <!-- <AppSlideoverFilter  v-else/> -->
         </div>
         <!-- PRODUCTS_CONTAINER -->
         <div ref="products" class="products__container col-span-7 min-h-screen lg:col-span-5">

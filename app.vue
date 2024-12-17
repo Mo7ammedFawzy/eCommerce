@@ -1,4 +1,8 @@
 <script setup lang="ts">
+/**
+ * @abstract=== toggle darkMode for notification theme(light|dark)
+ * 
+ */
 import { lightTheme, darkTheme, type NotivueTheme } from "notivue";
 
 const TDarkTheme: NotivueTheme = {
@@ -15,18 +19,14 @@ const isDark = computed(() => useColorMode().value === "dark");
 const notivueThemeToggler = computed(() =>
   isDark.value ? TDarkTheme : TLightTheme,
 );
-
-const ui = /* ui */ {
-  background: 'bg-white dark:bg-slate-900 text-'
-}
 </script>
 <template>
-  <NuxtLoadingIndicator />
-
   <NuxtLayout>
     <Notivue v-slot="item">
       <Notification :item="item" :theme="notivueThemeToggler" />
     </Notivue>
-    <NuxtPage class="pb-6 md:pb-0 md:pt-20" />
+    <!-- class="pb-6 md:pb-0 md:pt-16" -->
+    <!-- Header has height(64px-h-16) ||  bottom-0 md:top-0 -->
+    <NuxtPage class="mb-5 pb-16 md:pb-0 md:pt-16" />
   </NuxtLayout>
 </template>

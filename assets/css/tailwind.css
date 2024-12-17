@@ -80,6 +80,9 @@
   p {
     @apply text-base text-gray-800 dark:text-white/50;
   }
+  .body-text {
+    @apply text-base text-gray-800 dark:text-white/50;
+  }
   [has-wrapper] {
     @apply mx-auto max-w-7xl px-4;
   }
@@ -99,7 +102,7 @@
     @apply h-2.5 rounded-lg bg-gray-300 dark:bg-gray-400;
   }
   [main-scroll-horizental]::-webkit-scrollbar-thumb {
-    @apply rounded-lg bg-gray-600 dark:bg-gray-900;
+    @apply rounded-lg bg-gray-600 dark:bg-gray-600;
   }
   .semi-card-ring {
     @apply t-ring bg-white p-4 dark:bg-app lg:p-6;
@@ -109,6 +112,18 @@
   }
   .nuxt-loading-indicator {
     @apply md:!top-20;
+  }
+  .t-skeleton {
+    @apply animate-pulse bg-gray-300 dark:bg-gray-600;
+  }
+  .t-cards-gap-x {
+    @apply space-x-5;
+  }
+  .t-cards-gap-y {
+    @apply space-y-5;
+  }
+  .t-cards-gap {
+    @apply gap-5;
   }
 }
 

@@ -5,7 +5,6 @@ const { scrollTopBtn, __scrollTo__ } = useGsap()
 
 onMounted(() => {
  window.addEventListener('scroll', scrollTopBtn.__TOGGLE__)
- // ___show___()
 })
 
 onUnmounted(() => {

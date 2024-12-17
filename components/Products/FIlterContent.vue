@@ -28,6 +28,7 @@ watch(selected, () => {
 watch(
   () => route.query,
   (value) => {
+    // TODO check this
     loadFilters();
   },
 );

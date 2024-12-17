@@ -127,8 +127,6 @@ export interface NativeName {
 }
 
 
-
-
 export interface ICustomer {
  firstName: string,
  lastName: string,
@@ -150,3 +148,10 @@ export interface IOrder {
  paymentMethod: 'cash_on_delivery' | 'paypal' | 'credit_card',
  createdAt: Date
 }
+
+export type UI_Colors = "blue" | 'orange' | 'red' | 'green' | 'lime' | 'purple' | 'primary'
+
+export type State_Badge = { [key in IOrder['state']]: UI_Colors }
+
+
+export type Customer_Info = { [key in keyof ICustomer]: string }

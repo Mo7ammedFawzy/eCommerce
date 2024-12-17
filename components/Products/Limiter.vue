@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { Query } from "~/types";
 
 const { $viewport } = useNuxtApp();
 
@@ -40,8 +39,7 @@ const updateQueryFilter = () => {
     <div
       class="filter-options__wrapper mx-auto flex max-w-sm flex-wrap items-center justify-center gap-3 text-center lg:max-w-full lg:flex-row-reverse lg:justify-between"
     >
-      <!-- <AppSlideoverFilter v-if="true" /> -->
-      <AppSlideoverFilter v-if="$viewport.isLessThan('desktop')" />
+      <AppDrawerFilter v-if="$viewport.isLessThan('desktop')" />
       <!-- @change="updateQueryFilter" -->
       <USelect
         v-model="pageCount"

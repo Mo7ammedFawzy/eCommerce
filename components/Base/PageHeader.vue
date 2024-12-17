@@ -20,7 +20,7 @@ const breadcrumbLinks = computed(() => {
 <template>
   <div id='page-header'
     class='relative rounded-lg bg-gradient-to-r from-main to-main-500  !text-white p-6 overflow-hidden mb-5'>
-    <div v-text="headTitle" class="capitalize mb-4 text-3xl font-bold" />
+    <div v-text="headTitle" class="capitalize mb-4 text-3xl three-dots max-w-[70%] font-bold" />
     <!-- <div v-text="headPath" /> -->
 
     <UBreadcrumb :links="breadcrumbLinks" class="text-white  capitalize"

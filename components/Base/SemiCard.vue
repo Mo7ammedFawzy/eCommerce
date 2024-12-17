@@ -7,10 +7,6 @@ type Color = {
   btn: string[];
 };
 
-// const { $viewport } = useNuxtApp();
-
-// title,subtitle,text,btns,img,shape
-
 const {
   item: props,
   double = false,

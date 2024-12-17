@@ -1,5 +1,0 @@
-<template>
-<CheckoutUserInfoForm  />
-<UButton block label="Place Order" color="primary" @click="placeOrder"
-  class="dark:text-white mt-3 transition-colors" size="xl" />
-</template>

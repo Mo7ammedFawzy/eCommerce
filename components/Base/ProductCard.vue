@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import type { ProductCard, API_Product } from "~/types";
+import { DISCOUNT } from "~/constants";
 
 const { $viewport } = useNuxtApp();
 
 // colors | discount
 const props = defineProps<{ product: API_Product }>();
-const TProductdiscount = 32;
 
 const modal = ref(false)
 
@@ -18,7 +18,7 @@ const TProductColors = ["blue", "red", "yellow"];
 // rating,
 // title,
 // colors,
-// discount = 32,
+// discount = 40,
 
 // const ref =
 
@@ -37,7 +37,7 @@ const productPagePath = computed(() => `/products/${props.product.id}`);
         <NuxtImg
           class="product-card__img mix-blend-multiply dark:mix-blend-normal object-contain square absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full aspect-auto max-h-full scale-75"
           :src="props.product.image" quality="60" :alt="props.product.title" format="webp"
-          placeholder="/svg/spinner-circle.svg" loading="lazy" />
+          placeholder="/svg/spinner.svg" placeholder-class="w-1/2" loading="lazy" />
         <!-- placeholder-class=" !w-full !h-full max-w-full" -->
         <!-- </div> -->
 
@@ -67,7 +67,7 @@ const productPagePath = computed(() => `/products/${props.product.id}`);
         <div class="price-actions flex items-center justify-between" v-if="true">
           <div class="product-card__price space-x-1">
             <strong v-text="`$${props.product.price}`" class="text-xs sm:text-base" />
-            <span v-text="`(-${TProductdiscount}%)`" class="text-xs text-orange-600" />
+            <span v-text="`(-${DISCOUNT}%)`" class="text-xs text-orange-600" />
           </div>
           <div class="product-card__actions flex items-center sm:gap-1">
             <ProductsView v-model="modal" :product="props.product">

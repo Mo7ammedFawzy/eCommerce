@@ -1,4 +1,3 @@
-
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
@@ -15,9 +14,13 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@nuxt/image",
     "@nuxtjs/google-fonts",
-    "nuxt-viewport",//optionl
-    "nuxt-marquee",//optionl
-    "notivue/nuxt"
+    //optionl
+    "nuxt-viewport",
+    //optionl
+    "nuxt-marquee",
+    "notivue/nuxt",
+    // "@sidebase/nuxt-auth",
+    // 'nuxt-server-utils',
   ],
   css: [
     'notivue/notification.css', // Only needed if using built-in notifications
@@ -47,10 +50,28 @@ export default defineNuxtConfig({
       }
     ]
   },
+  runtimeConfig: {
+    authSecret: process.env.NUXT_AUTH_SECRET || 'key',
+    githubClientId: process.env.GITHUB_CLIENT_ID,
+    githubClientSecret: process.env.GITHUB_CLIENT_SECRET
+  },
   notivue: {
     limit: 3,
 
     // avoidDuplicates: true,
   },
+  // auth
+  // auth: {
+  //   baseURL: "http://localhost:3000", // process.env.AUTH_ORIGIN ||
+  //   globalAppMiddleware: true,
+  //   provider: {
+  //     type: 'authjs',
+  //   }
+  // },
+  // nuxtServerUtils: {
+  //   enabled: true, // default
+  //   enableDevTools: true, // default
+  //   mongodbUri: process.env.MONGODB_URI,
+  // },
 
 })

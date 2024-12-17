@@ -19,7 +19,6 @@ const onPageChanged = () => {
 
 onMounted(() => {
   onPageChanged()
-  console.log((props?.products?.length ?? 0) > 0, props?.products?.length)
 })
 
 watch(() => props.page, () => {
@@ -36,7 +35,7 @@ const exist = computed(
 <template>
   <section class="products-wrapper min-h-[400px]">
     <section id="products-wrapper"
-      class="mx-auto grid max-h-fi grid-cols-[repeat(auto-fill,minmax(135px,1fr))] gap-3 xs:grid-cols-[repeat(auto-fill,minmax(170px,1fr))] sm:grid-cols-[repeat(auto-fill,minmax(195px,1fr))] md:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] lg:grid-cols-[repeat(auto-fill,minmax(230px,1fr))]"
+      class="mx-auto grid max-h-fi grid-cols-[repeat(auto-fill,minmax(135px,1fr))] gap-3 xs:grid-cols-[repeat(auto-fill,minmax(170px,1fr))] sm:grid-cols-[repeat(auto-fill,minmax(195px,1fr))] md:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] xl:grid-cols-[repeat(auto-fill,minmax(230px,1fr))]"
       v-if="true">
       <!-- products{{ products }} -->
       <template v-if="exist">

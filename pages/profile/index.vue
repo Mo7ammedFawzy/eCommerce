@@ -18,7 +18,7 @@ const toggleDarkMode = (hasSwitch: boolean = false) => {
 </script>
 
 <template>
-  <div class="profile-page min-h-screen">
+  <div class="profile-page my-8">
     <BaseWrapper class="max-w-5xl">
       <ul class="py-4">
         <template

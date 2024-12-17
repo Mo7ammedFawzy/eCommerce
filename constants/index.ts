@@ -1,18 +1,20 @@
-import type { Category, FooterLink, HeaderAction, HeaderLink, ProductCard, API_Product, ProfileLink, SemiCard, ServiceCard, IOrder } from "~/types";
+import type { Category, FooterLink, HeaderAction, HeaderLink, ProductCard, API_Product, ProfileLink, SemiCard, ServiceCard, IOrder, State_Badge, ICustomer, Customer_Info } from "~/types";
 import jsonProducts from "./products.json"
-export const API_URL = "https://fakestoreapi.com";
+export const API_URL = "https://fakestoreapi.com/products";
 export const API_DELAY = 850
 export const MAX_ITEMS = 5
 export const DISCOUNT = 40
 export const SHIPPING_TAX = 8 // $8
-export const API_COUNTRIES = "https://restcountries.com/v3.1/independent?status=true&fields=name"
+export const API_COUNTRIES_URL = "https://restcountries.com/v3.1/independent?status=true&fields=name"
 export const DELAY_TIME = 4000
+export const MAX_SEARCH_RESULT = 5
 export const PAYMENT_METHODS: IOrder['paymentMethod'][] = ['cash_on_delivery', "credit_card", "paypal"]
 export const T_PAYMENT_METHOD: IOrder['paymentMethod'] = 'cash_on_delivery'
 export const REGEX = {
  phoneNumber: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
- zipCode: /^\d{5,7}$/
+ zipCode: /^\d{5,9}$/
 }
+
 export const HEADER_ACTIONS: HeaderAction[] = [
  {
   title: "home",
@@ -38,14 +40,14 @@ export const HEADER_ACTIONS: HeaderAction[] = [
   hasChip: true,
   color: "blue", route: "/cart",
  },
- {
-  title: "favourite",
-  icon: "ph:heart-light",
-  hasChip: true,
-  color: "orange",
-  mobile: false,
-  route: "/profile/wishlist",
- },
+ // {
+ //  title: "favourite",
+ //  icon: "ph:heart-light",
+ //  hasChip: true,
+ //  color: "orange",
+ //  mobile: false,
+ //  route: "/profile/wishlist",
+ // },
  {
   title: "user",
   icon: "material-symbols-light:person-outline",
@@ -95,7 +97,7 @@ export const ProfileLinks: ProfileLink[] = [
  {
   icon: "iconamoon:invoice-thin",
   label: "orders",
-  path: "/orders"
+  path: "/profile/orders"
  },
  {
   icon: "line-md:person",
@@ -167,7 +169,6 @@ export const HomeItems = {
 }
 
 export const Categories: Category[] = [
- // img path : "/home/categoires/.png"
  {
   title: "electronics",
   radioTitle: "electronics"
@@ -175,49 +176,15 @@ export const Categories: Category[] = [
  {
   title: "jewelery",
   radioTitle: "jewelery"
-  // img: "https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_QL65_ML3_.jpg"
  },
  {
   title: "men's clothing",
   radioTitle: "men",
-  // img: "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg"
  },
  {
   title: "women's clothing",
   radioTitle: "women",
-  // img: "https://fakestoreapi.com/img/51eg55uWmdL._AC_UX679_.jpg"
  },
- // {
- //  title: "electronics",
- //  img: "https://fakestoreapi.com/img/81Zt42ioCgL._AC_SX679_.jpg"
- // },
- // {
- //  title: "jewelery",
- //  img: "https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_QL65_ML3_.jpg"
- // },
- // {
- //  title: "men's clothing",
- //  img: "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg"
- // },
- // {
- //  title: "women's clothing",
- //  img: "https://fakestoreapi.com/img/51eg55uWmdL._AC_UX679_.jpg"
- // },
- // {
- //  img: "shirts",
- //  title: "shirts"
- // },
- // {
- //  img: "pants",
- //  title: "pants"
- // }
- //output
- // [
- //  "electronics",
- //  "jewelery",
- //  "men's clothing",
- //  "women's clothing"
- // ]
 ]
 
 export const Products: API_Product[] = jsonProducts
@@ -251,3 +218,11 @@ export const FooterLinks: FooterLink[] = [
   color: '#ff0000'
  },
 ]
+
+export const STATE_BADGES: State_Badge = {
+ pending: "primary",
+ canceled: "red",
+ confirmed: "lime",
+ delivered: "green",
+ shippd: "purple"
+} 
