@@ -6,31 +6,41 @@ This is an e-commerce web application built using modern web technologies, focus
 
 - **Home Page (`/`)**:
   - Displays top products from the fake API.
-  
+  <br />
+  <img src="/public/preview/home-page.png"/>
+  <hr />
+  <img src="/public/preview/home-page-2.png"/>
 - **Products Page (`/products`)**:
+
   - Displays all available products.
   - Includes a category filter to refine product searches.
-
+  - <img src="/public/preview/products-page.png"/>
 - **Product Details Page (`/products/:id`)**:
-  - Displays detailed information about a specific product, including title, price, and other details.
 
+  - Displays detailed information about a specific product, including title, price, and other details.
+   <img src="/public/preview/product-details.png"/>
 - **Cart Page (`/cart`)**:
+
   - Displays products added to the cart.
   - Allows users to adjust product quantities.
   - Provides a summary for checkout.
-
+  <img src="/public/preview/cart-page.png"/>
 - **Authentication Page (`/auth`)**:
-  - Enables user login using a fake API for testing purposes.
 
+  - Enables user login using a fake API for testing purposes.
+  <img src="/public/preview/login.png"/>
 - **Profile Page (`/profile`)**:
+
   - Displays user information.
 
 - **Checkout Page (`/checkout`)**:
+
   - Allows users to place orders for items in the cart.
-
+  <img src="/public/preview/checkout-page.png"/>
 - **Orders Page (`/orders`)**:
-  - Displays a list of placed orders.
 
+  - Displays a list of placed orders.
+  <img src="/public/preview/orders-page.png"/>
 - **Color Mode Switcher**:
   - Allows users to toggle between light and dark themes.
 
@@ -51,9 +61,11 @@ This is an e-commerce web application built using modern web technologies, focus
 The project is structured to ensure maintainability and scalability. Key architectural features include:
 
 - **Factories Components**:
+
   - Reusable and dynamic components to reduce redundancy.
 
 - **Composables**:
+
   - Encapsulated logic for reuse across components.
 
 - **Middleware**:
@@ -106,4 +118,3 @@ This project is open-source and available under the MIT License.
 ---
 
 Feel free to contribute or reach out with feedback!
-
