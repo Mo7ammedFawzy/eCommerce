@@ -89,11 +89,13 @@ export const ProfileLinks: ProfileLink[] = [
  //  label: "dashboard",
  //  path: "/cart"
  // },
- {
-  icon: "line-md:heart",
-  label: "wishlist",
-  path: "/profile/wishlist"
- },
+ // TODO: 
+
+ // {
+ //  icon: "line-md:heart",
+ //  label: "wishlist",
+ //  path: "/profile/wishlist"
+ // },
  {
   icon: "iconamoon:invoice-thin",
   label: "orders",
@@ -104,11 +106,12 @@ export const ProfileLinks: ProfileLink[] = [
   label: "profile",
   path: "/profile/general"
  },
- {
-  icon: "material-symbols-light:key-outline",
-  label: "change password",
-  path: "/profile/change-password"
- },
+ // TODO: 
+ // {
+ //  icon: "material-symbols-light:key-outline",
+ //  label: "change password",
+ //  path: "/profile/change-password"
+ // },
 ]
 
 export const HomeItems = {

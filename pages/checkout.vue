@@ -13,7 +13,7 @@ const C_paymentMehods = PAYMENT_METHODS.map((method) => ({ label: method, value:
 const userInfoForm = ref<null | InstanceType<typeof CheckoutUserInfoForm>>()
 
 definePageMeta({
-  //  middleware: ['can-checkout']
+  middleware: ['can-checkout']
 })
 
 const placeOrder = () => userInfoForm.value?.form?.submit()

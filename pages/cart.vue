@@ -66,7 +66,7 @@ const colorMode = useColorMode()
         <div class="payment__summary col-span-full md:col-span-2 t-cards-gap-y">
           <CheckoutPaymentSummary />
           <!-- TODO :disabled="isCartEmpty" -->
-          <UButton block to="/checkout"
+          <UButton block :disabled="store.isCartEmpty" @click="navigateTo('/checkout')"
             class="dark:text-white disabled:dark:bg-gray-500 disabled:bg-gray-200 disabled:text-black/40 disabled:dark:text-black/70"
             color="primary" size="lg" label="Checkout" :ui="{ rounded: 'rounded-lg' }" />
         </div>

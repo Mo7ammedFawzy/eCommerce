@@ -1,102 +1,109 @@
-# Nuxt 3 Minimal Starter
+# E-commerce Website
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+This is an e-commerce web application built using modern web technologies, focusing on creating a clean, responsive, and user-friendly interface. The project is entirely frontend-based and relies on a fake API for product and user data.
 
-## Setup
+## Features
 
-Make sure to install the dependencies:
+- **Home Page (`/`)**:
+  - Displays top products from the fake API.
+  
+- **Products Page (`/products`)**:
+  - Displays all available products.
+  - Includes a category filter to refine product searches.
 
-```bash
-# npm
-npm install
+- **Product Details Page (`/products/:id`)**:
+  - Displays detailed information about a specific product, including title, price, and other details.
 
-# pnpm
-pnpm install
+- **Cart Page (`/cart`)**:
+  - Displays products added to the cart.
+  - Allows users to adjust product quantities.
+  - Provides a summary for checkout.
 
-# yarn
-yarn install
+- **Authentication Page (`/auth`)**:
+  - Enables user login using a fake API for testing purposes.
 
-# bun
-bun install
-```
+- **Profile Page (`/profile`)**:
+  - Displays user information.
 
-## Development Server
+- **Checkout Page (`/checkout`)**:
+  - Allows users to place orders for items in the cart.
 
-Start the development server on `http://localhost:3000`:
+- **Orders Page (`/orders`)**:
+  - Displays a list of placed orders.
 
-```bash
-# npm
-npm run dev
+- **Color Mode Switcher**:
+  - Allows users to toggle between light and dark themes.
 
-# pnpm
-pnpm run dev
+## Technologies Used
 
-# yarn
-yarn dev
+- **Framework**: Nuxt 3
+- **UI Framework**: TailwindCSS
+- **Component Library**: Nuxt UI
+- **JavaScript Framework**: Vue 3 Composition API
+- **State Management**: Pinia
+- **TypeScript**: Added types for all API results to enhance code quality.
+- **API**:
+  - Fake Store API for products data.
+  - Fake authentication API for user login.
 
-# bun
-bun run dev
-```
+## Project Structure
 
-## Production
+The project is structured to ensure maintainability and scalability. Key architectural features include:
 
-Build the application for production:
+- **Factories Components**:
+  - Reusable and dynamic components to reduce redundancy.
 
-```bash
-# npm
-npm run build
+- **Composables**:
+  - Encapsulated logic for reuse across components.
 
-# pnpm
-pnpm run build
+- **Middleware**:
+  - Handles route guards for authentication and other functionalities.
 
-# yarn
-yarn build
+## Setup and Installation
 
-# bun
-bun run build
-```
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd <project-directory>
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-Locally preview production build:
+## Usage
 
-```bash
-# npm
-npm run preview
+- Open the application in your browser at `http://localhost:3000`.
+- Navigate through the various pages to explore the features.
 
-# pnpm
-pnpm run preview
+## API Information
 
-# yarn
-yarn preview
+- **Products API**: [Fake Store API](https://fakestoreapi.com/)
+- **Authentication API**: Mocked API for testing purposes.
 
-# bun
-bun run preview
-```
+## Notes
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+- This project is frontend-only and does not include a backend.
+- The data is fetched dynamically from external APIs.
 
-screens: {
-'sm': '640px',
-// => @media (min-width: 640px) { ... }
+## Future Improvements
 
-      'md': '768px',
-      // => @media (min-width: 768px) { ... }
+- Implement a backend for real data storage and processing.
+- Add payment gateway integration for real transactions.
+- Enhance the filtering functionality with more options.
 
-      'lg': '1024px',
-      // => @media (min-width: 1024px) { ... }
+## License
 
-      'xl': '1280px',
-      // => @media (min-width: 1280px) { ... }
+This project is open-source and available under the MIT License.
 
-      '2xl': '1536px',
-      // => @media (min-width: 1536px) { ... }
-    }
+---
 
-       desktop: 1024, //lg
-      desktopMedium: 1280, // xl
-      desktopWide: 1600,//2xl
+Feel free to contribute or reach out with feedback!
 
-      mobile: 320,
-      mobileMedium: 375,
-      mobileWide: 425,
-
-      tablet: 768, //md
