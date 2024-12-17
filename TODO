@@ -7,7 +7,7 @@ Todo:
       ✔ add search products @started(24-12-11 19:05) @done(24-12-11 23:00) @lasted(3h55m23s)
   ☐ <ProductCard />
     ✔ add view card option @started(24-12-14 14:15) @done(24-12-14 16:02) @lasted(1h47m29s)
-    ☐ add favourites
+    ✘ add favourites @cancelled(24-12-17 23:42)
   ☐ <ProductCardWrapper />
     ✔ add more btn(pagination) to show more products @done(24-12-12 20:05)
   ☐ <Products />
@@ -18,14 +18,14 @@ Todo:
     ✔ add a show btn to show a limit of products @done(24-12-12 20:04)
   ☐ /cart 
     ✔ cart features @started(24-12-14 16:03) @done(24-12-14 23:30) @lasted(7h27m33s)
-    ☐ payment other methods ?!
+    ✘ payment other methods ?! @cancelled(24-12-17 23:43)
   ✔ /orders @started(24-12-15 23:58) @done(24-12-17 04:19) @lasted(1d4h21m52s)
   ☐ /checkout
     ☐ add error form at place order for place order button to make customer notice that the form is missing
-  ☐ /profile/general @started(24-12-17 17:57)
-    ☐ add features[upload photo and load it in the image banner]
-  ☐ /auth/:[login,signup]:google 
-    ☐ auth with  nuxt/auth 
+  ✔ /profile/general @started(24-12-17 17:57) @done(24-12-17 23:43) @lasted(5h46m9s)
+    ✔ add features[upload photo and load it in the image banner] @done(24-12-17 23:43)
+  ✔ /auth/:[login,signup]:google @done(24-12-17 23:43)
+    ✘ auth with  nuxt/auth @cancelled(24-12-17 23:43)
   ✔ /checkout @done(24-12-17 16:25)
     ✔ add page @done(24-12-17 16:25)
   ✔ /orders @done(24-12-17 16:25)
@@ -34,7 +34,7 @@ Todo:
 
   ☐ other
    ☐ add dynamic discount for every product like math.random
-   ☐ there a auto scroll to top when router change
+   ✔ there a auto scroll to top when router change @done(24-12-17 23:43)
 
   ☐ finished:
     ☐ create latest nuxt project version with(nuxt-ui:v3-alpha,vue(3.5))
