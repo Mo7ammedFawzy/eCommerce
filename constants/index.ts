@@ -1,6 +1,7 @@
 import type { Category, FooterLink, HeaderAction, HeaderLink, ProductCard, API_Product, ProfileLink, SemiCard, ServiceCard, IOrder, State_Badge, ICustomer, Customer_Info } from "~/types";
 import jsonProducts from "./products.json"
 export const API_URL = "https://fakestoreapi.com/products";
+export const API_AUTH_URL = "https://dummyjson.com/auth";
 export const API_DELAY = 850
 export const MAX_ITEMS = 5
 export const DISCOUNT = 40

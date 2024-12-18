@@ -1,31 +1,32 @@
 <script setup lang='ts'>
 
+definePageMeta({
+  middleware: ['have-to-auth'],
+  keepalive: true,
+})
+
 const orderStore = useOrderStore()
 
-const loadLoader = ref(true)
 const loadSkeleton = ref(false)
 const canExecute = ref(false)
 
 onMounted(async () => {
+  console.log({ order: orderStore.orders })
   await loadingState()
 })
 
 
 const loadingState = async () => {
-  //  loadLoader => loadSkeleton => canExecute
-  loadLoader.value = true
-  await delay(1000)
-  loadLoader.value = false
   loadSkeleton.value = true
   await delay(1000)
   loadSkeleton.value = false
   canExecute.value = true
 }
 
+// canExecute.value = false
+// loadSkeleton.value = false
+// loadLoader.value = true
 const reset = () => {
-  canExecute.value = false
-  loadSkeleton.value = false
-  loadLoader.value = true
 }
 
 onUnmounted(() => {
@@ -33,17 +34,17 @@ onUnmounted(() => {
 })
 
 // length is more than 0 |
-const canLoadOrders = computed(() => orderStore.orders && !orderStore.isOrdersEmpty && canExecute.value && !loadLoader.value && !loadSkeleton.value)
+const canLoadOrders = computed(() => orderStore.orders && !orderStore.isOrdersEmpty && canExecute.value && !loadSkeleton.value)
 
-const canLoadLoader = computed(() => loadLoader.value && !loadSkeleton.value && !canExecute.value)
+// const canLoadLoader = computed(() => loadLoader.value && !loadSkeleton.value && !canExecute.value)
 
-const canLoadSkeleton = computed(() => !loadLoader.value && loadSkeleton.value && !canExecute.value && !orderStore.isOrdersEmpty)
+const canLoadSkeleton = computed(() => loadSkeleton.value && !canExecute.value && !orderStore.isOrdersEmpty)
 
 </script>
 
 <template>
   <!-- first loadLoader => laodSkeleton => canExecute -->
-  <main id='orders-page' >
+  <main id='orders-page'>
     <BaseWrapper class='mt-8'>
       <BasePageHeader title="orders" />
       <!-- order-list -->
@@ -79,13 +80,13 @@ const canLoadSkeleton = computed(() => !loadLoader.value && loadSkeleton.value &
               <UDivider v-if="orderStore.orders.length - 1 !== index" />
             </template>
           </div>
-          <div v-else-if="canLoadLoader" class="py-10">
+          <!-- <div v-else-if="canLoadLoader" class="py-10">
             <NuxtImg src="/svg/spinner.svg" class="max-h-40 w-full aspect-auto mx-auto" placeholder="/svg/spinner.svg"
-              placeholder-class="max-h-40 w-full aspect-square" />
-          </div>
+              placeholder-class="max-h-40 w-full h-40" />
+          </div> -->
           <div v-else class="py-10">
             <NuxtImg src="/products/empty-data.png" class="max-h-40 mx-auto" placeholder="/svg/spinner.svg"
-              placeholder-class="text-white max-h-40 w-full aspect-square" />
+              placeholder-class="w-full h-40 max-h-40" />
           </div>
         </div>
       </div>

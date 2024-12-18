@@ -7,6 +7,9 @@ const cartLength = computed(() => store.getCartLength);
 
 const colorMode = useColorMode()
 
+definePageMeta({
+  middleware: ['have-to-auth']
+})
 
 </script>
 
@@ -52,7 +55,7 @@ const colorMode = useColorMode()
               <ColorScheme tag="div" class="w-60 aspect-square mx-auto t-skeleton rounded-full">
                 <NuxtImg :src="`/products/empty-cart-${colorMode.value}.webp`"
                   class="max-w-xs  aspect-auto max-h-60 mt-8 mx-auto" quality="60" alt="empty-cart" format="webp"
-                  placeholder-class="w-full max-w-60 h-60 aspect-square  max-h-60 max-w-full"
+                  placeholder-class="w-full max-w-60 min-h-60 py-16 aspect-square  max-h-60 max-w-full"
                   placeholder="/svg/spinner.svg" loading="lazy" />
               </ColorScheme>
               <!-- <NuxtImg /> -->
@@ -67,7 +70,7 @@ const colorMode = useColorMode()
           <CheckoutPaymentSummary />
           <!-- TODO :disabled="isCartEmpty" -->
           <UButton block :disabled="store.isCartEmpty" @click="navigateTo('/checkout')"
-            class="dark:text-white disabled:dark:bg-gray-500 disabled:bg-gray-200 disabled:text-black/40 disabled:dark:text-black/70"
+            class="dark:text-white disabled-btn"
             color="primary" size="lg" label="Checkout" :ui="{ rounded: 'rounded-lg' }" />
         </div>
       </div>

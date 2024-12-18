@@ -1,8 +1,12 @@
 <script setup lang='ts'>
 
+const userStore = useUserStore()
+
+
+
 const imgPreview = ref()
-const isEmptyState = ref(true)
 const imageIsLoading = ref(false)
+const canEdit = ref(false)
 
 const onFileChange = async (e: any) => {
   imageIsLoading.value = true
@@ -28,7 +32,7 @@ onMounted(async () => {
 })
 
 onUnmounted(() => {
-  imageIsLoading.value = false
+  imageIsLoading.value = false;
 })
 
 const canShowEmptyState = computed(() => !imgPreview.value && !imageIsLoading.value);
@@ -36,7 +40,9 @@ const canShowImg = computed(() => imgPreview.value && !imageIsLoading.value)
 const canLoadSkeleton = computed(() => !imgPreview.value || imageIsLoading.value)
 
 const saveUserInfoChanges = () => {
+  if (!canEdit.value) return;
   push.success('Changes has been saved')
+  canEdit.value = false
 }
 
 </script>
@@ -84,9 +90,13 @@ const saveUserInfoChanges = () => {
         </div>
         <!-- user-info -->
         <div class="user-info col-span-full md:col-span-2 semi-card-ring">
-          <CheckoutUserInfoForm general />
-          <UButton @click="saveUserInfoChanges" label="Save" color="primary" class="dark:text-white mt-3 px-6 float-end
+          <CheckoutUserInfoForm general v-model="canEdit" :user="userStore.user" />
+          <div class="space-x-3 float-end flex items-center mt-3">
+            <UButton @click="canEdit = true" label="Edit" color="gray" class="dark:text-white px-6
+          " icon="i-heroicons-pencil-square" />
+            <UButton @click="saveUserInfoChanges" :disabled="!canEdit" label="Save" color="primary" class="dark:text-white disabled-btn px-6
           " />
+          </div>
         </div>
       </div>
     </BaseWrapper>

@@ -5,30 +5,41 @@ const TRoute = useRoute();
 const modal = ref(false);
 const colorMode = useColorMode()
 
+const user = useState('user')
+const userStore = useUserStore()
 
-const queryOptions = computed(() => (category: string = "") => {
-  // if (TRoute.name != "products") return;
-  const storage = { ...TRoute.query, category };
+// TODO CHECK
+// const queryOptions = computed(() => (category: string = "") => {
+//   // if (TRoute.name != "products") return;
+//   const storage = { ...TRoute.query, category };
 
-  // check if there is a null value in query {?limit=}
-  // Object.keys
-  removeNullValuesFromObj(storage);
+//   // check if there is a null value in query {?limit=}
+//   // Object.keys
+//   removeNullValuesFromObj(storage);
 
-  return storage;
-});
+//   return storage;
+// });
 
 const store = useCartStore()
+
+onMounted(() => {
+  console.log({ user: user.value })
+})
 
 </script>
 <template>
   <!-- header down in (md) -->
   <header
     class="main-shadow max-h-fit fixed bottom-0 left-0 z-40 w-full bg-white rounded-none t-ring backdrop-blur-md dark:bg-[#162031] md:top-0">
+
     <BaseWrapper
       class="header__wrapper flex max-h-16 h-16 grid-cols-1 items-center justify-between !px-0 md:!px-4 lg:grid lg:grid-cols-3">
       <!-- LOGO@on-page-color-mode-switch-change-image -->
       <!-- <ClientOnly> -->
       <!-- <div class="header__img py-6"> -->
+      <!-- userStore::{{ userStore.isAuthenticated }} -->
+      <!-- userStore::{{ user }} -->
+
       <ColorScheme tag="span" class="w-12 aspect-square t-skeleton   rounded-full">
         <NuxtLink class="header__img max-h-full" to="/">
           <NuxtImg :src="`/logo-${colorMode.value}.webp`" class="hidden w-12 aspect-square md:inline-block" quality="60"
@@ -41,7 +52,7 @@ const store = useCartStore()
       <!-- </ClientOnly> -->
       <!-- LINKS -->
       <ul class="links hidden items-center justify-center gap-3 text-sm capitalize md:inline-flex">
-        <NuxtLink v-for="{ title, route, category } in HEADER_LINKS" :to="{ path: route, query: queryOptions(category) }">
+        <NuxtLink v-for="{ title, route, category } in HEADER_LINKS" :to="{ path: route, query: { category } }">
           <li v-text="title" class="cursor-pointer transition-colors hover:text-blue-600" :class="{
             'text-blue-600':
               TRoute.path == route && TRoute.query.category == category,

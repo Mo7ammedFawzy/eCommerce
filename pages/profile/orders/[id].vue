@@ -50,6 +50,10 @@ definePageMeta({
 
 })
 
+definePageMeta({
+  middleware: ['have-to-auth']
+})
+
 </script>
 
 <template>

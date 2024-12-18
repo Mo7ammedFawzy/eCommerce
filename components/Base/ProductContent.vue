@@ -13,7 +13,7 @@ const props = defineProps<{ product: API_Product, isModal?: boolean }>()
 
 const modal = defineModel({ required: false, default: false })
 
-const { image, title, price, category, rating, discount = DISCOUNT, colors = ['black', 'red', 'green'] } = props.product
+const { image, title, id, price, category, rating, discount = DISCOUNT, colors = ['black', 'red', 'green'] } = props.product
 
 const purpleColor = "!bg-[#f55da4] hover:!bg-[#ef458f]";
 
@@ -33,9 +33,11 @@ const productInfo = [
 ]
 
 // MAKE_IT_DYNAMIC
-const productLink = computed(() => window?.location?.href ?? 'http://localhost:3000/products/1')
+const productLink = computed(() => useRuntimeConfig().public.baseURL + `/products/${id ?? 1}`)
 
-
+onMounted(() => {
+  console.log({ href: useRuntimeConfig() })
+})
 
 </script>
 
@@ -49,8 +51,8 @@ const productLink = computed(() => window?.location?.href ?? 'http://localhost:3
         <div class="img__wrapper px-4 py-6 max-w-md mx-auto bg-white t-ring ">
 
           <NuxtImg :src="image" fit="content" class="object-contain w-full aspect-auto max-h-64 lg:max-h-72" quality="60"
-            :alt="props.product.title" format="webp" placeholder-class="!w-full  h-64 max-h-64 max-w-full"
-            placeholder="/svg/spinner-circle.svg" loading="lazy" />
+            :alt="props.product.title" format="webp" placeholder-class="max-w-full aspect-square max-h-full py-16 w-full"
+            placeholder="/svg/spinner.svg" loading="lazy" />
         </div>
       </div>
       <div class="product__content">

@@ -5,9 +5,9 @@ import type { ProfileLink } from "~/types";
 const menu = ref(false);
 const router = useRouter()
 
-// const { signIn, signOut, status } = useAuth()
+const userStore = useUserStore()
 
-const isLoggedIn = computed(() => true)
+const isLoggedIn = computed(() => userStore.isAuthenticated)
 
 
 const handleSignIn = async () => {
@@ -44,6 +44,12 @@ const redirectToLogin = () => {
   })
 }
 
+const signout = async () => {
+  userStore.signOut();
+  await delay(250)
+  menu.value = false
+}
+
 </script>
 
 <template>
@@ -53,9 +59,9 @@ const redirectToLogin = () => {
     item: { disabled: 'cursor-text select-text' },
   }" mode="click" :popper="{ arrow: true, placement: 'bottom-end' }" v-model:open="menu">
     <template #head="{ item }">
-      <div class="text-left">
-        <div v-text="'Mohammed Fawzey'" class="text-lg font-bold" />
-        <p class="text-xs" v-text="item.label" />
+      <div class="text-left max-w-full">
+        <div v-text="userStore.user?.username ?? 'username'" class="text-lg capitalize three-dots font-bold" />
+        <p class="text-xs three-dots" v-text="userStore.user?.email ?? 'example@gmail.com'" />
       </div>
     </template>
     <template #btn="{ item }">
@@ -63,11 +69,11 @@ const redirectToLogin = () => {
         <!-- {{ menu }} -->
         <!-- :to="{ path: '/auth/login', }" -->
         <!-- <NuxtLink > -->
-        <UButton :label="item.label" @click="redirectToLogin" block color="primary" variant="solid" icon="line-md:log-in"
-          class="btn-primary" />
+        <UButton v-if="!userStore.isAuthenticated" :label="item.label" @click="redirectToLogin" block color="primary"
+          variant="solid" icon="line-md:log-in" class="btn-primary" />
         <!-- </NuxtLink> -->
-        <!-- <UButton label="sign in" block color="green" @click="handleSignIn" variant="solid" icon="line-md:log-in"
-          class="btn-primary"  /> -->
+        <UButton label="Logout" block color="white" @click="signout" variant="outline" icon="line-md:log-out"
+          class="btn-primary" v-else />
       </div>
     </template>
     <slot :is-menu-open="menu" />

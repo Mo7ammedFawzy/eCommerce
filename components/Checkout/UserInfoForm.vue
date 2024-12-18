@@ -2,12 +2,18 @@
 import { API_COUNTRIES_URL, REGEX } from "~/constants"
 import { z } from "zod"
 import type { FormSubmitEvent } from "#ui/types"
-import type { ICountry, ICustomer, IOrder } from "~/types";
+import type { ICountry, ICustomer, IOrder, IUser } from "~/types";
 import { v4 as uuidv4 } from 'uuid';
+
 const orderStore = useOrderStore()
 const cartStore = useCartStore()
 
+const props = withDefaults(defineProps<{ user?: IUser | null, selectedPaymentMethod?: IOrder['paymentMethod'], general?: boolean }>(), { general: false, selectedPaymentMethod: "cash_on_delivery" })
+
 const form = ref<HTMLFormElement>()
+
+const canEdit = defineModel({ required: false, default: false })
+const isInputDisabled = computed(() => !canEdit.value && props.general)
 
 const { getCountries } = useAPI()
 
@@ -25,9 +31,9 @@ const schema = z.object({
 })
 
 const state = reactive<ICustomer>({
- firstName: "",
- lastName: "",
- email: "",
+ firstName: props.user?.firstName ?? "",
+ lastName: props.user?.lastName ?? "",
+ email: props.user?.email ?? "",
  phoneNumber: "",
  address: "",
  townCity: "",
@@ -67,7 +73,7 @@ defineExpose<{ form: Ref<HTMLFormElement | undefined>, onSubmit: Function }>({
  form
 })
 
-const props = withDefaults(defineProps<{ selectedPaymentMethod?: IOrder['paymentMethod'], general?: boolean }>(), { general: false, selectedPaymentMethod: "cash_on_delivery" })
+
 
 </script>
 
@@ -77,29 +83,29 @@ const props = withDefaults(defineProps<{ selectedPaymentMethod?: IOrder['payment
   class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4" v-if="true">
 
   <UFormGroup name="firstName" label="First Name">
-   <UInput v-model="state.firstName" size="xl" />
+   <UInput v-model="state.firstName" :disabled="isInputDisabled" size="xl" />
   </UFormGroup>
   <UFormGroup name="lastName" label="Last Name">
-   <UInput v-model="state.lastName" size="xl" />
+   <UInput v-model="state.lastName" size="xl" :disabled="isInputDisabled" />
   </UFormGroup>
   <UFormGroup name="email" label="Email">
-   <UInput v-model="state.email" size="xl" />
+   <UInput v-model="state.email" size="xl" :disabled="isInputDisabled" />
   </UFormGroup>
   <UFormGroup name="phoneNumber" label="Phone">
-   <UInput v-model="state.phoneNumber" size="xl" />
+   <UInput v-model="state.phoneNumber" size="xl" :disabled="isInputDisabled" />
   </UFormGroup>
   <UFormGroup class="col-span-full" name="address" label="Address">
-   <UInput v-model="state.address" size="xl" />
+   <UInput v-model="state.address" size="xl" :disabled="isInputDisabled" />
   </UFormGroup>
   <div class="col-span-full grid grid-cols-1 sm:grid-cols-3 gap-3">
    <UFormGroup name="townCity" label="Town City">
-    <UInput v-model="state.townCity" size="xl" />
+    <UInput v-model="state.townCity" size="xl" :disabled="isInputDisabled" />
    </UFormGroup>
    <UFormGroup name="state" label="State">
-    <UInput v-model="state.state" size="xl" />
+    <UInput v-model="state.state" size="xl" :disabled="isInputDisabled" />
    </UFormGroup>
    <UFormGroup name="zip" label="ZIP/POSTAL CODE">
-    <UInput v-model="state.zip" size="xl" />
+    <UInput v-model="state.zip" size="xl" :disabled="isInputDisabled" />
    </UFormGroup>
   </div>
   <UFormGroup v-if="!general" class="col-span-full custom" name="country" label="Country">

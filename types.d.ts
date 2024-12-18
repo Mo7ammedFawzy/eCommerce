@@ -155,3 +155,72 @@ export type State_Badge = { [key in IOrder['state']]: UI_Colors }
 
 
 export type Customer_Info = { [key in keyof ICustomer]: string }
+
+export interface ILogin {
+ email?: string,
+ password?: string,
+ username?: string
+}
+
+export interface ILoginError {
+ name: string,
+ data: { error: string },
+ message: string,
+ status: number,
+ statusCode: number
+}
+
+export interface IUser {
+ accessToken: string;
+ refreshToken: string;
+ id: number;
+ username: string;
+ email: string;
+ firstName: string;
+ lastName: string;
+ gender: string;
+ image: string;
+}
+
+
+export interface Welcome {
+ response: UserDetails;
+ accessToken: string;
+}
+
+export interface UserDetails {
+ id: number;
+ firstName: string;
+ lastName: string;
+ maidenName: string;
+ age: number;
+ gender: string;
+ email: string;
+ phone: string;
+ username: string;
+ password: string;
+ birthDate: string;
+ image: string;
+ bloodGroup: string;
+ height: number;
+ weight: number;
+ eyeColor: string;
+ ip: string;
+ address: Address;
+ macAddress: string;
+ university: string;
+ ein: string;
+ ssn: string;
+ userAgent: string;
+ role: string;
+}
+
+// export interface Address {
+//  address: string;
+//  city: string;
+//  state: string;
+//  stateCode: string;
+//  postalCode: string;
+//  coordinates: Coordinates;
+//  country: string;
+// }

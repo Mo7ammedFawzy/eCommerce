@@ -125,6 +125,12 @@
   .t-cards-gap {
     @apply gap-5;
   }
+  .t-placeholder {
+    @apply aspect-square h-40 max-h-60 min-h-40 w-full max-w-60 py-12;
+  }
+  .disabled-btn {
+    @apply disabled:!bg-gray-200 disabled:text-black/40 disabled:dark:!bg-gray-500 disabled:dark:text-black/70;
+  }
 }
 
 @layer components {

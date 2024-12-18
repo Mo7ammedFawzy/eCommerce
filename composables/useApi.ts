@@ -1,6 +1,6 @@
 import type { UseFetchOptions } from 'nuxt/app'
-import { API_URL, API_COUNTRIES_URL } from '~/constants'
-import type { API_Product, ICountry } from '~/types'
+import { API_URL, API_COUNTRIES_URL, API_AUTH_URL } from '~/constants'
+import type { API_Product, ICountry, ILogin, ILoginError, IUser, UserDetails } from '~/types'
 
 function useFactoryAPI<T>(
  // url: string | (() => string),
@@ -17,6 +17,9 @@ function useFactoryAPI<T>(
 
 
 export const useAPI = () => {
+
+ const userStore = useUserStore()
+
 
  const getProduct = () => {
   const productID = useRoute().params.id
@@ -46,7 +49,60 @@ export const useAPI = () => {
   })
  }
 
- return { getProduct, getCountries, useFactoryAPI, getProducts, getProductsOnQueryChange }
+ const login = (body: ILogin, reset: () => void) => {
+  $fetch<IUser>(API_AUTH_URL + "/login", {
+   method: "POST",
+   body: JSON.stringify(body),
+   headers: { 'Content-Type': 'application/json' },
+  }).then((res) => {
+   // get user 
+   userStore.setUser(res)
+   // save token to storage
+   localStorage.setItem('accessToken', res.accessToken)
+   localStorage.setItem('date', new Date().getTime().toString())
+   useCookie('accessToken').value = res.accessToken
+
+   const route = useRoute()
+   const redirectTo = route.query.redirect as string
+   const navTo = redirectTo ?? '/profile/general' as string
+   navigateTo(navTo)
+  }).catch((err: ILoginError) => {
+   if (err.statusCode === 400) {
+    return push.error('invalid credentials')
+   }
+   push.error('something went wrong please try again')
+
+  }).finally(() => {
+   reset()
+  })
+ }
+
+ const getUser = async () => {
+  const token = localStorage.getItem('accessToken') ?? '0'
+  console.log({ token })
+  const response = await $fetch<UserDetails>(API_AUTH_URL + "/me", {
+   method: "get",
+   headers: {
+    'Authorization': `Bearer ${token}`
+   }
+  })
+  const TUser: IUser = {
+   accessToken: token,
+   refreshToken: token,
+   email: response.email,
+   firstName: response.firstName,
+   gender: response.gender,
+   id: response.id,
+   image: response.image,
+   lastName: response.lastName,
+   username: response.username
+  }
+  // set
+  userStore.setUser(TUser)
+  return TUser
+ }
+
+ return { getProduct, getCountries, useFactoryAPI, getProducts, getProductsOnQueryChange, login, getUser }
 }
 
 

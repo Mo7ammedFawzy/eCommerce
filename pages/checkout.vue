@@ -13,7 +13,7 @@ const C_paymentMehods = PAYMENT_METHODS.map((method) => ({ label: method, value:
 const userInfoForm = ref<null | InstanceType<typeof CheckoutUserInfoForm>>()
 
 definePageMeta({
-  middleware: ['can-checkout']
+  middleware: ['can-checkout', 'have-to-auth']
 })
 
 const placeOrder = () => userInfoForm.value?.form?.submit()
@@ -27,7 +27,7 @@ const placeOrder = () => userInfoForm.value?.form?.submit()
         <div class="checkout__user-info semi-card-ring col-span-full md:col-span-5 h-fit">
           <!-- form -->
           <div class="semi-title" v-text="'User Information'" />
-          <CheckoutUserInfoForm ref="userInfoForm" :selectedPaymentMethod="selectedPaymentMethod" />
+          <CheckoutUserInfoForm  ref="userInfoForm" :selectedPaymentMethod="selectedPaymentMethod" />
         </div>
         <div class="checkout__cart-items--payment-summary t-cards-gap-y col-span-full md:col-span-2">
           <!-- cart-items -->

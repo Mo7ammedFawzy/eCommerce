@@ -37,7 +37,7 @@ const productPagePath = computed(() => `/products/${props.product.id}`);
         <NuxtImg
           class="product-card__img mix-blend-multiply dark:mix-blend-normal object-contain square absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full aspect-auto max-h-full scale-75"
           :src="props.product.image" quality="60" :alt="props.product.title" format="webp"
-          placeholder="/svg/spinner.svg" placeholder-class="w-1/2" loading="lazy" />
+          placeholder="/svg/spinner.svg" placeholder-class="w-1/2 py-16 max-h-full" loading="lazy" />
         <!-- placeholder-class=" !w-full !h-full max-w-full" -->
         <!-- </div> -->
 
@@ -76,7 +76,8 @@ const productPagePath = computed(() => `/products/${props.product.id}`);
                 class="rounded-full p-1 text-black/70 hover:bg-black/10 dark:text-white/60 dark:hover:bg-white/10 sm:p-2"
                 square />
             </ProductsView>
-            <UButton icon="line-md:heart" :size="$viewport.isLessThan('mobileWide') ? 'xs' : 'sm'" variant="ghost"
+            <!-- TODO add later -->
+            <UButton v-if="false" icon="line-md:heart" :size="$viewport.isLessThan('mobileWide') ? 'xs' : 'sm'" variant="ghost"
               color="gray" class="rounded-full text-black/70 hover:bg-black/10 dark:text-white/60 dark:hover:bg-white/10"
               square />
           </div>

@@ -40,7 +40,7 @@ export default defineNuxtConfig({
     }
   },
   image: {
-    provider:"vercel"
+    // provider: "vercel"
   },
   icon: {
     customCollections: [
@@ -53,7 +53,10 @@ export default defineNuxtConfig({
   runtimeConfig: {
     authSecret: process.env.NUXT_AUTH_SECRET || 'key',
     githubClientId: process.env.GITHUB_CLIENT_ID,
-    githubClientSecret: process.env.GITHUB_CLIENT_SECRET
+    githubClientSecret: process.env.GITHUB_CLIENT_SECRET,
+    public: {
+      baseURL: process.env.BASE_URL || 'http://localhost:3000'
+    }
   },
   notivue: {
     limit: 3,

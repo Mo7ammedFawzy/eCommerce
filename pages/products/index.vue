@@ -39,6 +39,11 @@ watch(page, () => {
   __scrollTo__("#products-wrapper")
   // page.value = 1
 })
+
+onUnmounted(() => {
+  useRouter().push({ query: {} })
+})
+
 </script>
 
 <template>
