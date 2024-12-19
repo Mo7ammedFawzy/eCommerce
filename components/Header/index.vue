@@ -40,9 +40,9 @@ onMounted(() => {
       <!-- userStore::{{ userStore.isAuthenticated }} -->
       <!-- userStore::{{ user }} -->
 
-      <ColorScheme tag="span" class="w-12 aspect-square t-skeleton   rounded-full">
-        <NuxtLink class="header__img max-h-full" to="/">
-          <NuxtImg :src="`/logo-${colorMode.value}.webp`" class="hidden w-12 aspect-square md:inline-block" quality="60"
+      <ColorScheme tag="span" class="w-12 aspect-square t-skeleton hidden md:inline-block  rounded-full">
+        <NuxtLink class="header__img max-h-full hidden md:inline-block" to="/">
+          <NuxtImg :src="`/logo-${colorMode.value}.webp`" class=" w-12 aspect-square " quality="60"
             alt="`commerce-logo`" format="webp"
             placeholder-class="animate-pulse  rounded-full w-12 aspect-square  bg-gray-300 dark:bg-gray-800" placeholder
             loading="lazy" />
