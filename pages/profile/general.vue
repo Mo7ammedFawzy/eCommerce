@@ -50,7 +50,7 @@ const saveUserInfoChanges = () => {
 <template>
   <main id='profle-general-page' class='mt-6 min-h-screen mb-16 md:mb-8'>
     <BaseWrapper>
-      <BasePageHeader title="general" />
+      <BasePageHeader title="profile" />
       <div class="profile-genral__wrapper grid grid-cols-3 gap-6 mt-8">
         <!-- upload-photo -->
         <div class="upload-photo col-span-full md:col-span-1 semi-card-ring flex items-center">

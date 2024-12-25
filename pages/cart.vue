@@ -16,7 +16,7 @@ definePageMeta({
 <template>
   <main id='cart-page'>
     <BaseWrapper class='mt-8'>
-      <BasePageHeader title="Cart" />
+      <BasePageHeader />
 
       <div class="cart__wrapper grid grid-cols-7 gap-4 lg:gap-5">
         <!-- shopping-cart -->
@@ -52,13 +52,12 @@ definePageMeta({
             </div>
             <!-- empty_cart -->
             <div v-else>
-              <ColorScheme tag="div" class="w-60 aspect-square mx-auto t-skeleton rounded-full">
+              <ColorScheme tag="div" class="w-60  aspect-square mx-auto t-skeleton rounded-full">
                 <NuxtImg :src="`/products/empty-cart-${colorMode.value}.webp`"
-                  class="max-w-xs  aspect-auto max-h-60 mt-8 mx-auto" quality="60" alt="empty-cart" format="webp"
-                  placeholder-class="w-full max-w-60 min-h-60 py-16 aspect-square  max-h-60 max-w-full"
+                  class="max-w-xs w-52  aspect-auto max-h-60 mt-8 mx-auto" quality="60" alt="empty-cart" format="webp"
+                  placeholder-class="w-52 mx-auto max-w-60 min-h-40 py-16 aspect-square max-h-52  max-w-full"
                   placeholder="/svg/spinner.svg" loading="lazy" />
               </ColorScheme>
-              <!-- <NuxtImg /> -->
               <UDivider class="my-6" />
               <UButton icon="i-heroicons-arrow-left" label="Contiue Shopping" size="xl" color="gray" variant="ghost"
                 to="/products" />
@@ -70,8 +69,8 @@ definePageMeta({
           <CheckoutPaymentSummary />
           <!-- TODO :disabled="isCartEmpty" -->
           <UButton block :disabled="store.isCartEmpty" @click="navigateTo('/checkout')"
-            class="dark:text-white disabled-btn"
-            color="primary" size="lg" label="Checkout" :ui="{ rounded: 'rounded-lg' }" />
+            class="dark:text-white disabled-btn" color="primary" size="lg" label="Checkout"
+            :ui="{ rounded: 'rounded-lg' }" />
         </div>
       </div>
     </BaseWrapper>

@@ -5,7 +5,7 @@
 
 <template>
   <main id='brands' class=''>
-    <BaseHeader title="brands" />
+    <BaseSectionHeader title="brands" />
 
     <ClientOnly>
       <NuxtMarquee class="" pause-on-click auto-fill>

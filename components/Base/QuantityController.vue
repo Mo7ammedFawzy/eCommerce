@@ -1,10 +1,5 @@
 <script setup lang='ts'>
 
-// const quantity = ref(1)
-
-
-// const quantity = computed(() => store.getProductQuantity)
-
 defineProps<{ maxItems: number, quantity: number, small?: boolean }>()
 
 const emit = defineEmits(['increase-quantity', 'decrease-quantity'])

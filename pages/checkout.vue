@@ -22,7 +22,7 @@ const placeOrder = () => userInfoForm.value?.form?.submit()
 <template>
   <main id='checkout-page'>
     <BaseWrapper class='mt-8'>
-      <BasePageHeader title="checkout" />
+      <BasePageHeader  />
       <div class="checkout--wrapper grid grid-cols-7 gap-4 lg:gap-5">
         <div class="checkout__user-info semi-card-ring col-span-full md:col-span-5 h-fit">
           <!-- form -->

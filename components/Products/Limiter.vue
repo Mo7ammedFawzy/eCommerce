@@ -20,18 +20,6 @@ const options = [
 const pageCount = defineModel<number | string>({ default: 3 });
 const props = defineProps<{ maxLength: number }>();
 
-const route = useRoute();
-const router = useRouter();
-
-const updateQueryFilter = () => {
-  // TODO fix this type
-  const queryOptions = { ...route.query } as any;
-  queryOptions.limit = pageCount.value;
-
-  removeNullValuesFromObj(queryOptions);
-
-  router.push({ query: queryOptions });
-};
 </script>
 
 <template>

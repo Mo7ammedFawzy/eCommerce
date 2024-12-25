@@ -28,9 +28,10 @@ export default defineNuxtConfig({
     "nuxt-viewport",
     //optionl
     "nuxt-marquee",
-    "notivue/nuxt",
     // "@sidebase/nuxt-auth",
     // 'nuxt-server-utils',
+    "notivue/nuxt",
+    "@formkit/auto-animate",
   ],
   css: [
     'notivue/notification.css', // Only needed if using built-in notifications

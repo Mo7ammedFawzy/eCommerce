@@ -1,28 +1,18 @@
 <script setup lang="ts">
-import type { ProductCard, API_Product } from "~/types";
+
+import type { IProduct } from "~/types";
 import { DISCOUNT } from "~/constants";
 
 const { $viewport } = useNuxtApp();
-
-// colors | discount
-const props = defineProps<{ product: API_Product }>();
+const props = defineProps<{ product: IProduct }>();
 
 const modal = ref(false)
+const productPagePath = computed(() => `/products/${props.product.id}`);
 
 const TProductColors = ["blue", "red", "yellow"];
-// category,
-// description,
-// id,
-// image,
-// price,
-// rating,
-// title,
-// colors,
-// discount = 40,
 
-// const ref =
 
-const productPagePath = computed(() => `/products/${props.product.id}`);
+
 </script>
 
 <template>
@@ -35,9 +25,9 @@ const productPagePath = computed(() => `/products/${props.product.id}`);
         <!-- img ratio is 1:1 -->
         <!-- <div class="product-card__img w-full h-full relative"> -->
         <NuxtImg
-          class="product-card__img mix-blend-multiply dark:mix-blend-normal object-contain square absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full aspect-auto max-h-full scale-75"
-          :src="props.product.image" quality="60" :alt="props.product.title" format="webp"
-          placeholder="/svg/spinner.svg" placeholder-class="w-1/2 py-16 max-h-full" loading="lazy" />
+          class="product-card__img mix-blend-multiply dark:mix-blend-normal object-contain square absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full aspect-auto max-h-full scale-75  p-5 md:p-4"
+          :src="props.product.image" quality="60" :alt="props.product.title" format="webp" placeholder="/svg/spinner.svg"
+          placeholder-class="w-1/2 py-16 max-h-full" loading="lazy" />
         <!-- placeholder-class=" !w-full !h-full max-w-full" -->
         <!-- </div> -->
 
@@ -77,9 +67,9 @@ const productPagePath = computed(() => `/products/${props.product.id}`);
                 square />
             </ProductsView>
             <!-- TODO add later -->
-            <UButton v-if="false" icon="line-md:heart" :size="$viewport.isLessThan('mobileWide') ? 'xs' : 'sm'" variant="ghost"
-              color="gray" class="rounded-full text-black/70 hover:bg-black/10 dark:text-white/60 dark:hover:bg-white/10"
-              square />
+            <UButton v-if="false" icon="line-md:heart" :size="$viewport.isLessThan('mobileWide') ? 'xs' : 'sm'"
+              variant="ghost" color="gray"
+              class="rounded-full text-black/70 hover:bg-black/10 dark:text-white/60 dark:hover:bg-white/10" square />
           </div>
         </div>
       </div>

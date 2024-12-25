@@ -1,6 +1,6 @@
 import type { UseFetchOptions } from 'nuxt/app'
 import { API_URL, API_COUNTRIES_URL, API_AUTH_URL } from '~/constants'
-import type { API_Product, ICountry, ILogin, ILoginError, IUser, UserDetails } from '~/types'
+import type { IProduct, ICountry, ILogin, ILoginError, IUser, UserDetails } from '~/types'
 
 function useFactoryAPI<T>(
  // url: string | (() => string),
@@ -24,7 +24,7 @@ export const useAPI = () => {
  const getProduct = () => {
   const productID = useRoute().params.id
   const endpoint = `/${productID}`
-  return useFactoryAPI<API_Product>(API_URL + endpoint)
+  return useFactoryAPI<IProduct>(API_URL + endpoint)
  }
 
  const getCountries = () => {
@@ -36,7 +36,7 @@ export const useAPI = () => {
 
  const getProducts = ({ limit = 7, hasLimit = true }: { limit?: number, hasLimit?: boolean } = {}) => {
   const endpoint = hasLimit ? `?limit=${limit}` : ''
-  return useFactoryAPI<API_Product[]>(API_URL + endpoint)
+  return useFactoryAPI<IProduct[]>(API_URL + endpoint)
  }
 
  const getProductsOnQueryChange = () => {
@@ -45,7 +45,7 @@ export const useAPI = () => {
    return route.query.category ? API_URL + `/category/${route.query.category}` : API_URL
   });
 
-  return useFetch<API_Product[]>(endpoint, {
+  return useFetch<IProduct[]>(endpoint, {
   })
  }
 

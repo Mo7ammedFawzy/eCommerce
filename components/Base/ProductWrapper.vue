@@ -1,20 +1,19 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
-import type { API_Product } from "~/types";
+
+import type { IProduct } from "~/types";
 
 const props = defineProps<{
-  products?: API_Product[] | null;
+  products?: IProduct[] | null;
   status?: string;
   page?: number
 }>();
 
 const isPageChanged = ref(false)
 
-const onPageChanged = () => {
+const onPageChanged = async () => {
   isPageChanged.value = true
-  setTimeout(() => {
-    isPageChanged.value = false
-  }, 2000)
+  await delay(1500)
+  isPageChanged.value = false
 }
 
 onMounted(() => {
@@ -33,11 +32,9 @@ const exist = computed(
 </script>
 
 <template>
-  <section class="products-wrapper min-h-[400px]">
-    <section id="products-wrapper"
-      class="mx-auto grid max-h-fi grid-cols-[repeat(auto-fill,minmax(135px,1fr))] gap-3 xs:grid-cols-[repeat(auto-fill,minmax(170px,1fr))] sm:grid-cols-[repeat(auto-fill,minmax(195px,1fr))] md:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] xl:grid-cols-[repeat(auto-fill,minmax(230px,1fr))]"
-      v-if="true">
-      <!-- products{{ products }} -->
+  <section class="products-wrapper min-h-[400px] pa-2 overflow-hidden">
+    <section id="products-wrapper-content"
+      class="mx-auto grid max-h-fi p-2  grid-cols-[repeat(auto-fill,minmax(135px,1fr))] gap-3 xs:grid-cols-[repeat(auto-fill,minmax(170px,1fr))] sm:grid-cols-[repeat(auto-fill,minmax(195px,1fr))] md:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] xl:grid-cols-[repeat(auto-fill,minmax(230px,1fr))]">
       <template v-if="exist">
         <BaseProductCard v-for="product in products" :product="product" />
       </template>

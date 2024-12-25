@@ -36,7 +36,7 @@ const newsletterText =
 
 <template>
   <main id="news-letter" class="">
-    <BaseHeader
+    <BaseSectionHeader
       class="mx-auto max-w-xl [&>p]:text-gray-600 dark:[&>p]:text-gray-500"
       title="newsletter"
       :text="newsletterText"

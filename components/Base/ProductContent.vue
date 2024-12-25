@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 
 import { FooterLinks, MAX_ITEMS, DISCOUNT } from '~/constants';
-import type { API_Product } from '~/types';
+import type { IProduct } from '~/types';
 
 const store = useCartStore()
 
@@ -9,7 +9,7 @@ const productQuantity = computed(() => store.getProductQuantity(props.product))
 
 const activeColor = ref(0)
 
-const props = defineProps<{ product: API_Product, isModal?: boolean }>()
+const props = defineProps<{ product: IProduct, isModal?: boolean }>()
 
 const modal = defineModel({ required: false, default: false })
 
@@ -51,7 +51,7 @@ onMounted(() => {
         <div class="img__wrapper px-4 py-6 max-w-md mx-auto bg-white t-ring ">
 
           <NuxtImg :src="image" fit="content" class="object-contain w-full aspect-auto max-h-64 lg:max-h-72" quality="60"
-            :alt="props.product.title" format="webp" placeholder-class="max-w-full aspect-square max-h-full py-16 w-full"
+            :alt="props.product.title" format="webp" placeholder-class="max-w-full aspect-square max-h-40 lg:max-h-72 py-16 w-full"
             placeholder="/svg/spinner.svg" loading="lazy" />
         </div>
       </div>

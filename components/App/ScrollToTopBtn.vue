@@ -2,14 +2,10 @@
 
 const { scrollTopBtn, __scrollTo__ } = useGsap()
 
-
 onMounted(() => {
  window.addEventListener('scroll', scrollTopBtn.__TOGGLE__)
 })
 
-onUnmounted(() => {
- window.removeEventListener('scroll', scrollTopBtn.__TOGGLE__)
-})
 
 </script>
 

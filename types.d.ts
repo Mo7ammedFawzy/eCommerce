@@ -73,7 +73,7 @@ export interface FooterLink {
 }
 
 
-export interface API_Product {
+export interface IProduct {
  id: number,
  title: string,
  price: number,
@@ -107,7 +107,7 @@ export interface Query {
 
 
 export interface ICart {
- product: API_Product,
+ product: IProduct,
  quantity: number
 }
 

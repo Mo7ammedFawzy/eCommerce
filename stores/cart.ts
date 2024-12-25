@@ -1,13 +1,13 @@
 import { defineStore } from "pinia"
 import { MAX_ITEMS, SHIPPING_TAX } from "~/constants"
-import type { API_Product, ICart } from "~/types"
+import type { IProduct, ICart } from "~/types"
 
 export const useCartStore = defineStore('cart-store', {
  state: () => ({
   cart: [] as ICart[]
  }),
  actions: {
-  addToCart(product: API_Product) {
+  addToCart(product: IProduct) {
    // check first if the product is in cart
    const isProductExist = this.cart.find((el: ICart) => el.product.id === product.id)
 
@@ -26,7 +26,7 @@ export const useCartStore = defineStore('cart-store', {
     push.success('product has been added to cart')
    }
   },
-  decreaseQuantity(product: API_Product) {
+  decreaseQuantity(product: IProduct) {
    // check first if the product is in cart
    const isProductExist = this.cart.find((el: ICart) => el.product.id === product.id)
    if (!isProductExist) return;
@@ -36,7 +36,7 @@ export const useCartStore = defineStore('cart-store', {
    // canDecrease
    isProductExist.quantity--
   },
-  increaseQuantity(product: API_Product) {
+  increaseQuantity(product: IProduct) {
    // check first if the product is in cart
    const isProductExist = this.cart.find((el: ICart) => el.product.id === product.id)
    if (!isProductExist) return;
@@ -46,7 +46,7 @@ export const useCartStore = defineStore('cart-store', {
    // canIncrease
    isProductExist.quantity++
   },
-  deleteProductFromCart(product: API_Product) {
+  deleteProductFromCart(product: IProduct) {
 
    const isProductExist = this.cart.find((el: ICart) => el.product.id === product.id)
 
@@ -60,7 +60,7 @@ export const useCartStore = defineStore('cart-store', {
   }
  },
  getters: {
-  getProductQuantity: (state) => (product: API_Product): number => state.cart.find((el) => el.product.id === product.id)?.quantity ?? 0,
+  getProductQuantity: (state) => (product: IProduct): number => state.cart.find((el) => el.product.id === product.id)?.quantity ?? 0,
   getCartLength: (state): number => state.cart.length ?? 0,
   isCartEmpty: (state): boolean => state.cart.length === 0,
   // withDiscount

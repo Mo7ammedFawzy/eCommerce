@@ -5,7 +5,7 @@ import { Categories } from "~/constants";
 
 <template>
   <section id="categories" class="text-center">
-    <BaseHeader title="categories" />
+    <BaseSectionHeader title="categories" />
     <!-- {{ data }} -->
     <BaseWrapper
       class="categories-group grid max-w-3xl place-items-center mx-auto grid-cols-2 sm:grid-cols-4 gap-6 px-12"

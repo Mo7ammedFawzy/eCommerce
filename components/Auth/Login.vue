@@ -1,6 +1,5 @@
 <script setup lang='ts'>
 import { z } from "zod";
-import { useStorage } from "@vueuse/core"
 import type { FormSubmitEvent, Form } from "#ui/types"
 import type { ILogin, ILoginError, IUser } from "~/types";
 
@@ -58,10 +57,7 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) => {
     </div>
     <!-- FORM -->
     <UForm ref="form" :schema="schema" :state="state" @submit="onSubmit" class="space-y-3">
-      <!-- <UFormGroup name="email" label="Email" v-if="true">
-        <UInput v-model="state.email" placeholder="example@gmail.com" icon="i-heroicons-envelope" />
-      </UFormGroup> -->
-      <UFormGroup name="username" label="Username" v-if="true">
+      <UFormGroup name="username" label="Username">
         <UInput v-model="state.username" placeholder="MoFawzey" icon="i-heroicons-user" />
       </UFormGroup>
       <UFormGroup name="password" label="Password">
@@ -76,6 +72,7 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) => {
       class="dark:text-white dark:hover:bg-gray-700 dark:bg-gray-600 capitalize" size="lg" />
     <UButton icon="logos:google-icon" block label="Sign in with Github" color="white"
       class="dark:text-white capitalize my-2" size="lg" variant="solid" />
+    <!-- TODO:: uncheck later -->
     <!-- <p class="text-center">
       Don't you have an account?
       <NuxtLink to="/auth/register" class="text-main font-semibold">Register</NuxtLink>

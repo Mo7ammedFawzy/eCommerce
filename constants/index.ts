@@ -1,4 +1,4 @@
-import type { Category, FooterLink, HeaderAction, HeaderLink, ProductCard, API_Product, ProfileLink, SemiCard, ServiceCard, IOrder, State_Badge, ICustomer, Customer_Info } from "~/types";
+import type { Category, FooterLink, HeaderAction, HeaderLink, ProductCard, IProduct, ProfileLink, SemiCard, ServiceCard, IOrder, State_Badge, ICustomer, Customer_Info } from "~/types";
 import jsonProducts from "./products.json"
 export const API_URL = "https://fakestoreapi.com/products";
 export const API_AUTH_URL = "https://dummyjson.com/auth";
@@ -191,7 +191,7 @@ export const Categories: Category[] = [
  },
 ]
 
-export const Products: API_Product[] = jsonProducts
+export const Products: IProduct[] = jsonProducts
 
 export const Services: ServiceCard[] = [
  {

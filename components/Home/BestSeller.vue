@@ -9,7 +9,7 @@ const { data } = getProducts()
 
 <template>
   <main id="best-seller" class="">
-    <BaseHeader title="best seller" />
+    <BaseSectionHeader title="best seller" />
     <BaseWrapper class="best-seller__wrapper ring- max-w-5xl">
       <UCarousel :items="data ?? new Array(8).fill('')" v-slot="{ item }" arrows :ui="{
         item: ' basis-3/4 max-w-[75%] sm:basis-1/2 sm:max-w-[50%] md:basis-1/3 md:max-w-[33.33%] lg:basis-1/4 lg:max-w-[25%]',

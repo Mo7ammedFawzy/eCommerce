@@ -1,7 +1,5 @@
 <script setup lang="ts">
-type label = { label: string };
-
-defineProps<label>();
+defineProps<{ label: string }>();
 </script>
 
 <template>

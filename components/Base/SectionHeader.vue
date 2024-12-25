@@ -1,5 +1,5 @@
-<script setup lang='ts'>
-// import type { MainHeader } from '~/types';
+<script generic setup lang='ts'>
+// import 
 type MainHeader = {
  title: string, text?: string
 }

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { API_Product } from "~/types";
+import type { IProduct } from "~/types";
 
-defineProps<{ item: API_Product }>();
+defineProps<{ item: IProduct }>();
 
 
 </script>
@@ -10,8 +10,8 @@ defineProps<{ item: API_Product }>();
   <div class="item">
     <NuxtLink :to="{ path: `/products/${item.id}` }"
       class="item__wrapper flex cursor-pointer select-none items-center gap-3 rounded-md py-4 hover:bg-black/10 dark:hover:bg-white/10 border-e-2 border-transparent md:py-3.5 dark:hover:border-white hover:border-main/80">
-      <div class="item__img w-24 bg-white rounded-full max-w-24 md:w-16 aspect-square p-3 md:p-2">
-        <NuxtImg :src="item.image" class="aspect-auto max-h-full w-full object-contain" quality="60"
+      <div class="item__img h-24 md:!h-auto  min-w-24 w-24 bg-white rounded-full max-w-24 md:w-16 aspect-square p-5 md:p-4">
+        <NuxtImg :src="item.image" class="rounded-lg aspect-auto max-h-full w-full object-contain" quality="60"
           :alt="item.title" format="webp"
           placeholder-class="animate-pulse rounded-full !w-full !h-full max-w-full bg-gray-300 dark:bg-gray-800" placeholder
           loading="lazy" />

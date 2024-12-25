@@ -1,47 +1,34 @@
 <script setup lang="ts">
+/**
+ * @abstract===@CategoryChange => refetch new products based on URadio value
+ */
 import { Categories } from "~/constants";
-
-const modifiedCategories = Categories.map((el) => ({
-  label: el.radioTitle,
-  value: el.title,
-}));
-const selected = ref();
 
 const router = useRouter();
 const route = useRoute();
 const emit = defineEmits(['clear-filters'])
 
+const selected = ref();
+
+const modifiedCategories = Categories.map((el) => ({
+  label: el.radioTitle,
+  value: el.title,
+}));
+
 const loadFilters = () => {
-  selected.value = route.query.category ?? "";
+  selected.value = route.query.category ?? null;
 };
-
-watch(selected, () => {
-  const queryOptions: any = { ...route.query };
-  if (selected.value) {
-    queryOptions.category = selected.value;
-  }
-
-  removeNullValuesFromObj(queryOptions);
-
-  router.push({ query: queryOptions });
-});
-watch(
-  () => route.query,
-  (value) => {
-    // TODO check this
-    loadFilters();
-  },
-);
-
 const clearFilters = () => {
   emit('clear-filters')
   if (Object.keys(route.query).length === 0) return;
   router.push({ query: {} });
 };
 
-onMounted(() => {
-  loadFilters();
-});
+watch(selected, () => router.push({ query: selected.value ? { category: selected.value } : {} }));
+watch(() => route.query, () => loadFilters());
+
+onMounted(() => loadFilters());
+
 </script>
 
 <template>
@@ -49,7 +36,7 @@ onMounted(() => {
     <div class="filter__wrapper">
       <div class="filter__header flex items-center justify-between px-4">
         <div class="text-xl font-bold" v-text="'Filter'" />
-
+        <!-- BTN_CLEAR_FILTERS -->
         <UButton icon="ic:baseline-clear" @click="clearFilters" square class="rounded-full" variant="ghost" color="gray"
           size="xl" />
       </div>
@@ -58,7 +45,6 @@ onMounted(() => {
       <div class="products-categories__wrapper px-4">
         <div v-text="'Categories'" class="mb-3 text-lg font-bold" />
         <div class="products-categories__group">
-          <!-- {{ modifiedCategories }} -->
           <URadioGroup v-model="selected" :options="modifiedCategories"
             :ui="{ fieldset: 'grid grid-cols-2 gap-2 w-full' }" :ui-radio="{
               ring: 'ring-red-900',
@@ -69,7 +55,6 @@ onMounted(() => {
         </div>
         <UButton block label="clear filters" class="capitalize mt-6" size="lg" color="white" @click="clearFilters" />
       </div>
-      <!-- clear-filters-btn -->
     </div>
   </div>
 </template>
