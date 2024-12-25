@@ -51,7 +51,7 @@ export default defineNuxtConfig({
     }
   },
   image: {
-    // provider: "vercel"
+    provider: "vercel"
   },
   icon: {
     customCollections: [
