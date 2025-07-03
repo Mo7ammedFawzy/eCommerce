@@ -23,7 +23,7 @@ const queryOptions = computed(() => (category?: string) => category ? { category
       class="header__wrapper flex max-h-16 h-16 grid-cols-1 items-center justify-between !px-0 md:!px-4 lg:grid lg:grid-cols-3">
       <!-- LOGO@on-page-color-mode-switch-change-image -->
       <ColorScheme tag="span" class="w-12 aspect-square t-skeleton hidden md:inline-block  rounded-full">
-        <NuxtLink class="header__img max-h-full hidden md:inline-block" to="/">
+        <NuxtLink class="header__img max-h-full hidden md:inline-block" to="/frontend/public">
           <NuxtImg :src="`/logo-${colorMode.value}.webp`" class=" w-12 aspect-square " quality="60" alt="`commerce-logo`"
             format="webp" placeholder-class="animate-pulse  rounded-full w-12 aspect-square  bg-gray-300 dark:bg-gray-800"
             placeholder loading="lazy" />
