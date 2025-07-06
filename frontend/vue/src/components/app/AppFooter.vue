@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-black h-screen w-full">
+  <footer class="bg-black h-[50vh] w-full">
 
   </footer>
 </template>
