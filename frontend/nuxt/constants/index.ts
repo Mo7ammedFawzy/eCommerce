@@ -18,24 +18,24 @@ export const REGEX = {
 
 export const HEADER_ACTIONS: HeaderAction[] = [
  {
-  title: "home",
+  label: "home",
   route: "/",
   icon: "iconamoon:home-thin",
   mobile: true,
  }
  ,
  {
-  title: "search",
+  label: "search",
   icon: "material-symbols-light:search",
   route: "/search",
   isPopover: true
  },
  {
-  title: "products",
+  label: "products",
   icon: "my-icon:products", mobile: true, route: "/products",
  },
  {
-  title: "cart",
+  label: "cart",
   // icon: "solar:cart-4-line-duotone",
   icon: "my-icon:cart",
   hasChip: true,
@@ -50,7 +50,7 @@ export const HEADER_ACTIONS: HeaderAction[] = [
  //  route: "/profile/wishlist",
  // },
  {
-  title: "user",
+  label: "user",
   icon: "material-symbols-light:person-outline",
   route: "/profile",
   isMenu: true
@@ -60,16 +60,16 @@ export const HEADER_ACTIONS: HeaderAction[] = [
 
 export const HEADER_LINKS: HeaderLink[] = [
  {
-  title: "home", route: "/",
+  label: "home", route: "/",
  },
  // TODO delete-this
  // {
  //  title: "test", route: "/test",
  // },
- { title: "products", route: '/products', },
- { title: "men", route: "/products", category: "men's clothing" },
- { title: "women", route: "/products", category: "women's clothing" },
- { title: "electronics", route: "/products", category: "electronics" }
+ { label: "products", route: '/products', },
+ { label: "men", route: "/products", category: "men's clothing" },
+ { label: "women", route: "/products", category: "women's clothing" },
+ { label: "electronics", route: "/products", category: "electronics" }
 ]
 
 export const ProfileLinks: ProfileLink[] = [
@@ -118,41 +118,41 @@ export const ProfileLinks: ProfileLink[] = [
 export const HomeItems = {
  landing: {
   firstSection: <SemiCard>{
-   title: "top products of the year!",
+   label: "top products of the year!",
    text: "It is a long established fact that a reader will be distracted by the readable.",
    img: "slide-1",
    btns: [
     {
-     title: 'shop now', path: '/products'
+     label: 'shop now', path: '/products'
     },
     {
-     title: "see all", path: '/products'
+     label: "see all", path: '/products'
     }
    ]
   },
   secondSection: <SemiCard[]>[
    {
     name: "men",
-    title: "Men Latest Fashion",
+    label: "Men Latest Fashion",
     subTitle: "<span>25%</span> Off on first order",
     text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
     img: "men",
     btns: [
      {
-      title: "shop now",
+      label: "shop now",
       path: "/products?category=men"
      }
     ]
    },
    {
     name: 'women',
-    title: "Women Latest Fashion",
+    label: "Women Latest Fashion",
     subTitle: "<span>25%</span> Off on first order",
     text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
     img: "women",
     btns: [
      {
-      title: "shop now",
+      label: "shop now",
       path: "/products?category=women",
      }
     ]
@@ -160,11 +160,11 @@ export const HomeItems = {
   ],
   brandSection: <SemiCard>{
    img: "brand",
-   title: "UK Premier Store for Wrist Watches",
+   label: "UK Premier Store for Wrist Watches",
    text: "Welcome to our world of horological excellence, featuring timeless, elegant watches from renowned luxury brands worldwide.",
    btns: [
     {
-     title: "view more",
+     label: "view more",
      path: "/products"
     }
    ]
@@ -174,19 +174,19 @@ export const HomeItems = {
 
 export const Categories: Category[] = [
  {
-  title: "electronics",
+  label: "electronics",
   radioTitle: "electronics"
  },
  {
-  title: "jewelery",
+  label: "jewelery",
   radioTitle: "jewelery"
  },
  {
-  title: "men's clothing",
+  label: "men's clothing",
   radioTitle: "men",
  },
  {
-  title: "women's clothing",
+  label: "women's clothing",
   radioTitle: "women",
  },
 ]
@@ -196,12 +196,12 @@ export const Products: IProduct[] = jsonProducts
 export const Services: ServiceCard[] = [
  {
   icon: "la:shipping-fast",
-  title: "free shipping",
+  label: "free shipping",
   text: "Enjoy free shipping on all orders, providing a convenient and cost-effective way to receive your favorite products at your doorstep."
  },
- { icon: "material-symbols-light:support-agent", title: "support", text: "Our dedicated support team is here to assist you. Reach out to us for any queries or concerns, and experience exceptional customer service." },
- { icon: "fluent-mdl2:repeat-all", title: "Return", text: "Hassle-free returns within a specified period. If you're not satisfied with your purchase, we make the return process simple and convenient for you." },
- { icon: "bx:dollar", title: "Payment", text: "Secure and convenient payment options for a seamless shopping experience. Choose from various payment methods to complete your order." },
+ { icon: "material-symbols-light:support-agent", label: "support", text: "Our dedicated support team is here to assist you. Reach out to us for any queries or concerns, and experience exceptional customer service." },
+ { icon: "fluent-mdl2:repeat-all", label: "Return", text: "Hassle-free returns within a specified period. If you're not satisfied with your purchase, we make the return process simple and convenient for you." },
+ { icon: "bx:dollar", label: "Payment", text: "Secure and convenient payment options for a seamless shopping experience. Choose from various payment methods to complete your order." },
 ]
 
 export const FooterLinks: FooterLink[] = [

@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   app: {
     head: {
-      title: "eCommerceHope",
+      label: "eCommerceHope",
       link: [
         {
           href: "/logo-dark.webp", rel: "icon", type: "image/webp"

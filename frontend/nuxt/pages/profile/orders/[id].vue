@@ -50,9 +50,10 @@ definePageMeta({
 
 })
 
-definePageMeta({
-  middleware: ['have-to-auth']
-})
+//TODO:: uncommit it for later
+// definePageMeta({
+//   middleware: ['have-to-auth']
+// })
 
 </script>
 

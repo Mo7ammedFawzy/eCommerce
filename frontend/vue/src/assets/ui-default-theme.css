@@ -9,6 +9,19 @@
     --color-green-700: oklch(45.657% 0.08188 161.06);
     --color-green-800: oklch(32.298% 0.05338 161.83);
     --color-green-900: oklch(17.276% 0.02184 161.78);
+
+    --color-blue-ribbon-50: #eff4ff;
+    --color-blue-ribbon-100: #dbe6fe;
+    --color-blue-ribbon-200: #bfd3fe;
+    --color-blue-ribbon-300: #93b4fd;
+    --color-blue-ribbon-400: #6090fa;
+    --color-blue-ribbon-500: #3b76f6;
+    --color-blue-ribbon-600: #2563eb;
+    --color-blue-ribbon-700: #1d58d8;
+    --color-blue-ribbon-800: #1e4baf;
+    --color-blue-ribbon-900: #1e408a;
+    --color-blue-ribbon-950: #172a54;
+
     --color-white: #fff;
     --color-black: #000;
 }
