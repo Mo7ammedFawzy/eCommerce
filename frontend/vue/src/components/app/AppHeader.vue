@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Logo from "@/components/Logo.vue";
-import {breakpointsTailwind, MaybeRefOrGetter, useBreakpoints, useColorMode, useDark, useToggle} from "@vueuse/core";
+import {MaybeRefOrGetter, useBreakpoints, useColorMode, useDark, useToggle} from "@vueuse/core";
 import {computed, Ref, ref, toValue} from "vue";
 import type {Base, Route} from "@/types";
 import {useRoute} from "vue-router";
@@ -22,7 +22,9 @@ interface HeaderAction {
 const colorMode = useColorMode();
 const isDark = useDark();
 const route = useRoute();
-const breakpoints = useBreakpoints(breakpointsTailwind);
+const breakpoints = useBreakpoints({
+  md: 900
+});
 
 const headerLinks: HeaderLink[] = [
   {label: 'home', route: "/"},
@@ -95,7 +97,8 @@ const headerActions = ref<HeaderAction[]>(
   <header
       class="fixed h-fit bottom-0 left-0 z-40 w-full bg-white ring-1 dark:ring-white/10 ring-black/20 backdrop-blur-md dark:bg-[#162031] md:top-0">
     <BaseWrapper
-        class="flex py-1.5 h-(--header-height) items-center justify-between !px-0 md:!px-4">
+        full-width
+        class="flex md:py-1.5 h-(--header-height) items-center justify-between !px-0 md:!px-4">
       <Logo class="hidden md:block"/>
       <!-- LINKS -->
       <ul class="hidden items-center justify-center gap-3 text-sm capitalize md:inline-flex">

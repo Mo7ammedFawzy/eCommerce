@@ -15,8 +15,12 @@ export default defineConfig({
             ui: {
                 colors: {
                     primary: 'blue-ribbon',
-                    neutral: 'zinc'
+                    neutral: 'zinc',
+                    secondary: "rose"
                 },
+                button: {
+                    base: "dark:text-white capitalize"
+                }
             },
         }),
     ],

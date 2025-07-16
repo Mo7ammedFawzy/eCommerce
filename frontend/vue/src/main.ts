@@ -10,7 +10,7 @@ import {ObjectPlugin} from "@vue/runtime-core";
 
 const myPlugin: ObjectPlugin = {
     install(app: App) {
-        app.component("UWrapper", BaseWrapper);
+        app.component("BaseWrapper", BaseWrapper);
         console.info("plugin installed")
     }
 }
