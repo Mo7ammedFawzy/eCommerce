@@ -1,9 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+const isProduction = process.env.NODE_ENV == "production"
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   app: {
     head: {
-      label: "eCommerceHope",
+      title: "eCommerceHope",
       link: [
         {
           href: "/logo-dark.webp", rel: "icon", type: "image/webp"
@@ -18,15 +19,20 @@ export default defineNuxtConfig({
       enabled: true,
     },
   },
+  // nitro: {
+  //   imports: {
+  //     a
+  //   }
+  // },
   modules: [
     '@nuxt/ui',
     "@vueuse/nuxt",
     "@pinia/nuxt",
     "@nuxt/image",
     "@nuxtjs/google-fonts",
-    //optionl
+    //optional
     "nuxt-viewport",
-    //optionl
+    //optional
     "nuxt-marquee",
     // "@sidebase/nuxt-auth",
     // 'nuxt-server-utils',
@@ -34,8 +40,8 @@ export default defineNuxtConfig({
     "@formkit/auto-animate",
   ],
   css: [
-    'notivue/notification.css', // Only needed if using built-in notifications
-    'notivue/animations.css', // Only needed if using built-in animations
+    'notivue/notification.css',
+    'notivue/animations.css',
     '~/assets/css/global.css'
   ],
 
@@ -51,7 +57,7 @@ export default defineNuxtConfig({
     }
   },
   image: {
-    provider: "vercel"
+    ...(isProduction && {provider: "vercel"})
   },
   icon: {
     customCollections: [
@@ -71,21 +77,5 @@ export default defineNuxtConfig({
   },
   notivue: {
     limit: 3,
-
-    // avoidDuplicates: true,
   },
-  // auth
-  // auth: {
-  //   baseURL: "http://localhost:3000", // process.env.AUTH_ORIGIN ||
-  //   globalAppMiddleware: true,
-  //   provider: {
-  //     type: 'authjs',
-  //   }
-  // },
-  // nuxtServerUtils: {
-  //   enabled: true, // default
-  //   enableDevTools: true, // default
-  //   mongodbUri: process.env.MONGODB_URI,
-  // },
-
 })

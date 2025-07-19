@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { IProduct } from "~/types";
+import type { Product } from "~/types";
 
-defineProps<{ item: IProduct }>();
+defineProps<{ item: Product }>();
 
 
 </script>

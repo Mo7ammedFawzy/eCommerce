@@ -1,15 +1,13 @@
 <script setup>
 const { $viewport } = useNuxtApp();
 
-const canSeeSearchPage = computed(() => !$viewport.isGreaterOrEquals("tablet"));
-
+const canAccessSearchPage = computed(() => !$viewport.isGreaterOrEquals("tablet"));
 const router = useRouter();
 
-router.beforeEach((to, from) => {
-  if (!canSeeSearchPage.value) {
+router.beforeEach((to) => {
+  if (!canAccessSearchPage.value) {
     return to.name !== "search";
   }
-  // return to.path === "/";
 });
 </script>
 

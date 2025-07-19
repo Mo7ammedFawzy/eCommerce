@@ -1,10 +1,10 @@
 <script setup lang="ts">
 
-import type { IProduct } from "~/types";
+import type { Product } from "~/types";
 import { DISCOUNT } from "~/constants";
 
 const { $viewport } = useNuxtApp();
-const props = defineProps<{ product: IProduct }>();
+const props = defineProps<{ product: Product }>();
 
 const modal = ref(false)
 const productPagePath = computed(() => `/products/${props.product.id}`);

@@ -1,19 +1,19 @@
 <script setup lang='ts'>
 
-import type { IProduct } from '~/types'
+import type {Product} from '~/types'
 
-const modal = defineModel({ required: true, default: false })
+const modal = defineModel({required: true, default: false})
 
-const props = defineProps<{ product: IProduct }>()
+const props = defineProps<{ product: Product }>()
 
 </script>
 
 <template>
- <main class='view-card'>
-  <slot />
-  <UModal v-model="modal" :ui="{ width: 'md:max-w-2xl' }">
-   <!-- close btn -->
-   <BaseProductContent v-model="modal" :product="props.product" is-modal />
-  </UModal>
- </main>
+  <main>
+    <slot/>
+    <UModal v-model="modal" :ui="{ width: 'md:max-w-2xl' }">
+      <!-- close btn -->
+      <BaseProductContent v-model="modal" :product="props.product" is-modal/>
+    </UModal>
+  </main>
 </template>

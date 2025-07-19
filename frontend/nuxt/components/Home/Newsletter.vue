@@ -79,8 +79,6 @@ const newsletterText =
               <template #trailing>
                 <UIcon v-if="!isLoading" name="logos:telegram" size="35" />
               </template>
-              <!-- <UIcon size="25" class="cursor-pointer" /> -->
-              <!-- loading-icon="eos-icons:three-dots-loading" -->
             </UButton>
           </template>
         </UInput>

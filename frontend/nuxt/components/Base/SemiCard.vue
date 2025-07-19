@@ -16,7 +16,7 @@ const {
   double?: boolean;
   name: string;
 }>();
-const { title, subTitle, text, btns, img } = props;
+const { label, subTitle, description, btns, img } = props;
 
 // colors first
 const blueColor = "bg-main-400 hover:!bg-main-500";
@@ -70,7 +70,7 @@ const cardColors = computed(() => {
         :class="[!double ? 'p-6' : 'px-3 py-4 lg:p-6']">
         <!-- :class="[double?'':'']" -->
         <!-- title -->
-        <div v-text="title" class="font-black capitalize" :class="[
+        <div v-text="label" class="font-black capitalize" :class="[
           !double
             ? 'text-3xl sm:text-4xl md:text-5xl'
             : 'text-xl lg:text-2xl',
@@ -78,7 +78,7 @@ const cardColors = computed(() => {
         <!-- subtitle -->
         <div name="subtitle" v-if="double" class="text-base sm:text-lg" v-html="subTitle" />
         <!-- text -->
-        <p name="text" class="text-sm sm:text-base" :class="[{ '!text-xs sm:text-base': double }]" v-text="text" />
+        <p name="text" class="text-sm sm:text-base" :class="[{ '!text-xs sm:text-base': double }]" v-text="description" />
         <!-- btns -->
         <div class="btns--btns-group">
           <div class="btns__wrapper mt-3 flex items-center gap-2">

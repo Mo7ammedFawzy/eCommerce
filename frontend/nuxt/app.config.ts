@@ -1,12 +1,9 @@
 export default defineAppConfig({
   ui: {
-    // strategy: "override",
     primary: "main",
     button: {
       base: "select-none",
       color: {
-        // white: { solid: "!text-green-900" },
-        // black: { solid: "!text-red-900" }
       },
       default: {
         color: "main",
@@ -25,10 +22,5 @@ export default defineAppConfig({
     input: {
       base: "h-12"
     }
-    // dropdown:{
-    //   default:{
-    //     closeDelay:parseFloat('2000')
-    //   }
-    // }
   }
 })

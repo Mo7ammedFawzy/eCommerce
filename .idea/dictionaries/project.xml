@@ -2,7 +2,14 @@
   <dictionary name="project">
     <words>
       <w>btns</w>
+      <w>circum</w>
+      <w>heroicons</w>
+      <w>iconamoon</w>
       <w>imgs</w>
+      <w>notivue</w>
+      <w>nuxtjs</w>
+      <w>shippd</w>
+      <w>sidebase</w>
     </words>
   </dictionary>
 </component>

@@ -23,10 +23,10 @@ defineProps<{ item: ServiceCard }>()
     </div>
    </div>
    <div class="servicce-card__title">
-    <div class="text-2xl font-medium capitalize">{{ item.title }}</div>
+    <div class="text-2xl font-medium capitalize">{{ item.label }}</div>
    </div>
    <div class="servicce-card__text text-base leading-6 text-white/90">
-    {{ item.text }}
+     {{ item.subtitle }}
    </div>
   </div>
   <!-- shape -->

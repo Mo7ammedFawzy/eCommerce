@@ -3,7 +3,7 @@
  * @abstract=== while searching add skeletonLoading
  */
 import { Products, MAX_SEARCH_RESULT } from "~/constants";
-import type { IProduct } from "~/types";
+import type { Product } from "~/types";
 
 const data = ref(Products);
 const isTyping = ref(false);
@@ -12,7 +12,7 @@ const finalData = computed(() => data.value.slice(0, MAX_SEARCH_RESULT));
 const canShowResult = computed(() => !isTyping.value && finalData.value.length > 0)
 
 const searching = () => {
-  data.value = Products.filter((el: IProduct) =>
+  data.value = Products.filter((el: Product) =>
     el.title.toLocaleLowerCase().includes(search.value.toLowerCase()),
   );
 };

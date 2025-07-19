@@ -5,7 +5,7 @@ import { Services } from "~/constants"
 </script>
 
 <template>
-  <section id='services' class=''>
+  <section id='services'>
     <div class="services-wrapper grid grid-cols-[repeat(auto-fill,minmax(230px,1fr))] xl:grid-cols-4 gap-6">
       <HomeServiceCard v-for="item in Services" :item="item" />
     </div>

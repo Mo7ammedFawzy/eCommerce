@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 
 import { FooterLinks, MAX_ITEMS, DISCOUNT } from '~/constants';
-import type { IProduct } from '~/types';
+import type { Product } from '~/types';
 
 const store = useCartStore()
 
@@ -9,7 +9,7 @@ const productQuantity = computed(() => store.getProductQuantity(props.product))
 
 const activeColor = ref(0)
 
-const props = defineProps<{ product: IProduct, isModal?: boolean }>()
+const props = defineProps<{ product: Product, isModal?: boolean }>()
 
 const modal = defineModel({ required: false, default: false })
 

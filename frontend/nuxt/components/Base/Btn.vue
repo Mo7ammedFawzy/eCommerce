@@ -5,9 +5,6 @@ import type { HeaderAction } from "~/types";
 const { $viewport } = useNuxtApp();
 const TRoute = useRoute();
 
-/**
- * @param {object} toggler for profile menu
- */
 const attr = ({
   isMenu = false,
   isPopover = false,
@@ -17,7 +14,7 @@ const attr = ({
 const props = defineProps<{ btnOptions: HeaderAction; isMenuOpen?: boolean, cartLength?: number }>();
 props.btnOptions.icon = props.btnOptions.icon ?? "mdi-home";
 
-const { icon, route, title, color, hasChip, isMenu, mobile, isPopover } =
+const { icon, route, label, color, hasChip, isMenu, mobile, isPopover } =
   props.btnOptions;
 
 const isActiveInSameRoute = computed(() => TRoute.path === route)
@@ -42,7 +39,7 @@ const isActiveInSameRoute = computed(() => TRoute.path === route)
           TRoute.path === route,
       }">
         <UIcon :name="icon" size="20" :class="{ 'mr-[1px] mt-[1px]': hasChip === true }" />
-        <span v-text="title" class="text-[10px] capitalize md:hidden" />
+        <span v-text="label" class="text-[10px] capitalize md:hidden" />
       </div>
     </UChip>
   </UButton>

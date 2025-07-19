@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import { z } from "zod";
 import type { FormSubmitEvent, Form } from "#ui/types"
-import type { ILogin, ILoginError, IUser } from "~/types";
+import type { Login, LoginError, User } from "~/types";
 
 const { login } = useAPI()
 
@@ -15,7 +15,7 @@ const schema = z.object({
   password: z.string({ message: 'password is required' }),
 })
 
-const state = reactive<ILogin>({
+const state = reactive<Login>({
   // email: undefined,
   // password: undefined,
   username: "emilys",
@@ -29,7 +29,7 @@ type Schema = z.output<typeof schema> //{email?:string,password?:string}
 const onSubmit = async (event: FormSubmitEvent<Schema>) => {
   console.log('submitin')
   // console.log({ event: event.data })
-  const body: ILogin = { username: event.data.username, password: event.data.password }
+  const body: Login = { username: event.data.username, password: event.data.password }
 
   login(body, () => {
     // state.username = undefined;

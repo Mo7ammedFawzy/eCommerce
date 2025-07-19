@@ -3,8 +3,6 @@
 const store = useCartStore()
 
 const cartLength = computed(() => store.getCartLength);
-
-
 const colorMode = useColorMode()
 
 definePageMeta({
@@ -18,11 +16,11 @@ definePageMeta({
     <BaseWrapper class='mt-8'>
       <BasePageHeader />
 
-      <div class="cart__wrapper grid grid-cols-7 gap-4 lg:gap-5">
+      <div class="grid grid-cols-7 gap-4 lg:gap-5">
         <!-- shopping-cart -->
-        <div class="shopping__cart col-span-full md:col-span-5">
-          <div class="shopping__cart--wrapper bg-white dark:bg-app t-ring p-4 lg:p-6">
-            <div class="head__title">
+        <div class="col-span-full md:col-span-5">
+          <div class="bg-white dark:bg-app t-ring p-4 lg:p-6">
+            <div>
               <span class="text-xl sm:text-2xl font-bold">Shopping Cart:</span>
               &nbsp;
               <span v-text="`(${cartLength} item)`" />
@@ -65,9 +63,8 @@ definePageMeta({
           </div>
         </div>
         <!-- checkout -->
-        <div class="payment__summary col-span-full md:col-span-2 t-cards-gap-y">
+        <div class="col-span-full md:col-span-2 t-cards-gap-y">
           <CheckoutPaymentSummary />
-          <!-- TODO :disabled="isCartEmpty" -->
           <UButton block :disabled="store.isCartEmpty" @click="navigateTo('/checkout')"
             class="dark:text-white disabled-btn" color="primary" size="lg" label="Checkout"
             :ui="{ rounded: 'rounded-lg' }" />

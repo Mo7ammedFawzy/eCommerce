@@ -12,13 +12,14 @@ const isInSameRoute = computed(
 );
 
 const toggleDarkMode = (hasSwitch: boolean = false) => {
-  if (!hasSwitch) return;
+  if (!hasSwitch)
+    return;
   colorMode.preference = colorMode.value === "dark" ? "light" : "dark";
 };
 </script>
 
 <template>
-  <div class="profile-page my-8">
+  <div class="my-8">
     <BaseWrapper class="max-w-5xl">
       <ul class="py-4">
         <template
@@ -32,7 +33,7 @@ const toggleDarkMode = (hasSwitch: boolean = false) => {
               :class="{ 'bg-black/10': isInSameRoute(path) }"
             >
               <!-- icon+text+divider -->
-              <div class="list-content flex items-center gap-2">
+              <div class="flex items-center gap-2">
                 <UIcon :name="icon" size="25" />
                 <span
                   v-text="title"

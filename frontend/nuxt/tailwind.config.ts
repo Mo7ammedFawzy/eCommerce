@@ -10,7 +10,6 @@ export default <Partial<Config>>{
     video: '16 / 9'
    },
    fontFamily: {
-    // "sans": ["Poppins", 'sans-serif']
     "sans": ["Figtree", 'sans-serif']
    },
    colors: {
@@ -20,8 +19,6 @@ export default <Partial<Config>>{
      foreground: "#0F1729",
     },
     'main': {
-     // DEFAULT: "#007efc", // blue-600
-     // foreground: "#f9a600" //amber-500
      DEFAULT: '#007EFC',
      50: '#8CC5FF',
      100: '#77BBFF',
@@ -39,8 +36,6 @@ export default <Partial<Config>>{
    },
    screens: {
     xs: "450px",
-    // md: "900px",
-    // lg: ""
    }
   }
  },

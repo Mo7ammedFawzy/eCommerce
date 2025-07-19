@@ -1,9 +1,9 @@
 <script setup lang='ts'>
-import type { ICart } from '~/types';
+import type { Cart } from '~/types';
 
 import { DISCOUNT, MAX_ITEMS } from '~/constants';
 
-const props = defineProps<{ cartItem: ICart, readonly?: boolean, checkedOut?: boolean }>()
+const props = defineProps<{ cartItem: Cart, readonly?: boolean, checkedOut?: boolean }>()
 
 
 // const { product, quantity } = props.product
@@ -36,12 +36,12 @@ const attrBinding = computed(() => !props.checkedOut ? 'to' : '')
             :class="[!props.readonly ? 'w-20' : 'w-12']">
             <!-- :class="[props.readonly ? '' : '']" -->
             <NuxtImg :src="props.cartItem.product.image" class="object-contain aspect-auto w-full rounded-md max-h-full"
-              quality="60" :alt="props.cartItem.product.title" format="webp"
+              quality="60" :alt="props.cartItem.product.label" format="webp"
               placeholder-class="animate-pulse !w-full rounded-full !h-full max-h-20 bg-gray-300 dark:bg-gray-800"
               placeholder loading="lazy" />
           </div>
           <!-- details -->
-          <div class="details flex-1  three-dots" v-text="props.cartItem.product.title"
+          <div class="details flex-1  three-dots" v-text="props.cartItem.product.label"
             :class="[!props.readonly ? 'text-sm' : 'text-xs']" />
         </div>
       </NuxtLink>
@@ -65,8 +65,5 @@ const attrBinding = computed(() => !props.checkedOut ? 'to' : '')
           @click="store.deleteProductFromCart(props.cartItem.product)" />
       </div>
     </div>
-    <!-- <UDivider /> -->
-
-    <!--  -->
   </div>
 </template>

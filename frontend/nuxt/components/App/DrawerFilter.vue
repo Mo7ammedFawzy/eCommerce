@@ -16,7 +16,6 @@ watch(
 
 <template>
   <div class="flex">
-    <!-- Activator -->
     <UButton color="gray" variant="outline" @click="model = !model">
       <template #trailing>
         <UIcon name="stash:filter-light" size="25" />
@@ -24,8 +23,7 @@ watch(
     </UButton>
   </div>
   <USlideover v-model="model">
-    <div class="model-content p-4 py-6">
-      <!-- Filter_Content -->
+    <div class="p-4 py-6">
       <ProductsFIlterContent @clear-filters="model &&= false" />
     </div>
   </USlideover>

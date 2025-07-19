@@ -1,5 +1,4 @@
-<script generic setup lang='ts'>
-// import 
+<script setup lang='ts'>
 type MainHeader = {
  title: string, text?: string
 }
@@ -9,7 +8,7 @@ withDefaults(defineProps<MainHeader>(), { text: defaultText })
 </script>
 
 <template>
- <div id='main-header' class=''>
+ <div id='main-header'>
   <div class="title" v-text="title" />
   <p v-text="text" />
  </div>

@@ -1,7 +1,5 @@
 <script setup lang="ts">
-/**
- * @description Handle Application's ColorMode(dark/light)
- */
+
 const colorMode = useColorMode();
 
 const icon = computed(

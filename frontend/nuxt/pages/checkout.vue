@@ -1,14 +1,14 @@
 <script setup lang='ts'>
 import type { CheckoutUserInfoForm } from '#build/components';
-import type { ICustomer, IOrder } from '~/types';
+import type { Customer, Order } from '~/types';
 import { PAYMENT_METHODS, T_PAYMENT_METHOD } from "~/constants"
 
 const store = useCartStore()
 
-const selectedPaymentMethod = ref<IOrder['paymentMethod']>('cash_on_delivery')
+const selectedPaymentMethod = ref<Order['paymentMethod']>('cash_on_delivery')
 
 // make only cash_on_delivery enabled
-const C_paymentMehods = PAYMENT_METHODS.map((method) => ({ label: method, value: method, disabled: method !== T_PAYMENT_METHOD }))
+const paymentMethods = PAYMENT_METHODS.map((method) => ({ label: method, value: method, disabled: method !== T_PAYMENT_METHOD }))
 
 const userInfoForm = ref<null | InstanceType<typeof CheckoutUserInfoForm>>()
 
@@ -49,15 +49,13 @@ const placeOrder = () => userInfoForm.value?.form?.submit()
           <!-- payment method -->
           <div class="payment-method semi-card-ring">
             <div class="semi-title mb-3" v-text="'Payment Method'" />
-            <URadioGroup :options="C_paymentMehods" :model-value="selectedPaymentMethod"
-              :ui-radio="{ base: 'disabled:opacity-40' }" class="capitalize" :ui="{ fieldset: 'space-y-2' }">
+            <URadioGroup :options="paymentMethods" :model-value="selectedPaymentMethod"
+                         :ui-radio="{ base: 'disabled:opacity-40' }" class="capitalize" :ui="{ fieldset: 'space-y-2' }">
               <template #label="{ option }">
-                <!-- option{{ option.disabled }} -->
                 <div v-text="option.label" class="text-sm capitalize" :class="{ 'opacity-40': option.disabled }" />
               </template>
             </URadioGroup>
           </div>
-
           <UButton block label="Place Order" color="primary" @click="placeOrder"
             class="dark:text-white  transition-colors" size="xl" />
         </div>
