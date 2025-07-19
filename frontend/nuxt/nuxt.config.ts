@@ -22,7 +22,7 @@ export default defineNuxtConfig({
   // nitro: {
   //   imports: {
   //     a
-  //   }
+  //  }
   // },
   modules: [
     '@nuxt/ui',
