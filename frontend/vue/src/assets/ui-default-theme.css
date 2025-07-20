@@ -40,11 +40,11 @@
 @layer base {
     :root {
         --header-height: theme(spacing.16);
+        --ring-color: theme(color.slate.300);
         --ui-gap: theme(spacing.4);
         --ui-primary: var(--color-blue-ribbon-700);
         --ui-secondary: var(--color-rose-700);
         --card-spacing: theme(spacing.5);
-        --ring-color: var(--color-slate-300);
         --breakpoint-md: 900px;
         --breakpoint-xs: 30rem;
         --breakpoint-2xl: 100rem;
