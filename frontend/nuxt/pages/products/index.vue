@@ -42,7 +42,7 @@ onUnmounted(() => useRouter().push({query: {}}))
           <!-- LIMITER -->
           <ProductsLimiter class="mb-8" v-model="pageCount" :max-length="data?.length ?? [].length"/>
           <!-- Products -->
-          <BaseProductWrapper :products="TData" :page="page" :status="status"/>
+          <BaseProductWrapper :products="TData" :page="page"/>
           <!-- Pagination -->
           <ProductsPagination v-model="page" :page-count="Number(pageCount)" :max-length="data?.length ?? [].length"/>
         </div>

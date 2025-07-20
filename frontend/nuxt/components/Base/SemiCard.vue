@@ -82,10 +82,10 @@ const cardColors = computed(() => {
         <!-- btns -->
         <div class="btns--btns-group">
           <div class="btns__wrapper mt-3 flex items-center gap-2">
-            <template v-for="({ title }, index) in btns">
+            <template v-for="({ label }, index) in btns">
               <!-- color="primary" -->
               <UButton to="/products" variant="solid" :class="cardColors.btn[index]" class="px-4 capitalize dark:text-white" size="lg">{{
-                title }}</UButton>
+                label }}</UButton>
             </template>
           </div>
         </div>

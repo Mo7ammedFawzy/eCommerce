@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import type { Product } from "~/types";
+import type {Product} from "~/types";
 
 const props = defineProps<{
   products?: Product[] | null;
@@ -26,20 +26,25 @@ watch(() => props.page, () => {
 
 const exist = computed(
   () =>
-    props.products && props?.products?.length > 0 && props.status == "success" && !isPageChanged.value,
+      !!props?.products?.length && !isPageChanged.value,
 );
 
+
+const productsToLoop = computed(() => {
+  if (!props.products?.length)
+    return Array(3);
+  else
+    return props.products
+})
 </script>
 
 <template>
-  <section class="products-wrapper min-h-[400px] pa-2 overflow-hidden">
-    <section id="products-wrapper-content"
-      class="mx-auto grid max-h-fi p-2  grid-cols-[repeat(auto-fill,minmax(135px,1fr))] gap-3 xs:grid-cols-[repeat(auto-fill,minmax(170px,1fr))] sm:grid-cols-[repeat(auto-fill,minmax(195px,1fr))] md:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] xl:grid-cols-[repeat(auto-fill,minmax(230px,1fr))]">
-      <template v-if="exist">
-        <BaseProductCard v-for="product in products" :product="product" />
-      </template>
-      <template v-else>
-        <BaseSkeletonCard v-for="n in (products && products.length > 0) ? products.length : 3" />
+  <section class="min-h-[400px] pa-2 overflow-hidden">
+    <section
+        class="mx-auto grid max-h-full p-2 grid-cols-[repeat(auto-fill,minmax(135px,1fr))] gap-3 xs:grid-cols-[repeat(auto-fill,minmax(170px,1fr))] sm:grid-cols-[repeat(auto-fill,minmax(195px,1fr))] md:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] xl:grid-cols-[repeat(auto-fill,minmax(230px,1fr))]">
+      <template v-for="(product,index) in productsToLoop" :key="index">
+        <BaseProductCard :product="product" v-if="product" />
+        <BaseSkeletonCard v-else />
       </template>
     </section>
   </section>

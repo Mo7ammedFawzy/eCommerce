@@ -1,9 +1,9 @@
 <script setup lang="ts">
 /**
  * @abstract===HeaederApp bottom-0 md:top-0 md:bottom-auto
- * @wrapper {logo,links,btns} 
+ * @wrapper {logo,links,btns}
  */
-import { HEADER_LINKS, HEADER_ACTIONS } from "~/constants";
+import {HEADER_ACTIONS, HEADER_LINKS} from "~/constants";
 
 const { $viewport } = useNuxtApp();
 const TRoute = useRoute();
@@ -18,22 +18,21 @@ const queryOptions = computed(() => (category?: string) => category ? { category
   <!-- header down in (md:768px) -->
   <header
     class="main-shadow max-h-fit fixed bottom-0 left-0 z-40 w-full bg-white rounded-none t-ring backdrop-blur-md dark:bg-[#162031] md:top-0">
-
     <BaseWrapper
-      class="header__wrapper flex max-h-16 h-16 grid-cols-1 items-center justify-between !px-0 md:!px-4 lg:grid lg:grid-cols-3">
+        class="flex max-h-16 h-16 grid-cols-1 items-center justify-between !px-0 md:!px-4 lg:grid lg:grid-cols-3">
       <!-- LOGO@on-page-color-mode-switch-change-image -->
-      <ColorScheme tag="span" class="w-12 aspect-square t-skeleton hidden md:inline-block  rounded-full">
-        <NuxtLink class="header__img max-h-full hidden md:inline-block" to="/frontend/public">
-          <NuxtImg :src="`/logo-${colorMode.value}.webp`" class=" w-12 aspect-square " quality="60" alt="`commerce-logo`"
-            format="webp" placeholder-class="animate-pulse  rounded-full w-12 aspect-square  bg-gray-300 dark:bg-gray-800"
+      <ColorScheme tag="span" class="w-12 aspect-square t-skeleton hidden md:inline-flex items-center justify-center rounded-full" placeholder="...">
+        <NuxtLink class="max-h-full hidden md:inline-block" to="/">
+          <NuxtImg :src="`/logo-${colorMode.value}.webp`" class="w-12 aspect-square" quality="60" alt="`commerce-logo`"
+                   format="webp" placeholder-class="animate-pulse !h-full max-h-full rounded-full aspect-square bg-gray-300 dark:bg-gray-800"
             placeholder loading="lazy" />
         </NuxtLink>
       </ColorScheme>
       <!-- LINKS -->
-      <ul class="links hidden items-center justify-center gap-3 text-sm capitalize md:inline-flex">
-        <NuxtLink v-for="{ title, route, category } in HEADER_LINKS" :to="{ path: route, query: queryOptions(category) }">
+      <ul class="hidden items-center justify-center gap-3 text-sm capitalize md:inline-flex">
+        <NuxtLink v-for="({ label, route, category }) in HEADER_LINKS" :to="{ path: route, query: queryOptions(category) }">
           <!-- {{ category }} -->
-          <li v-text="title" class="cursor-pointer transition-colors hover:text-blue-600" :class="{
+          <li v-text="label" class="cursor-pointer transition-colors hover:text-blue-600" :class="{
             'text-blue-600':
               TRoute.path == route && TRoute.query.category == category,
           }" />
@@ -54,7 +53,7 @@ const queryOptions = computed(() => (category?: string) => category ? { category
           </HeaderSearchModalBtn>
           <!-- OTHER_BTNS -->
           <BaseBtn :btn-options="btnOptions" v-else
-            v-bind="btnOptions.hasChip && btnOptions.title === 'cart' ? { 'cart-length': store.getCartLength } : {}" />
+                   v-bind="btnOptions.hasChip && btnOptions.label === 'cart' ? { 'cart-length': store.getCartLength } : {}"/>
         </template>
         <!-- colorModeSwitcher -->
         <AppColorModeSwitcher />

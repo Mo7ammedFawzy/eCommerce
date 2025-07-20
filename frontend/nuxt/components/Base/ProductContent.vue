@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 
-import { FooterLinks, MAX_ITEMS, DISCOUNT } from '~/constants';
-import type { Product } from '~/types';
+import {DISCOUNT, FooterLinks, MAX_ITEMS} from '~/constants';
+import type {Product} from '~/types';
 
 const store = useCartStore()
 
@@ -13,7 +13,7 @@ const props = defineProps<{ product: Product, isModal?: boolean }>()
 
 const modal = defineModel({ required: false, default: false })
 
-const { image, title, id, price, category, rating, discount = DISCOUNT, colors = ['black', 'red', 'green'] } = props.product
+const {image, label, id, price, category, rating, discount = DISCOUNT, colors = ['black', 'red', 'green']} = props.product
 
 const purpleColor = "!bg-[#f55da4] hover:!bg-[#ef458f]";
 
@@ -35,31 +35,26 @@ const productInfo = [
 // MAKE_IT_DYNAMIC
 const productLink = computed(() => useRuntimeConfig().public.baseURL + `/products/${id ?? 1}`)
 
-onMounted(() => {
-  console.log({ href: useRuntimeConfig() })
-})
-
 </script>
 
 <template>
-  <main id='' class='product__content rounded-md t-ring  bg-white  p-5 lg:p-8 dark:bg-background '>
+  <main class='rounded-md t-ring  bg-white  p-5 lg:p-8 dark:bg-background '>
     <UButton icon="i-heroicons-x-mark" v-if="isModal" @click="modal = false" square size="lg"
       class="rounded-full aspect-square  mb-4 float-end" color="white" />
-    <div class="proudct__wrapper grid-cols-1 md:grid-cols-2 grid w-full gap-6">
-      <!-- {{ data }} -->
-      <div class="product__img">
-        <div class="img__wrapper px-4 py-6 max-w-md mx-auto bg-white t-ring ">
+    <div class="grid-cols-1 md:grid-cols-2 grid w-full gap-6">
+      <div>
+        <div class="px-4 py-6 max-w-md mx-auto bg-white t-ring ">
 
           <NuxtImg :src="image" fit="content" class="object-contain w-full aspect-auto max-h-64 lg:max-h-72" quality="60"
-            :alt="props.product.title" format="webp" placeholder-class="max-w-full aspect-square max-h-40 lg:max-h-72 py-16 w-full"
+                   :alt="props.product.label" format="webp" placeholder-class="max-w-full h-1/2 max-h-1/2 py-16"
             placeholder="/svg/spinner.svg" loading="lazy" />
         </div>
       </div>
-      <div class="product__content">
-        <!-- title -->
-        <div v-text="title" class="text-lg sm:text-xl md:text-2xl font-bold sm:three-dots leading-5" />
+      <div>
+        <!-- label -->
+        <div v-text="label" class="text-lg sm:text-xl md:text-2xl font-bold sm:three-dots leading-5"/>
         <!-- rating + price + discount -->
-        <div class="rating__group my-2 flex items-center justify-between">
+        <div class="my-2 flex items-center justify-between">
           <!-- rating -->
           <div class="rating flex items-center gap-1 sm:gap-2">
             <div class="stars inline-flex">
@@ -75,7 +70,7 @@ onMounted(() => {
             </div>
           </div>
         </div>
-        <!-- cateogry+discount+available -->
+        <!-- category+discount+available -->
         <div class="text-base flex items-center sm:text-lg capitalize mb-1" v-for="{ label, value } in productInfo">
           <strong v-text="label" />:
           &nbsp;
@@ -86,7 +81,7 @@ onMounted(() => {
           <strong v-text="'Colors:'" class="text-lg" />
           &nbsp;
           &nbsp;
-          <div class="colors__wrapper flex items-center gap-1">
+          <div class="flex items-center gap-1">
             <UBadge @click="activeColor = index" v-for="(color, index) in colors"
               class="cursor-pointer aspect-square t-ring w-8 rounded-full" :style="{ backgroundColor: color }">
               <UIcon name="i-heroicons-check" class="text-white bg-white" size="20"
@@ -115,7 +110,7 @@ onMounted(() => {
           <BaseBtnCopyToClipboard :product-link="productLink" />
           <UButton v-for="{ icon, color } in FooterLinks" square size="sm" variant="link">
             <template #trailing>
-              <UIcon :name="icon" size="25" :style="{ color }" />
+              <UIcon :name="icon??''" size="25" :style="{ color }"/>
             </template>
           </UButton>
         </div>

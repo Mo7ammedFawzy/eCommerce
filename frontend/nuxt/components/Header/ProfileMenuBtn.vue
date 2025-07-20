@@ -1,21 +1,12 @@
 <script setup lang="ts" generic="T">
-import { ProfileLinks } from "~/constants";
-import type { ProfileLink } from "~/types";
+import {ProfileLinks} from "~/constants";
+import type {ProfileLink} from "~/types";
 
 const menu = ref(false);
 const router = useRouter()
 
 const userStore = useUserStore()
 
-const isLoggedIn = computed(() => userStore.isAuthenticated)
-
-
-const handleSignIn = async () => {
-  // await signIn('github')
-}
-const handleSignOut = async () => {
-  // await signOut()
-}
 
 const emit = defineEmits(["menu-change"]);
 
@@ -26,7 +17,6 @@ let dropDownItems: Array<ProfileLink[]> = ProfileLinks.filter(
 dropDownItems.unshift([
   {
     label: "dev.fawzey@gmail.com",
-    // icon: "mdi-home",
     slot: "head",
     disabled: true,
   },
@@ -55,7 +45,7 @@ const signout = async () => {
 <template>
   <!-- // default: { openDelay: 5000,closeDelay:4000 }, -->
   <!-- TODO:: make aclose delay -->
-  <UDropdown class="" :items="dropDownItems" :ui="{
+  <UDropdown :items="dropDownItems" :ui="{
     item: { disabled: 'cursor-text select-text' },
   }" mode="click" :popper="{ arrow: true, placement: 'bottom-end' }" v-model:open="menu">
     <template #head="{ item }">
@@ -70,9 +60,9 @@ const signout = async () => {
         <!-- :to="{ path: '/auth/login', }" -->
         <!-- <NuxtLink > -->
         <UButton v-if="!userStore.isAuthenticated" :label="item.label" @click="redirectToLogin" block color="primary"
-          variant="solid" icon="line-md:log-in" class="btn-primary" />
+                 variant="solid" icon="solar:login-2-outline" class="btn-primary"/>
         <!-- </NuxtLink> -->
-        <UButton label="Logout" block color="white" @click="signout" variant="outline" icon="line-md:log-out"
+        <UButton label="Logout" block color="white" @click="signout" variant="outline" icon="solar:logout-outline"
           class="btn-primary" v-else />
       </div>
     </template>

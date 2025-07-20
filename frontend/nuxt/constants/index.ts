@@ -74,7 +74,7 @@ export const ProfileLinks: ProfileLink[] = [
     path: "/profile/orders"
   },
   {
-    icon: "line-md:person",
+    icon: "material-symbols-light:person-outline-rounded",
     label: "profile",
     path: "/profile/general"
   },

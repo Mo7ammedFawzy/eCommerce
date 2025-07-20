@@ -12,7 +12,6 @@ const props = defineProps<{ product: Product }>()
   <main>
     <slot/>
     <UModal v-model="modal" :ui="{ width: 'md:max-w-2xl' }">
-      <!-- close btn -->
       <BaseProductContent v-model="modal" :product="props.product" is-modal/>
     </UModal>
   </main>
