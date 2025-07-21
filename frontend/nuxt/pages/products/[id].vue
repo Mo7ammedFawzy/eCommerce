@@ -9,7 +9,7 @@ const { data, status } = await getProduct()
 <template>
  <main class='product-page'>
   <BaseWrapper class="min-h-[calc(100vh-20vh)] mt-8">
-   <BasePageHeader :label="data?.label" :subtitle="data?.label" />
+   <BasePageHeader :label="data?.title" :subtitle="data?.label" />
    <BaseProductContent :product="data" v-if="data && status === 'success'" />
    <BaseProductContentSkeleton v-else />
   </BaseWrapper>

@@ -64,7 +64,8 @@ export interface Product extends Base {
   image: string,
   rating: Rating,
   colors?: string[],
-  discount?: number
+  discount?: number,
+  title?: string
 }
 
 export interface Rating {

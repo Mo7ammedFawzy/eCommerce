@@ -96,17 +96,19 @@ const productLink = computed(() => useRuntimeConfig().public.baseURL + `/product
         <div class="flex my-6 gap-2 items-center">
           <strong class="text-lg font-semibold" v-text="'Quantity:'" />
           &nbsp;
-          <BaseQuantityController :max-items="MAX_ITEMS" @increase-quantity="store.addToCart(props.product)"
-            @decrease-quantity="store.decreaseQuantity(props.product)" :quantity="productQuantity" />
+          <div class="w-fit">
+            <BaseQuantityController  :max-items="MAX_ITEMS" @increase-quantity="store.addToCart(props.product)"
+                                    @decrease-quantity="store.decreaseQuantity(props.product)" :quantity="productQuantity"/>
+          </div>
         </div>
         <!-- actions_btns(addToCart|Checkout) -->
-        <div class="btns-group mb-4 grid grid-cols-2 gap-2 max-w-full">
+        <div class="mb-4 grid grid-cols-2 gap-2 max-w-full">
           <UButton @click="store.addToCart(props.product)" label="add to cart" block class="capitalize dark:text-white"
             color="primary" size="lg" />
           <UButton label="buy now" size="lg" block :class="purpleColor" to="/cart" class="capitalize dark:text-white" />
         </div>
         <!-- copyLink+SocialMediaLinks -->
-        <div class="socialLinks mt-5 flex items-center justify-center gap-2">
+        <div class="mt-5 flex items-center justify-center gap-2">
           <BaseBtnCopyToClipboard :product-link="productLink" />
           <UButton v-for="{ icon, color } in FooterLinks" square size="sm" variant="link">
             <template #trailing>

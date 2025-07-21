@@ -36,7 +36,7 @@ watch(search, () => {
   <main class="search-component">
     <div class="search__container">
       <!-- Search_Input -->
-      <div class="search__input">
+      <div>
         <UInput v-model="search" icon="i-heroicons-magnifying-glass-20-solid" placeholder="Search..." size="xl"
           color="white" name="search" autocomplete="off" :ui="{
             icon: { trailing: { pointer: '' } },
@@ -51,8 +51,8 @@ watch(search, () => {
           </template>
         </UInput>
       </div>
-      <div class="search__results--products md:0 mt-4" has-wrapper>
-        <div class="search__wrapper mx-auto max-w-3xl pb-8">
+      <div class="md:0 mt-4" has-wrapper>
+        <div class="mx-auto max-w-3xl pb-8">
           <!--  load all proudcts -->
           <div v-text="'brands'" class="my-8 text-xl font-bold md:my-2" />
           <UDivider class="md:hidden" :ui="{ border: { base: 'dark:border-gray-600 border-gray-500' } }" />
@@ -65,7 +65,7 @@ watch(search, () => {
           </div>
           <!-- SHOW_SKELETON_LOADING -->
           <div v-else-if="isTyping" class="max-h-[500px] overflow-y-auto md:max-h-[350px]" main-scroll>
-            <BaseListItemSkeletonLoader v-for="n in 6" />
+            <BaseListItemSkeletonLoader v-for="_ in 6" />
           </div>
           <!-- SHOW_EMPTY_IMAGE -->
           <div v-else>

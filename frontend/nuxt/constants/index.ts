@@ -64,7 +64,7 @@ export const ProfileLinks: ProfileLink[] = [
     hasSwitch: true,
   },
   {
-    icon: "iconamoon:home-thin",
+    icon: "lets-icons:home-light",
     label: 'home',
     path: "/"
   },
