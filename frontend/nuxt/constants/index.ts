@@ -1,7 +1,8 @@
 import type {BadgeState, Category, FooterLink, HeaderAction, HeaderLink, Order, Product, ProfileLink, SemiCard, ServiceCard} from "~/types";
 import jsonProducts from "./products"
 
-export const API_URL = "https://fakestoreapi.com/products";
+export const FAKE_API_URL = "https://fakestoreapi.com/products";
+export const BASE_API_URL = "http://localhost:8081/api/v1/"
 export const API_AUTH_URL = "https://dummyjson.com/auth";
 export const MAX_ITEMS = 5
 export const DISCOUNT = 40
@@ -19,7 +20,7 @@ export const REGEX = {
 export const HEADER_ACTIONS: HeaderAction[] = [
   {
     label: "home",
-    route: "/",
+    to: "/",
     icon: "iconamoon:home-thin",
     mobile: true,
   }
@@ -27,34 +28,34 @@ export const HEADER_ACTIONS: HeaderAction[] = [
   {
     label: "search",
     icon: "material-symbols-light:search",
-    route: "/search",
+    to: "/search",
     isPopover: true
   },
   {
     label: "products",
-    icon: "my-icon:products", mobile: true, route: "/products",
+    icon: "my-icon:products", mobile: true, to: "/products",
   },
   {
     label: "cart",
     icon: "my-icon:cart",
     hasChip: true,
-    color: "blue", route: "/cart",
+    color: "blue", to: "/cart",
   },
   {
     label: "user",
     icon: "material-symbols-light:person-outline",
-    route: "/profile",
+    to: "/profile",
     isMenu: true
 
   }
 ]
 
 export const HEADER_LINKS: HeaderLink[] = [
-  {label: "home", route: "/",},
-  {label: "products", route: '/products',},
-  {label: "men", route: "/products", category: "men's clothing"},
-  {label: "women", route: "/products", category: "women's clothing"},
-  {label: "electronics", route: "/products", category: "electronics"}
+  {label: "home", to: "/",},
+  {label: "products", to: '/products',},
+  {label: "men", to: "/products", category: "men's clothing"},
+  {label: "women", to: "/products", category: "women's clothing"},
+  {label: "electronics", to: "/products", category: "electronics"}
 ]
 
 export const ProfileLinks: ProfileLink[] = [
@@ -206,4 +207,16 @@ export const STATE_BADGES: BadgeState = {
   confirmed: "lime",
   delivered: "green",
   shippd: "purple"
-} 
+}
+
+export enum ProductCategory {
+  Electronics = "electronics",
+  Clothing    = "clothing",
+  Books       = "books",
+}
+
+export enum ProductSizes {
+  S = "S",
+  M = "M",
+  L = "L",
+}

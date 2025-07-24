@@ -1,6 +1,11 @@
 <script setup lang="ts">
-const route = useRoute()
+
 </script>
 
 <template>
+    order id
 </template>
+
+<style scoped>
+
+</style>

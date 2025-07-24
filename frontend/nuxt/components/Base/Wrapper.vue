@@ -1,5 +1,8 @@
+<script setup lang="ts">
+defineProps<{ fullWidth?: boolean }>()
+</script>
 <template>
- <UContainer class='relative max-h-full w-full h-full'>
-  <slot />
- </UContainer>
+  <UContainer :class="{'!px-0 !max-w-full':fullWidth}">
+    <slot />
+  </UContainer>
 </template>

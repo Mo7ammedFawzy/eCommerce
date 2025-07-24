@@ -1,28 +1,24 @@
 import {defineStore} from "pinia"
-import type {User} from "~/types"
+import type {IUserStore, User} from "~/types"
 
 export const useUserStore = defineStore('user-store', {
-  state: () => ({
-    user: <User | null>null,
-    initUser: false,
+  state: (): IUserStore => ({
+    user: null,
+    token: null,
+    hasDashboardAccess: true,
   }),
-
-  actions: {
-    setUser(user: User) {
-      this.user = user
-    },
-    signOut() {
-      this.user = null;
-      localStorage.removeItem('accessToken');
-      useCookie("accessToken").value = null
-      navigateTo("/auth/login")
-    },
-    setInitUser(value: boolean) {
-      this.initUser = value
+  getters: {
+    isLoggedIn(): boolean {
+      return !!this.token;
     }
   },
-  getters: {
-    getUser: (state) => state.user,
-    isAuthenticated: (state): boolean => state.user !== null
-  }
+  actions: {
+    setUser(user: User) {
+      this.user = user;
+    },
+    setToken(token: string) {
+      this.token = token;
+    },
+  },
+
 })

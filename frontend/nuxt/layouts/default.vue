@@ -5,7 +5,8 @@ const canShowFooter = computed(() => route.name === 'home')
 
 <template>
  <Header />
- <AppScrollToTopBtn />
+  <AppScrollToTopBtn/>
+  <div class="hidden md:block" style="padding-top: 64px"/>
  <slot />
  <AppFooter v-if="canShowFooter" />
 </template>

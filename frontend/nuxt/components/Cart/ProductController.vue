@@ -35,10 +35,10 @@ const attrBinding = computed(() => !props.checkedOut ? 'to' : '')
           <div class="img  p-1.5 overflow-hidden rounded-full bg-white aspect-square flex items-center justify-center"
             :class="[!props.readonly ? 'w-20' : 'w-12']">
             <!-- :class="[props.readonly ? '' : '']" -->
-            <NuxtImg :src="props.cartItem.product.image" class="object-contain aspect-auto w-full rounded-md max-h-full"
-              quality="60" :alt="props.cartItem.product.label" format="webp"
-              placeholder-class="animate-pulse !w-full rounded-full !h-full max-h-20 bg-gray-300 dark:bg-gray-800"
-              placeholder loading="lazy" />
+            <NuxtImg :src="props.cartItem.product.images" class="object-contain aspect-auto w-full rounded-md max-h-full"
+                     quality="60" :alt="props.cartItem.product.label" format="webp"
+                     placeholder-class="animate-pulse !w-full rounded-full !h-full max-h-20 bg-gray-300 dark:bg-gray-800"
+                     placeholder loading="lazy" />
           </div>
           <!-- details -->
           <div class="details flex-1  three-dots" v-text="props.cartItem.product.label"

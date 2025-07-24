@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import HomeCategories from "@/components/home/HomeCategories.vue";
+
 </script>
 <template>
   <BaseWrapper full-width>

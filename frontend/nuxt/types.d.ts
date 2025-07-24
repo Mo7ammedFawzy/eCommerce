@@ -1,3 +1,5 @@
+import type {DropdownItem} from "#ui/types";
+
 export interface Base {
   label?: string
   icon?: string
@@ -18,7 +20,7 @@ export interface HeaderAction extends Omit<HeaderLink, 'query'> {
 }
 
 export interface HeaderLink extends Base {
-  route: string,
+  to: string,
   category?: string
 }
 
@@ -34,12 +36,10 @@ export interface Btns extends Base {
   path: string,
 }
 
-export interface ProfileLink extends ListItem {
+export interface ProfileLink extends ListItem, DropdownItem {
+  label: string,
   hasSwitch?: boolean,
-  path?: string,
-  slot?: string,
-  disabled?: boolean
-
+  path?: string
 }
 
 export interface Category extends Base {
@@ -56,16 +56,29 @@ export interface FooterLink extends Base {
   color?: string
 }
 
-export interface Product extends Base {
-  id: number,
-  price: number,
-  description: string,
-  category: string,
-  image: string,
-  rating: Rating,
-  colors?: string[],
-  discount?: number,
-  title?: string
+export type Route = `/${string}`
+
+
+/*
+* below this is my product , now i want to make interface
+* for admin when he upload new product
+* consider product quantity,sizes,colors,what else do i need
+* */
+export interface Product {
+  // Required
+  category: string;
+  description: string;
+  id: number;
+  images: File[];
+  price: number;
+  rating?: Rating;
+  title: string;
+
+  // Optional
+  colors?: string[];
+  createdAt?: string;
+  discount?: number;
+  updatedAt?: string;
 }
 
 export interface Rating {
@@ -132,13 +145,41 @@ export interface LoginError {
 }
 
 export interface User {
-  accessToken: string;
-  refreshToken: string;
   id: number;
   username: string;
   email: string;
-  firstName: string;
-  lastName: string;
-  gender: string;
-  image: string;
+  role: Role
+}
+
+export type Role = "Admin" | "User";
+
+
+export interface LoginCredentials {
+  email: string,
+  password: string
+}
+
+export interface IUserStore {
+  user: User | null,
+  token: string | null,
+  hasDashboardAccess: boolean,
+
+  // //Getter
+  // isLoggedIn: boolean,
+  //
+  // //Action
+  // setUser(user: User): void,
+  //
+  // setToken(token: string): void,
+  //
+  // logOut(): void,
+  //
+  // login(credentials: LoginCredentials): Promise<void>,
+  //
+  // fetchUserProfile(): Promise<void>
+
+}
+export interface AddProduct extends Omit<Product, "id"> {
+  quantity: number,
+  sizes: ProductSizes[]
 }

@@ -1,5 +1,5 @@
 import type {UseFetchOptions} from 'nuxt/app'
-import {API_AUTH_URL, API_COUNTRIES_URL, API_URL} from '~/constants'
+import {API_AUTH_URL, API_COUNTRIES_URL, BASE_API_URL, FAKE_API_URL} from '~/constants'
 import type {Country, Login, LoginError, Product, User, UserDetails} from '~/types'
 
 function useFactoryAPI<T>(
@@ -15,12 +15,11 @@ function useFactoryAPI<T>(
 }
 
 export const useAPI = () => {
-
   const route = useRoute()
   const userStore = useUserStore()
 
   const getProduct = () => {
-    return useFactoryAPI<Product>(API_URL + `/${route.params.id}`)
+    return useFactoryAPI<Product>(FAKE_API_URL + `/${route.params.id}`)
   }
 
   const getCountries = () => {
@@ -32,12 +31,16 @@ export const useAPI = () => {
 
   const getProducts = ({limit = 7, hasLimit = true}: { limit?: number, hasLimit?: boolean } = {}) => {
     const endpoint = hasLimit ? `?limit=${limit}` : ''
-    return useFactoryAPI<Product[]>(API_URL + endpoint)
+    return useFactoryAPI<Product[]>(FAKE_API_URL + endpoint)
+  }
+
+  const fetchAllProducts = () => {
+    return useFactoryAPI<Product[]>(BASE_API_URL + "products/")
   }
 
   const getProductsOnQueryChange = () => {
     const endpoint = computed(() => {
-      return route.query.category ? API_URL + `/category/${route.query.category}` : API_URL
+      return route.query.category ? FAKE_API_URL + `/category/${route.query.category}` : FAKE_API_URL
     });
 
     return useFetch<Product[]>(endpoint, {})
@@ -90,5 +93,5 @@ export const useAPI = () => {
     return user
   }
 
-  return {getProduct, getCountries, getProducts, getProductsOnQueryChange, login, getUser}
+  return {getProduct, getCountries, getProducts, getProductsOnQueryChange, login, getUser, fetchAllProducts}
 }

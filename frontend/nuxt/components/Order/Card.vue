@@ -18,7 +18,7 @@ const TBadgeState = computed(() => ({label: props.order.state, color: STATE_BADG
     <div class="order-first col-span-full md:col-span-2 lg:col-span-3 flex items-center gap-2">
       <!-- img -->
       <div class="img__wrapper hidden md:block min-w-14 max-w-14 aspect-square p-2  bg-white rounded-full">
-        <NuxtImg :src="getFirstItemFromCartItems.image" class="w-full object-contain max-h-full aspect-auto rounded-md"
+        <NuxtImg :src="getFirstItemFromCartItems.images" class="w-full object-contain max-h-full aspect-auto rounded-md"
                  loading="lazy"/>
       </div>
       <div class="three-dots text-main font-semibold md:font-normal md:!body-text md:text-xs"

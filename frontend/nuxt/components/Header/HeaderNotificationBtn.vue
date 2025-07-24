@@ -11,7 +11,7 @@ const userStore = useUserStore()
 const emit = defineEmits(["menu-change"]);
 
 let dropDownItems: DropdownItem[][] = ProfileLinks.filter(
-  (el) => !el.hasSwitch,
+    (el) => !el.hasSwitch,
 ).map((el) => [{icon: el.icon, label: el.label, to: el.path}]);
 
 dropDownItems.unshift([
@@ -21,7 +21,7 @@ dropDownItems.unshift([
     disabled: true,
   },
 ]);
-dropDownItems.push([{ label: "SignIn", slot: "btn", disabled: true }]);
+dropDownItems.push([{label: "SignIn", slot: "btn", disabled: true}]);
 
 watch(menu, () => {
   emit("menu-change", menu.value);

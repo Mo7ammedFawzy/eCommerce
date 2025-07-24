@@ -11,7 +11,9 @@ const productPagePath = computed(() => `/products/${props.product.id}`);
 
 const TProductColors = ["blue", "red", "yellow"];
 
-
+function getProductImage() {
+  return "https://picsum.photos/seed/picsum/360/360"
+}
 
 </script>
 
@@ -25,7 +27,7 @@ const TProductColors = ["blue", "red", "yellow"];
         <!-- img ratio is 1:1 -->
         <NuxtImg
             class="mix-blend-multiply dark:mix-blend-normal object-contain square absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full aspect-auto max-h-full scale-75  p-5 md:p-4"
-            :src="props.product.image" quality="60" :alt="props.product.label" format="webp" placeholder="/svg/spinner.svg"
+            :src="getProductImage()" quality="60" :alt="props.product.label" format="webp" placeholder="/svg/spinner.svg"
             placeholder-class="h-1/2 py-16 max-h-full" loading="lazy"/>
 
       </NuxtLink>
@@ -39,7 +41,7 @@ const TProductColors = ["blue", "red", "yellow"];
         <div class=" my-2 flex items-center justify-between">
           <div class="rating flex items-center gap-1 text-xs">
             <UIcon name="mdi-star-outline" />
-            <span v-text="`(${props.product.rating.rate})`" />
+            <span v-text="`(${props.product.rating?.rate})`"/>
           </div>
           <div class="flex items-center">
             <div v-for="color in TProductColors" class="-ms-0.5 aspect-square w-3 rounded-full t-tring"

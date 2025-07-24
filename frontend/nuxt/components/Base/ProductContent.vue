@@ -13,7 +13,7 @@ const props = defineProps<{ product: Product, isModal?: boolean }>()
 
 const modal = defineModel({ required: false, default: false })
 
-const {image, label, id, price, category, rating, discount = DISCOUNT, colors = ['black', 'red', 'green']} = props.product
+const {images, label, id, price, category, rating, discount = DISCOUNT, colors = ['black', 'red', 'green']} = props.product
 
 const purpleColor = "!bg-[#f55da4] hover:!bg-[#ef458f]";
 
@@ -45,9 +45,9 @@ const productLink = computed(() => useRuntimeConfig().public.baseURL + `/product
       <div>
         <div class="px-4 py-6 max-w-md mx-auto bg-white t-ring ">
 
-          <NuxtImg :src="image" fit="content" class="object-contain w-full aspect-auto max-h-64 lg:max-h-72" quality="60"
+          <NuxtImg :src="images" fit="content" class="object-contain w-full aspect-auto max-h-64 lg:max-h-72" quality="60"
                    :alt="props.product.label" format="webp" placeholder-class="max-w-full h-1/2 max-h-1/2 py-16"
-            placeholder="/svg/spinner.svg" loading="lazy" />
+                   placeholder="/svg/spinner.svg" loading="lazy" />
         </div>
       </div>
       <div>

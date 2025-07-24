@@ -110,7 +110,7 @@ defineExpose<{ form: Ref<HTMLFormElement | undefined>, onSubmit: Function }>({
         <UInput v-model="state.zip" size="xl" :disabled="isInputDisabled"/>
       </UFormGroup>
     </div>
-    <UFormGroup v-if="!general" class="col-span-full custom" name="country" label="Country">
+    <UFormGroup v-if="!general" class="col-span-full bg-red-600" name="country" label="Country">
       <USelectMenu v-model="state.country" :options="data" color="white" size="xl"/>
     </UFormGroup>
   </UForm>
