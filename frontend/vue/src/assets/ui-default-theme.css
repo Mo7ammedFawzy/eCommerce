@@ -35,6 +35,11 @@
     --color-rose-950: #510620;
     --color-white: #fff;
     --color-black: #000;
+    --breakpoint-md: 900px;
+    --breakpoint-xs: 30rem;
+    --breakpoint-2xl: 100rem;
+    --breakpoint-3xl: 120rem;
+    --spacing-8xl: 100rem;
 }
 
 @layer base {
@@ -45,14 +50,13 @@
         --ui-primary: var(--color-blue-ribbon-700);
         --ui-secondary: var(--color-rose-700);
         --card-spacing: theme(spacing.5);
-        --breakpoint-md: 900px;
-        --breakpoint-xs: 30rem;
-        --breakpoint-2xl: 100rem;
-        --breakpoint-3xl: 120rem;
+        --ui-background: #fff;
     }
 }
 
 .dark {
     --ui-primary: var(--color-blue-ribbon-700);
     --ui-secondary: var(--color-rose-500);
+    --ui-background: #0f1729;
+    --ring-color: theme(color.slate.700);
 }

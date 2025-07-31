@@ -2,3 +2,27 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
 @import "./ui-default-theme.css";
+
+.three-dots {
+    @apply overflow-hidden text-ellipsis whitespace-nowrap;
+}
+
+.bg-primary {
+    @apply bg-(--ui-primary)
+}
+
+.bg-background {
+    @apply bg-(--ui-background)
+}
+
+.card-shadow {
+    @apply shadow-[0px_7px_10px_0px_rgba(0,0,0,0.08)];
+}
+
+.ui-ring {
+    @apply ring-(--ring-color) ring-1;
+}
+
+body {
+    @apply bg-(--ui-background)
+}

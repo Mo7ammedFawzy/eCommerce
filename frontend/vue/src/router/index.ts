@@ -27,14 +27,18 @@ export const routes: RouteRecordRaw[] = [
         component: () => import('@/views/DashboardPage.vue'),
     },
     {
-        name: 'products',
         path: '/products',
-        component: () => import('@/views/products/ProductsPage.vue'),
         children: [
             {
-                name: 'products-id',
+                name: 'products',
+                path: '',
+                component: () => import('@/views/products/ProductsPage.vue'),
+            },
+            {
+                name: 'product-page',
                 path: ':id',
                 component: () => import('@/views/products/ProductPage.vue'),
+                props: true
             },
         ],
     },

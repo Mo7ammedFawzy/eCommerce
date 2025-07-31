@@ -1,7 +1,28 @@
-export const BASE_URL = "https://api.escuelajs.co/api/v1/"
+import {FooterLink} from "@/types";
+
+export const BASE_URL = "http://localhost:8081/api/v1/";//"https://api.escuelajs.co/api/v1/"
 export const endpoints = {
   products: "products",
   product: "product",
   carts: "carts",
   users: "users",
 }
+
+export const FooterLinks: FooterLink[] = [
+  {
+    icon: "mdi-facebook",
+    color: '#1877f2'
+  },
+  {
+    icon: "mdi-instagram",
+    color: '#c32aa3'
+  },
+  {
+    icon: "mdi-linkedin",
+    color: '#0a66c2'
+  },
+  {
+    icon: "mdi-youtube",
+    color: '#ff0000'
+  },
+]

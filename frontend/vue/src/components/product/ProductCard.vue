@@ -17,23 +17,28 @@ const rating: Rating = {
 }
 
 const colors = ["red", "green"]
-const loadingImgUrl = "https://picsum.photos/seed/headphones/400/300";
+const loadingImgUrl = "https://picsum.photos/seed/360/360";
 
-function firstImgIsValid(imgs: string[]) {
-  return imgs && !!imgs.length && !(imgs[0].includes("vercel"));
+function firstImgIsValid(images: string[]) {
+  return images && !!images.length && !(images[0].includes("vercel"));
 }
 
 const imgUrl = computed(() => {
   let imgToShow: string = loadingImgUrl;
-  const imgs = props.images;
-  if (firstImgIsValid(imgs))
-    imgToShow = imgs[0];
+  const images = props.images;
+  if (firstImgIsValid(images))
+    imgToShow = images[0];
   return imgToShow;
 });
+
+
+function getProductLink() {
+  return "/products/" + props.id
+}
 </script>
 <template>
   <UCard variant="outline" :ui="{body:'p-0 sm:p-0'}" class="ring ring-(--ring-color) overflow-hidden">
-    <RouterLink to="/" class="relative w-full aspect-square bg-white">
+    <RouterLink :to="getProductLink()" class="relative w-full aspect-square bg-white">
       <!-- img -->
       <img
           class="aspect-square w-full object-cover"

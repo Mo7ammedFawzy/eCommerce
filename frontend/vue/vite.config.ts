@@ -19,7 +19,7 @@ export default defineConfig({
                     secondary: "rose"
                 },
                 button: {
-                    base: "dark:text-white capitalize"
+                    base: "dark:text-white capitalize cursor-pointer"
                 }
             },
         }),

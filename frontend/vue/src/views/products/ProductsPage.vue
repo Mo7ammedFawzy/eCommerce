@@ -3,7 +3,7 @@
 </script>
 
 <template>
-
+  products page
 </template>
 
 <style scoped>

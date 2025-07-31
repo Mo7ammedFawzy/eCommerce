@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Logo from "@/components/Logo.vue";
 import {MaybeRefOrGetter, useBreakpoints, useColorMode, useDark, useToggle} from "@vueuse/core";
-import {computed, Ref, ref, toValue} from "vue";
+import {computed, ref, toValue} from "vue";
 import type {Base, Route} from "@/types";
 import {useRoute} from "vue-router";
 
@@ -16,7 +16,7 @@ interface HeaderAction {
   slot?: string
   onClick?: () => void
   canShow?: MaybeRefOrGetter<boolean>,
-  badgeNumber?: Ref<number>
+  badgeNumber?: MaybeRefOrGetter<number>
 }
 
 const colorMode = useColorMode();
@@ -26,6 +26,8 @@ const breakpoints = useBreakpoints({
   md: 900
 });
 
+const isMobileBreakpoint = computed(() => breakpoints.smallerOrEqual("md").value)
+
 const headerLinks: HeaderLink[] = [
   {label: 'home', route: "/"},
   {label: 'products', route: '/products'},
@@ -34,70 +36,89 @@ const headerLinks: HeaderLink[] = [
   {label: 'electronics', route: "/products?category=electronics"},
 ]
 
-const isMobileBreakpoint = computed(() => breakpoints.smallerOrEqual("md").value)
-const make = (action: HeaderAction): HeaderAction => ({...action, canShow: action.canShow ?? true})
-
-
-function toggleDarkMode() {
-  useToggle(isDark)();
-}
-
 const badgeNumber = ref(2);
+const profileMenuModel = ref(false)
 
 const headerActions = ref<HeaderAction[]>(
     [
-      make({
+      {
         label: 'home',
         icon: 'iconamoon:home',
         route: '/',
         canShow: isMobileBreakpoint,
-      }),
-      make({
+      },
+      {
         label: 'search',
         icon: 'flowbite:search-outline',
         route: computed(() => {
           if (!isMobileBreakpoint.value)
             return undefined;
-          return '/search';
+          else
+            return '/search';
         }),
         onClick() {
           if (isMobileBreakpoint.value)
             return;
           console.log('show search dialog')
         }
-      }),
-      make({
+      },
+      {
         label: 'products',
         icon: 'mynaui:store',
         route: '/products',
         canShow: isMobileBreakpoint,
-      }),
-      make({
+      },
+      {
         label: 'cart',
         icon: 'streamline:shopping-bag-hand-bag-2',
         route: '/cart',
         badgeNumber
-      }),
-      make({
+      },
+      {
         label: 'user',
         icon: 'si:user-line',
-        route: '/profile',
-      }),
-      make({
+        route: computed(() => {
+          if (!isMobileBreakpoint.value)
+            return undefined;
+          else
+            return '/profile';
+        }),
+        onClick() {
+          if (isMobileBreakpoint.value)
+            return;
+          profileMenuModel.value = true;
+        }
+      },
+      {
         slot: 'colorMode',
         icon: computed(() => `material-symbols-light:${colorMode.value}-mode-outline-rounded`),
         onClick: () => toggleDarkMode(),
         canShow: breakpoints.greater("md"),
-      }),
+      },
     ]
 );
+
+function toggleDarkMode() {
+  useToggle(isDark)();
+}
+
+function isProfileAction(action: HeaderAction) {
+  return action.label === "user";
+}
+
+function canShowHeaderActionButton(action: HeaderAction) {
+  return action.canShow ?? true;
+}
+
+const profileBtnIsActive = computed<(action: HeaderAction) => boolean>(
+    () => (action) => profileMenuModel.value && isProfileAction(action)
+)
 </script>
 
 <template>
   <header
       class="fixed h-fit bottom-0 left-0 z-40 w-full bg-white ring-1 dark:ring-white/10 ring-black/20 backdrop-blur-md dark:bg-[#162031] md:top-0">
-    <BaseWrapper
-        full-width
+    <BaseWrapper full-width
         class="flex md:py-1.5 h-(--header-height) items-center justify-between !px-0 md:!px-4">
       <Logo class="hidden md:block"/>
       <!-- LINKS -->
@@ -109,28 +130,30 @@ const headerActions = ref<HeaderAction[]>(
       </ul>
       <!-- ACTIONS -->
       <div class="flex items-center w-full md:w-fit md:gap-1 h-full md:h-fit">
-        <template v-for="btn in headerActions">
+        <template v-for="action in headerActions">
           <UButton
-              :to="toValue(btn.route)"
+              :to="toValue(action.route)"
               variant="ghost"
               size="xl"
               square
+              :class="{'bg-black/10 dark:bg-white/15 ':profileBtnIsActive(action)}"
               class="rounded-none md:rounded-full h-full flex-1 cursor-pointer transition-colors hover:bg-black/10 dark:hover:bg-white/10 dark:[&>*]:text-white"
-              @click="btn.onClick"
+              @click="action.onClick"
               color="neutral"
               active-class="bg-primary-600 hover:!bg-primary-700 [&>*]:text-white"
-              v-if="btn.canShow">
+              v-if="canShowHeaderActionButton(action)">
+            <AppHeaderProfileMenu v-model="profileMenuModel" v-if="isProfileAction(action)"/>
             <UChip
                 size="xl"
-                :show="Boolean(btn.badgeNumber)"
-                :text="btn.badgeNumber"
+                :show="Boolean(action.badgeNumber)"
+                :text="toValue(action.badgeNumber)"
                 :ui="{base:'dark:text-white min-h-0 px-0.5 py-1.5'}"
                 position="top-right"
                 class="flex flex-col mx-auto">
               <UIcon
                   class="text-xl md:text-md"
-                  :name="toValue(btn.icon)"/>
-              <span v-if="isMobileBreakpoint" v-text="btn.label" class="text-xs font-normal capitalize mt-0.5"/>
+                  :name="toValue(action.icon)"/>
+              <span v-if="isMobileBreakpoint" v-text="action.label" class="text-xs font-normal capitalize mt-0.5"/>
             </UChip>
           </UButton>
         </template>
