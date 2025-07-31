@@ -1,7 +1,7 @@
 package com.site.ecommerce.mappers;
 
 import com.site.ecommerce.dtos.DTOProduct;
-import com.site.ecommerce.models.*;
+import com.site.ecommerce.models.Product;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
@@ -13,9 +13,9 @@ public class ProductMapper
 		DTOProduct dto = new DTOProduct();
 		if (ObjectUtils.isEmpty(product))
 			return dto;
-		Category category = product.getCategory();
+		String category = product.getCategory();
 		if (!ObjectUtils.isEmpty(category))
-			dto.setCategory(category.toString());
+			dto.setCategory(category);
 		dto.setId(product.getId());
 		dto.setColors(product.getColors());
 		dto.setPrice(product.getPrice());
@@ -40,9 +40,8 @@ public class ProductMapper
 		product.setTitle(dto.getTitle());
 		product.setDescription(dto.getDescription());
 		product.setPrice(dto.getPrice());
-		Category category = Category.valueOf(dto.getCategory());
-		if (!ObjectUtils.isEmpty(category))
-			product.setCategory(category);
+		if (!ObjectUtils.isEmpty(dto.getCategory()))
+			product.setCategory(dto.getCategory());
 		// Collections
 		product.setImages(dto.getImages());
 		product.setColors(dto.getColors());
