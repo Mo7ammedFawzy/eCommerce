@@ -7,7 +7,8 @@ const ProfileMenuLinks: ProfileMenuLink[] = [
   {
     label: "dev.fawzey@gmail.com",
     slot: "head",
-    as: "div"
+    as: "div",
+    type: 'label'
   },
   {
     icon: "lets-icons:home-light",

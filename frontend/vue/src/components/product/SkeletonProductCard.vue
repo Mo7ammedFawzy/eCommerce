@@ -1,6 +1,6 @@
 <template>
-  <div class='w-full h-full rounded-lg t-ring lg:max-w-full'>
-    <USkeleton class="w-full aspect-square"/>
+  <div class='w-full h-full rounded-lg ring-1 dark:ring-gray-100/10 ring-gray-300'>
+    <USkeleton class="w-full  aspect-square"/>
     <div class="p-4">
       <USkeleton class="w-full h-2"/>
       <div class="flex my-2 items-center justify-between">

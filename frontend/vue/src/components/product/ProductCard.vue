@@ -37,7 +37,7 @@ function getProductLink() {
 }
 </script>
 <template>
-  <UCard variant="outline" :ui="{body:'p-0 sm:p-0'}" class="ring ring-(--ring-color) overflow-hidden">
+  <UCard variant="outline" :ui="{body:'p-0 sm:p-0'}" class="ring ring-(--ring-color) overflow-hidden max-w-96">
     <RouterLink :to="getProductLink()" class="relative w-full aspect-square bg-white">
       <!-- img -->
       <img

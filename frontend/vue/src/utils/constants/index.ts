@@ -26,3 +26,8 @@ export const FooterLinks: FooterLink[] = [
     color: '#ff0000'
   },
 ]
+
+export enum SectionIds {
+  HomeLanding = "home-landing",
+  HomeTopCollections = "home-top-collections"
+}

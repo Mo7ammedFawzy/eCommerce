@@ -1,28 +1,29 @@
 import {createRouter, createWebHistory, type RouteRecordRaw,} from "vue-router"
+import RouterNames from "@/router/routerNames.ts";
 
 export const routes: RouteRecordRaw[] = [
     {
-        name: "home",
+        name: RouterNames.HOME,
         path: "/",
         component: () => import("@/views/HomePage.vue")
     },
     {
-        name: 'cart',
+        name: RouterNames.CART,
         path: '/cart',
         component: () => import('@/views/CartPage.vue'),
     },
     {
-        name: 'checkout',
+        name: RouterNames.CHECKOUT,
         path: '/checkout',
         component: () => import('@/views/CheckoutPage.vue'),
     },
     {
-        name: 'search',
+        name: RouterNames.SEARCH,
         path: '/search',
         component: () => import('@/views/SearchPage.vue'),
     },
     {
-        name: 'dashboard',
+        name: RouterNames.DASHBOARD,
         path: '/dashboard',
         component: () => import('@/views/DashboardPage.vue'),
     },
@@ -30,12 +31,12 @@ export const routes: RouteRecordRaw[] = [
         path: '/products',
         children: [
             {
-                name: 'products',
+                name: RouterNames.PRODUCTS,
                 path: '',
                 component: () => import('@/views/products/ProductsPage.vue'),
             },
             {
-                name: 'product-page',
+                name: RouterNames.PRODUCT_PAGE,
                 path: ':id',
                 component: () => import('@/views/products/ProductPage.vue'),
                 props: true
@@ -43,43 +44,43 @@ export const routes: RouteRecordRaw[] = [
         ],
     },
     {
-        name: 'auth',
+        name: RouterNames.AUTH,
         path: '/auth',
         children: [
             {
-                name: 'auth-login',
+                name: RouterNames.AUTH_LOGIN,
                 path: 'login',
                 component: () => import('@/views/auth/login.vue'),
             },
             {
-                name: 'auth-register',
+                name: RouterNames.AUTH_REGISTER,
                 path: 'register',
                 component: () => import('@/views/auth/register.vue'),
             },
         ],
     },
     {
-        name: 'profile',
+        name: RouterNames.PROFILE,
         path: '/profile',
         component: () => import('@/views/profile/ProfilePage.vue'),
         children: [
             {
-                name: 'profile-index',
+                name: RouterNames.PROFILE_INDEX,
                 path: '',
                 component: () => import('@/views/profile/ProfilePage.vue'),
             },
             {
-                name: 'profile-general',
+                name: RouterNames.PROFILE_GENERAL,
                 path: 'general',
                 component: () => import('@/views/profile/GeneralPage.vue'),
             },
             {
-                name: 'profile-orders',
+                name: RouterNames.PROFILE_ORDERS,
                 path: 'orders',
                 component: () => import('@/views/profile/orders/OrdersPage.vue'),
                 children: [
                     {
-                        name: 'profile-orders-id',
+                        name: RouterNames.PROFILE_ORDERS_ID,
                         path: ':id',
                         component: () => import('@/views/profile/orders/OrderPage.vue'),
                     },

@@ -24,5 +24,9 @@
 }
 
 body {
-    @apply bg-(--ui-background)
+    @apply bg-(--ui-background) overflow-x-hidden
+}
+
+[data-animate-once-in] {
+    @apply translate-y-[-50vh] md:translate-y-[-50vh]
 }
