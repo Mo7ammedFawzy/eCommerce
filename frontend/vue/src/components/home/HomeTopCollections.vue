@@ -26,5 +26,8 @@ const products = computed<IProductCard[]>(() => {
         <SkeletonProductCard v-else/>
       </div>
     </BaseWrapper>
+    <UButton
+        size="xl" leading-icon="hugeicons:link-04"
+        label="View All" color="primary" class="px-6 mt-4 mx-auto flex"/>
   </section>
 </template>
