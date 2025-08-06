@@ -3,9 +3,8 @@ import BaseOverlay from "@/components/base/BaseOverlay.vue";
 import useAnimations from "@/composables/useAnimations.ts";
 import {SectionIds} from "@/utils/constants";
 
-const {registerZoomInImgOnScrollListener, GScrollTo} = useAnimations();
+const {GScrollTo} = useAnimations();
 
-registerZoomInImgOnScrollListener();
 </script>
 <template>
   <section :id="SectionIds.HomeLanding" ref="sectionHomeLandingRef">
@@ -13,8 +12,7 @@ registerZoomInImgOnScrollListener();
         data-home-landing class="overflow-hidden h-screen relative flex items-center justify-center text-center" full-width>
       <img ref="imgRef"
            data-animate-landing-img
-           class="absolute left-0 top-0 origin-top
-          scale-180 min-w-full max-w-none min-h-full"
+           class="absolute left-0 top-0 origin-top min-w-full max-w-none min-h-full"
            src="@/assets/imgs/home/landing/test.jpg"
            alt="landing-img"/>
       <BaseOverlay/>

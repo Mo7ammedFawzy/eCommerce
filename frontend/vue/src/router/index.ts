@@ -1,5 +1,7 @@
 import {createRouter, createWebHistory, type RouteRecordRaw,} from "vue-router"
 import RouterNames from "@/router/routerNames.ts";
+import useAnimations from "@/composables/useAnimations.ts";
+import {SectionIds} from "@/utils/constants";
 
 export const routes: RouteRecordRaw[] = [
     {
@@ -93,6 +95,12 @@ export const routes: RouteRecordRaw[] = [
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes
+})
+
+
+router.afterEach(() => {
+  if (window.scrollY >= 10)
+    useAnimations().GScrollTo('#' + SectionIds.HomeLanding)
 })
 
 export default router;

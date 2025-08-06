@@ -54,12 +54,14 @@
     --ui-primary: var(--color-blue-ribbon-700);
     --ui-secondary: var(--color-rose-700);
     --card-spacing: theme(spacing.5);
-    --ui-background: #fff;
+    --background-light: #fff;
+    --background-dark: #0f1729;
+    --ui-background: var(--background-light);
 }
 
 .dark {
     --ui-primary: var(--color-blue-ribbon-700);
     --ui-secondary: var(--color-rose-500);
-    --ui-background: #0f1729;
+    --ui-background: var(--background-dark);
     --ring-color: theme(color.slate.700);
 }

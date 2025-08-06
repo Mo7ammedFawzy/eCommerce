@@ -19,14 +19,10 @@
     @apply shadow-[0px_7px_10px_0px_rgba(0,0,0,0.08)];
 }
 
-.ui-ring {
-    @apply ring-(--ring-color) ring-1;
-}
-
 body {
     @apply bg-(--ui-background) overflow-x-hidden
 }
 
-[data-animate-once-in] {
-    @apply translate-y-[-50vh] md:translate-y-[-50vh]
+@utility ui-ring {
+    @apply ring-(--ring-color) ring-1;
 }
