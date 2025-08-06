@@ -31,3 +31,7 @@ export enum SectionIds {
   HomeLanding = "home-landing",
   HomeTopCollections = "home-top-collections"
 }
+
+export enum Categories {
+  ELECTRONICS = "electronics", BOOKS = "books", CLOTHING = "clothing", HOME = "home", TOYS = "toys"
+}

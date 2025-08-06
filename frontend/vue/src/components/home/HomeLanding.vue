@@ -13,7 +13,7 @@ const {GScrollTo} = useAnimations();
       <img ref="imgRef"
            data-animate-landing-img
            class="absolute left-0 top-0 origin-top min-w-full max-w-none min-h-full"
-           src="@/assets/imgs/home/landing/test.jpg"
+           src="@/assets/imgs/home/landing.jpg"
            alt="landing-img"/>
       <BaseOverlay/>
       <main class="relative text-white items-center flex-col mx-auto max-w-7xl">

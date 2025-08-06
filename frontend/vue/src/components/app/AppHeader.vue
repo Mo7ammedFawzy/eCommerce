@@ -4,6 +4,7 @@ import {breakpointsTailwind, MaybeRefOrGetter, useBreakpoints, useColorMode, use
 import {computed, ref, toValue, useTemplateRef, watch} from "vue";
 import type {Base, Route} from "@/types";
 import {useRoute} from "vue-router";
+import {Categories} from "@/utils/constants";
 
 interface HeaderLink extends Base {
   route: Route
@@ -38,9 +39,9 @@ const isMobileBreakpoint = computed(() => breakpoints.smallerOrEqual("md").value
 const headerLinks: HeaderLink[] = [
   {label: 'home', route: "/"},
   {label: 'products', route: '/products'},
-  {label: 'men', route: "/products?category=men's clothing"},
-  {label: 'women', route: "/products?category=women's clothing"},
-  {label: 'electronics', route: "/products?category=electronics"},
+  {label: Categories.ELECTRONICS, route: "/products?category=electronics"},
+  {label: Categories.CLOTHING, route: "/products?category=clothing"},
+  {label: Categories.BOOKS, route: "/products?category=books"},
 ]
 const badgeNumber = ref(2);
 const profileMenuModel = ref(false)
