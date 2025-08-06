@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {useRoute} from "vue-router";
-import RouterNames from "@/router/routerNames.ts";
+import {RouterNames} from "@/router/routerNames.ts";
 import useAnimations from "@/composables/useAnimations.ts";
 import {nextTick, onMounted} from "vue";
 

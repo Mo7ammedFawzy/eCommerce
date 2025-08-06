@@ -23,7 +23,7 @@ const {GScrollTo} = useAnimations();
           furniture for <br/> now or forever
         </div>
         <UButton data-animate-once-in label="view products" @click="GScrollTo('#'+SectionIds.HomeTopCollections)" variant="outline" size="xl"
-                 leading-icon="solar:t-shirt-outline"
+                 leading-icon="ant-design:product-outlined"
                  class="text-white px-8 border border-gray-300 hover:bg-white/10"/>
       </main>
     </BaseWrapper>

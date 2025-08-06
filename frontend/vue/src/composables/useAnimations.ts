@@ -15,7 +15,7 @@ export default function useAnimations() {
   const loadingScreenDuration = 1.2
   const loadingScreenEase = "Expo.easeInOut"
   const appLoader = "#app-loader"
-  const loaderText = appLoader + ' h1'
+  const appLoaderHeader = "[data-app-loader-header]";
   const appHeader = "#app-header";
   const landingImg = "[data-animate-landing-img]"
   const onceIn = `[data-animate-once-in]`
@@ -54,7 +54,7 @@ export default function useAnimations() {
         cb();
       }
     })
-    tl.to(loaderText, {
+    tl.to(appLoaderHeader, {
       opacity: 1,
       y: 0,
       duration: loadingScreenDuration - .7,
@@ -72,19 +72,10 @@ export default function useAnimations() {
     })
   }
 
-  function animateIfExist(targets: gsap.TweenTarget, animate: () => void) {
-    if (typeof targets !== "string")
-      return;
-    const el = document.querySelectorAll(targets)
-    if (!el.length)
-      return;
-    animate();
-  }
-
   //TODO:: if element doesn't exist exclude its animation tl.to
   const pageTransitionEnter = () => {
     setElementPositionsToAnimate();
-    tl.to(loaderText, {
+    tl.to(appLoaderHeader, {
       opacity: 1,
       y: 0,
       duration: loadingScreenDuration - .6,
@@ -95,7 +86,7 @@ export default function useAnimations() {
       duration: loadingScreenDuration,
       ease: loadingScreenEase,
     })
-    tl.to(loaderText, {
+    tl.to(appLoaderHeader, {
       opacity: 0,
       duration: loadingScreenDuration - .9,
       ease: "linear"
@@ -130,7 +121,7 @@ export default function useAnimations() {
     tl.set(appLoader, {
       top: "-100%",
     })
-    tl.set(loaderText, {
+    tl.set(appLoaderHeader, {
       opacity: 0,
       y: 0
     })
