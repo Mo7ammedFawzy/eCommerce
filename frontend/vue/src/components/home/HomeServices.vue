@@ -32,7 +32,7 @@ const services: ServiceCard[] = [
       <div v-for="item in services"
            class="w-full h-full max-w-sm mx-auto relative overflow-hidden text-white text-center bg-primary rounded-lg px-8 py-6">
         <div class="space-y-3">
-          <div class="p-3 rounded-full w-fit mx-auto card-shadow aspect-square bg-primary-600 hover:bg-primary-500 cursor-pointer flex items-center justify-center">
+          <div class="p-3 rounded-full w-fit mx-auto ui-shadow aspect-square bg-primary-600 hover:bg-primary-500 cursor-pointer flex items-center justify-center">
             <UIcon :name="item.icon" class="text-4xl"/>
           </div>
           <div class="text-2xl font-medium capitalize" v-text="item.label"/>

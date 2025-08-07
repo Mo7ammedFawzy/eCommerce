@@ -1,10 +1,7 @@
 <script setup lang="ts">
 import BaseOverlay from "@/components/base/BaseOverlay.vue";
-import useAnimations from "@/composables/useAnimations.ts";
+import {GScrollTo} from "@/composables/useAnimations.ts";
 import {SectionIds} from "@/utils/constants";
-
-const {GScrollTo} = useAnimations();
-
 </script>
 <template>
   <section :id="SectionIds.HomeLanding" ref="sectionHomeLandingRef">
@@ -16,13 +13,13 @@ const {GScrollTo} = useAnimations();
            src="@/assets/imgs/home/landing.jpg"
            alt="landing-img"/>
       <BaseOverlay/>
-      <main class="relative text-white items-center flex-col mx-auto max-w-7xl">
-        <div data-animate-once-in class="uppercase mb-6 text-left text-4xl md:!text-7xl lg:text-8xl sm:text-6xl
+      <main class="relative text-white items-center flex-col mx-auto max-w-7xl overflow-hidden ">
+        <div data-animate-one-time class="uppercase mb-6 text-left text-4xl md:!text-7xl lg:text-8xl sm:text-6xl
        font-extrabold leading-tight
        bg-gray-100 bg-clip-text text-transparent mix-blend-difference drop-shadow-lg">
-          furniture for <br/> now or forever
+          furniture for<br/> now or forever
         </div>
-        <UButton data-animate-once-in label="view products" @click="GScrollTo('#'+SectionIds.HomeTopCollections)" variant="outline" size="xl"
+        <UButton data-animate-one-time label="view products" @click="GScrollTo('#'+SectionIds.HomeTopCollections)" variant="outline" size="xl"
                  leading-icon="ant-design:product-outlined"
                  class="text-white px-8 border border-gray-300 hover:bg-white/10"/>
       </main>

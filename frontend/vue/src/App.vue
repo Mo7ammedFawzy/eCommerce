@@ -2,19 +2,10 @@
 import {useRoute} from "vue-router";
 import {RouterNames} from "@/router/routerNames.ts";
 import useAnimations from "@/composables/useAnimations.ts";
-import {nextTick, onMounted} from "vue";
 
 const route = useRoute();
 
-const {pageTransitionEnter, pageTransitionLeave} = useAnimations();
-
-
-onMounted(async () => {
-  await nextTick();
-  pageTransitionLeave(() => {
-    pageTransitionEnter()
-  });
-})
+useAnimations().startPageAnimation();
 
 </script>
 <template>

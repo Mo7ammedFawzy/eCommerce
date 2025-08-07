@@ -57,6 +57,7 @@
     --background-light: #fff;
     --background-dark: #0f1729;
     --ui-background: var(--background-light);
+    --y-animate:50vh;
 }
 
 .dark {

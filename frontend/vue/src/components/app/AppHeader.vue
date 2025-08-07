@@ -127,13 +127,13 @@ const profileBtnIsActive = computed<(action: HeaderAction) => boolean>(
   <header
       id="app-header"
       ref="headerRef"
-      class="fixed overflow-hidden md:py-2 translate-y-(--header-height) md:translate-y-0 bottom-0 md:top-0 origin-bottom md:origin-top left-0 h-fit z-40 max-h-fit w-full
+      class="fixed overflow-hidden translate-y-[calc(var(--header-height)+var(--spacing)*8)] md:translate-y-0 bottom-0 md:top-0 origin-bottom md:origin-top left-0 h-fit z-40 max-h-fit w-full
     bg-background md:ui-ring backdrop-blur-md">
-    <BaseWrapper full-width class="flex md:py-1.5 h-(--header-height) items-center justify-between !px-0 md:!px-4">
-      <Logo class="hidden md:block"/>
+    <BaseWrapper full-width class="flex md:py-1.5 h-(--header-height) items-center justify-between !px-0 md:!px-4 overflow-hidden">
+      <Logo class="hidden md:block" data-animate-one-time/>
       <!-- LINKS -->
-      <ul class="hidden items-center justify-center gap-3 text-sm capitalize md:inline-flex">
-        <RouterLink :aria-checked="route.fullPath==link.route || undefined" v-for="link in headerLinks" :to="link.route"
+      <ul class="hidden items-center justify-center gap-3 text-sm capitalize md:inline-flex overflow-hidden">
+        <RouterLink data-animate-one-time :aria-checked="route.fullPath==link.route || undefined" v-for="link in headerLinks" :to="link.route"
                     class="hover:!text-primary aria-checked:text-primary" v-text="link.label">
         </RouterLink>
       </ul>
@@ -144,6 +144,7 @@ const profileBtnIsActive = computed<(action: HeaderAction) => boolean>(
                 v-if="canShowHeaderActionButton(action)"
                 :to="toValue(action.route)"
                 variant="ghost"
+                data-animate-one-time
                 size="xl"
                 @click="action.onClick"
                 square

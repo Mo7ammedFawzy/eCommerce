@@ -1,24 +1,31 @@
 import {gsap} from "gsap"
 import {CustomEase} from "gsap/CustomEase"
+import {SplitText} from "gsap/SplitText";
 import {ScrollToPlugin} from "gsap/ScrollToPlugin"
+import {CSSPlugin} from "gsap/CSSPlugin"
 import {useEventListener} from "@vueuse/core";
-import {useTemplateRef} from "vue";
+import {onMounted, useTemplateRef} from "vue";
+import {useRoute} from "vue-router";
+import {RouterNames} from "@/router/routerNames.ts";
 import TweenVars = gsap.TweenVars;
 
 gsap.registerPlugin(CustomEase)
+gsap.registerPlugin(CSSPlugin)
 gsap.registerPlugin(ScrollToPlugin)
+gsap.registerPlugin(SplitText)
 CustomEase.create("hop", "0.9, 0, 0.1, 1");
 
 export default function useAnimations() {
 
   const tl = gsap.timeline()
+  const route = useRoute();
   const loadingScreenDuration = 1.2
   const loadingScreenEase = "Expo.easeInOut"
   const appLoader = "#app-loader"
   const appLoaderHeader = "[data-app-loader-header]";
   const appHeader = "#app-header";
   const landingImg = "[data-animate-landing-img]"
-  const onceIn = `[data-animate-once-in]`
+  const oneTimeAnimate = "[data-animate-one-time]"
 
   const registerZoomInImgOnScrollListener = () => {
     const landingImgRef = useTemplateRef<HTMLImageElement>("imgRef")
@@ -49,7 +56,7 @@ export default function useAnimations() {
     tl.to(appLoader, {
       top: 0,
       duration: loadingScreenDuration,
-      ease: loadingScreenEase,
+      ease: 'hop',
       onComplete() {
         cb();
       }
@@ -63,28 +70,32 @@ export default function useAnimations() {
     }, "-=0.4")
   }
 
-  function setElementPositionsToAnimate() {
-    tl.set(onceIn, {
-      y: "50vh"
+  const setElementPositionsToAnimate = () => {
+    if (route.name === RouterNames.HOME)
+      tl.set(appHeader, {
+        paddingBlock: 4 * 4 + "px"
+      })
+    tl.set(oneTimeAnimate, {
+      y: "50vh",
+      opacity: 0.5
     })
     tl.set(landingImg, {
       scale: 1.8
     })
   }
 
-  //TODO:: if element doesn't exist exclude its animation tl.to
   const pageTransitionEnter = () => {
     setElementPositionsToAnimate();
     tl.to(appLoaderHeader, {
       opacity: 1,
       y: 0,
       duration: loadingScreenDuration - .6,
-      ease: "Power3.easeInOut",
+      ease: "Power3.easeInOut"
     })
     tl.to(appLoader, {
       top: "-100%",
       duration: loadingScreenDuration,
-      ease: loadingScreenEase,
+      ease: "Power3.easeInOut"
     })
     tl.to(appLoaderHeader, {
       opacity: 0,
@@ -96,24 +107,24 @@ export default function useAnimations() {
       duration: loadingScreenDuration,
       ease: loadingScreenEase,
     }, "-=1.1")
-    tl.to(onceIn, {
-      y: "0vh",
-      opacity: 1,
-      duration: 1,
-      stagger: .05,
-      ease: "Expo.easeOut",
-    }, "-=0.8")
     tl.to(appHeader, {
       y: 0,
       padding: 0,
-      duration: 0.8,
+      duration: 1,
       ease: "power4.inOut"
     }, "-=0.5")
     tl.to(landingImg, {
       scale: 1,
-      duration: 0.8,
+      duration: 1,
       ease: "power4.inOut"
     }, "<")
+    tl.to(oneTimeAnimate, {
+      y: "0vh",
+      opacity: 1,
+      duration: 1,
+      ease: "power4.inOut"
+    }, "<")
+
     tl.set("html", {
       cursor: "auto",
     }, "-=0.6")
@@ -127,7 +138,7 @@ export default function useAnimations() {
     })
   }
 
-  const scrollToTop = (show: boolean = false) => {
+  const toggleAppScrollToTopButtonVisibility = (show: boolean = false) => {
     gsap.to('#app-scroll-to-top-btn', {
       scale: show ? 1 : 0,
       duration: .5,
@@ -136,15 +147,19 @@ export default function useAnimations() {
 
 
   }
-  const GScrollTo = (target: TweenVars['scrollTo']) => {
-    gsap.to(window, {
-      scrollTo: target,
-      ease: "Power4.easeInOut",
-      duration: 1
-    })
+
+  const startPageAnimation = () => {
+    onMounted(() => pageTransitionLeave(pageTransitionEnter));
   }
+
   return {
-    registerZoomInImgOnScrollListener, scrollToTop,
-    pageTransitionEnter, pageTransitionLeave, GScrollTo
+    registerZoomInImgOnScrollListener, toggleAppScrollToTopButtonVisibility, startPageAnimation
   }
+}
+export const GScrollTo = (target: TweenVars['scrollTo']) => {
+  gsap.to(window, {
+    scrollTo: target,
+    ease: "Power4.easeInOut",
+    duration: 1
+  })
 }
