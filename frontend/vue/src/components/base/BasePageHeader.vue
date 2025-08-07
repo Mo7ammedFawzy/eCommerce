@@ -20,8 +20,8 @@ const breadcrumbLinks = computed<BreadcrumbItem[]>(() => {
 </script>
 
 <template>
-  <main class="overflow-hidden h-fit w-full mb-6">
-    <div class='relative rounded-lg bg-gradient-to-r overflow-hidden from-primary to-blue-600 text-white p-6' data-animate-one-time>
+  <main class="h-fit w-full mb-6">
+    <div class='relative rounded-lg bg-gradient-to-r from-primary to-blue-600 text-white p-6'>
       <div v-text="label" class="capitalize mb-4 text-3xl three-dots max-w-[70%] font-bold"/>
       <UBreadcrumb
           :links="breadcrumbLinks" class="text-white  capitalize"

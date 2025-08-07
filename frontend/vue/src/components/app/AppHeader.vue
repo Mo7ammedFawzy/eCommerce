@@ -5,6 +5,7 @@ import {computed, ref, toValue, useTemplateRef, watch} from "vue";
 import type {Base, Route} from "@/types";
 import {useRoute} from "vue-router";
 import {Categories} from "@/utils/constants";
+import {GlobalIcons} from "@/utils/constants/GlobalIcons.ts";
 
 interface HeaderLink extends Base {
   route: Route
@@ -50,13 +51,13 @@ const headerActions = ref<HeaderAction[]>(
     [
       {
         label: 'home',
-        icon: 'iconamoon:home',
+        icon: GlobalIcons.HOME,
         route: '/',
         canShow: isMobileBreakpoint,
       },
       {
         label: 'search',
-        icon: 'flowbite:search-outline',
+        icon: GlobalIcons.SEARCH,
         route: computed(() => {
           if (!isMobileBreakpoint.value)
             return undefined;
@@ -71,19 +72,19 @@ const headerActions = ref<HeaderAction[]>(
       },
       {
         label: 'products',
-        icon: 'mynaui:store',
+        icon: GlobalIcons.PRODUCTS,
         route: '/products',
         canShow: isMobileBreakpoint,
       },
       {
         label: 'cart',
-        icon: 'streamline:shopping-bag-hand-bag-2',
+        icon: GlobalIcons.CART,
         route: '/cart',
         badgeNumber
       },
       {
         label: 'user',
-        icon: 'si:user-line',
+        icon: GlobalIcons.PROFILE,
         route: computed(() => {
           if (!isMobileBreakpoint.value)
             return undefined;
@@ -127,7 +128,7 @@ const profileBtnIsActive = computed<(action: HeaderAction) => boolean>(
   <header
       id="app-header"
       ref="headerRef"
-      class="fixed overflow-hidden translate-y-[calc(var(--header-height)+var(--spacing)*8)] md:translate-y-0 bottom-0 md:top-0 origin-bottom md:origin-top left-0 h-fit z-40 max-h-fit w-full
+      class="ring-1 dark:ring-slate-700 ring-slate-600/20 fixed overflow-hidden translate-y-[calc(var(--header-height)+var(--spacing)*9)] md:translate-y-0 bottom-0 md:top-0 origin-bottom md:origin-top left-0 h-fit z-40 max-h-fit w-full
     bg-background md:ui-ring backdrop-blur-md">
     <BaseWrapper full-width class="flex md:py-1.5 h-(--header-height) items-center justify-between !px-0 md:!px-4 overflow-hidden">
       <Logo class="hidden md:block" data-animate-one-time/>

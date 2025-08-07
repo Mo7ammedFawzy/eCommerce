@@ -1,5 +1,5 @@
 export enum GlobalIcons {
-  HOME = "iconamoon:home",
+  HOME = "heroicons:home-solid",
   SEARCH = "flowbite:search-outline",
   PRODUCTS = "mynaui:store",
   CART = "streamline:shopping-bag-hand-bag-2",
