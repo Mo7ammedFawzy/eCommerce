@@ -155,7 +155,7 @@ export const GScrollTo = (target: TweenVars['scrollTo']) => {
   })
 }
 export const toggleAppScrollToTopButtonVisibility = () => {
-      const appScrollToTopButton = "#app-scroll-to-top-button";
+  const appScrollToTopButton = "#app-scroll-to-top-button";
   onMounted(() => {
     useEventListener(window, "scroll", useDebounceFn(() => {
       let canShowButton = false;
@@ -166,6 +166,6 @@ export const toggleAppScrollToTopButtonVisibility = () => {
         duration: .5,
         ease: "Power4.easeInOut"
       })
-    }, 500))
+    }, 350))
   })
 }
