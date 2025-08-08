@@ -1,6 +1,7 @@
 import "./assets/main.css";
 
 import {createApp, type App} from "vue";
+import Vue3Marquee from "vue3-marquee"
 import {createPinia} from "pinia"
 import router from "./router/index.ts"
 import uiPlugin from "@nuxt/ui/vue-plugin";
@@ -21,5 +22,6 @@ app.use(uiPlugin);
 app.use(myPlugin)
 app.use(createPinia())
 app.use(router);
+app.use(Vue3Marquee)
 
 app.mount("#app");

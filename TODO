@@ -11,7 +11,7 @@ Todo:
   ☐ <ProductCardWrapper />
     ✔ add more btn(pagination) to show more products @done(24-12-12 20:05)
   ☐ <Products />
-    ✔ on page /products only without querires page mounted add scroll to products__wrapper @done(24-12-17 04:20)
+    ✔ on page /products only without queries page mounted add scroll to products__wrapper @done(24-12-17 04:20)
     ☐ on every fetch add nuxtLoadingIndicator
     ✔ /products/:id @started(24-12-13 13:29) || <BaseProductContentSkeleton /> finish it @done(24-12-14 14:15) @lasted(1d46m45s)
     ✔ add a filter navigation in small window @started(24-12-12 13:32) @done(24-12-12 20:04) @lasted(6h32m53s)

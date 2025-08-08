@@ -15,8 +15,7 @@ public class Product
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id") // do i need to make product_id
 	private Long Id;
-	@Enumerated(EnumType.STRING) //optional
-	private Category category;
+	private String category;
 	private String title;
 	private Double price;
 	private String description;
@@ -42,7 +41,7 @@ public class Product
 	{
 	}
 
-	public Product(Long id, Category category, String description, List<String> images, Rating rating, List<String> colors, Double discount,
+	public Product(Long id, String category, String description, List<String> images, Rating rating, List<String> colors, Double discount,
 			LocalDateTime createdAt, LocalDateTime updatedAt)
 	{
 		Id = id;
@@ -66,12 +65,12 @@ public class Product
 		Id = id;
 	}
 
-	public Category getCategory()
+	public String getCategory()
 	{
 		return category;
 	}
 
-	public void setCategory(Category category)
+	public void setCategory(String category)
 	{
 		this.category = category;
 	}

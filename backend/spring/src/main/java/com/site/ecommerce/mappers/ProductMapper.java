@@ -13,9 +13,9 @@ public class ProductMapper
 		DTOProduct dto = new DTOProduct();
 		if (ObjectUtils.isEmpty(product))
 			return dto;
-		Category category = product.getCategory();
+		String category = product.getCategory();
 		if (!ObjectUtils.isEmpty(category))
-			dto.setCategory(category.toString());
+			dto.setCategory(category);
 		dto.setId(product.getId());
 		dto.setColors(product.getColors());
 		dto.setPrice(product.getPrice());
@@ -40,9 +40,12 @@ public class ProductMapper
 		product.setTitle(dto.getTitle());
 		product.setDescription(dto.getDescription());
 		product.setPrice(dto.getPrice());
-		Category category = Category.valueOf(dto.getCategory());
+		String category = dto.getCategory();
 		if (!ObjectUtils.isEmpty(category))
-			product.setCategory(category);
+		{
+			if (isValidCategory(category))
+				product.setCategory(category);
+		}
 		// Collections
 		product.setImages(dto.getImages());
 		product.setColors(dto.getColors());
@@ -51,5 +54,18 @@ public class ProductMapper
 		product.setDiscount(dto.getDiscount());
 		// Timestamps handled by JPA
 		return product;
+	}
+
+	private boolean isValidCategory(String category)
+	{
+		try
+		{
+			Category.valueOf(category.toUpperCase());
+			return true;
+		}
+		catch (IllegalArgumentException e)
+		{
+			return false;
+		}
 	}
 }
