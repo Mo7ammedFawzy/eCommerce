@@ -9,6 +9,8 @@ public interface ProductService
 {
 	Product createProduct(Product product);
 
+	List<Product> createProducts(List<Product> products);
+
 	List<Product> getAllProducts();
 
 	void clearAllProducts();

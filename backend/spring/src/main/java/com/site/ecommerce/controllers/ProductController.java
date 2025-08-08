@@ -47,6 +47,13 @@ public class ProductController
 		return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toDto(createdProduct));
 	}
 
+	@PostMapping("/bulk")
+	public ResponseEntity<List<DTOProduct>> createProducts(@RequestBody List<DTOProduct> dtoProducts)
+	{
+		List<Product> createdProducts = productService.createProducts(dtoProducts.stream().map(mapper::toEntity).toList());
+		return ResponseEntity.status(HttpStatus.CREATED).body(createdProducts.stream().map(mapper::toDto).toList());
+	}
+
 	@DeleteMapping
 	public ResponseEntity<String> clearAllProducts()
 	{

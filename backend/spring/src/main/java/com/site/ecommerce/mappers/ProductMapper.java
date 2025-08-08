@@ -1,7 +1,7 @@
 package com.site.ecommerce.mappers;
 
 import com.site.ecommerce.dtos.DTOProduct;
-import com.site.ecommerce.models.Product;
+import com.site.ecommerce.models.*;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
@@ -40,8 +40,12 @@ public class ProductMapper
 		product.setTitle(dto.getTitle());
 		product.setDescription(dto.getDescription());
 		product.setPrice(dto.getPrice());
-		if (!ObjectUtils.isEmpty(dto.getCategory()))
-			product.setCategory(dto.getCategory());
+		String category = dto.getCategory();
+		if (!ObjectUtils.isEmpty(category))
+		{
+			if (isValidCategory(category))
+				product.setCategory(category);
+		}
 		// Collections
 		product.setImages(dto.getImages());
 		product.setColors(dto.getColors());
@@ -50,5 +54,18 @@ public class ProductMapper
 		product.setDiscount(dto.getDiscount());
 		// Timestamps handled by JPA
 		return product;
+	}
+
+	private boolean isValidCategory(String category)
+	{
+		try
+		{
+			Category.valueOf(category.toUpperCase());
+			return true;
+		}
+		catch (IllegalArgumentException e)
+		{
+			return false;
+		}
 	}
 }
