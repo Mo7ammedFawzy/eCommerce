@@ -3,7 +3,7 @@ import {CustomEase} from "gsap/CustomEase"
 import {SplitText} from "gsap/SplitText";
 import {ScrollToPlugin} from "gsap/ScrollToPlugin"
 import {CSSPlugin} from "gsap/CSSPlugin"
-import {useEventListener} from "@vueuse/core";
+import {useDebounceFn, useEventListener} from "@vueuse/core";
 import {onMounted, useTemplateRef} from "vue";
 import {useRoute} from "vue-router";
 import {RouterNames} from "@/router/routerNames.ts";
@@ -20,7 +20,7 @@ export default function useAnimations() {
   const tl = gsap.timeline()
   const route = useRoute();
   const loadingScreenDuration = 1.2
-  const loadingScreenEase = "Expo.easeInOut"
+  const loadingScreenEase = "power2.inOut"
   const appLoader = "#app-loader"
   const appLoaderHeader = "[data-app-loader-header]";
   const appHeader = "#app-header";
@@ -112,7 +112,7 @@ export default function useAnimations() {
       padding: 0,
       duration: 1,
       ease: "power4.inOut"
-    }, "-=0.5")
+    }, ">-0.6")
     tl.to(landingImg, {
       scale: 1,
       duration: 1,
@@ -138,22 +138,13 @@ export default function useAnimations() {
     })
   }
 
-  const toggleAppScrollToTopButtonVisibility = (show: boolean = false) => {
-    gsap.to('#app-scroll-to-top-btn', {
-      scale: show ? 1 : 0,
-      duration: .5,
-      ease: "Power4.easeInOut"
-    })
-
-
-  }
 
   const startPageAnimation = () => {
     onMounted(() => pageTransitionLeave(pageTransitionEnter));
   }
 
   return {
-    registerZoomInImgOnScrollListener, toggleAppScrollToTopButtonVisibility, startPageAnimation
+    registerZoomInImgOnScrollListener, startPageAnimation
   }
 }
 export const GScrollTo = (target: TweenVars['scrollTo']) => {
@@ -161,5 +152,20 @@ export const GScrollTo = (target: TweenVars['scrollTo']) => {
     scrollTo: target,
     ease: "Power4.easeInOut",
     duration: 1
+  })
+}
+export const toggleAppScrollToTopButtonVisibility = () => {
+      const appScrollToTopButton = "#app-scroll-to-top-button";
+  onMounted(() => {
+    useEventListener(window, "scroll", useDebounceFn(() => {
+      let canShowButton = false;
+      if (window.scrollY > 400)
+        canShowButton = true;
+      gsap.to(appScrollToTopButton, {
+        scale: canShowButton ? 1 : 0,
+        duration: .5,
+        ease: "Power4.easeInOut"
+      })
+    }, 500))
   })
 }

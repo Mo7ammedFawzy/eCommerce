@@ -2,6 +2,7 @@
 import {useRoute} from "vue-router";
 import {RouterNames} from "@/router/routerNames.ts";
 import useAnimations from "@/composables/useAnimations.ts";
+import AppScrollToTopButton from "@/components/app/AppScrollToTopButton.vue";
 
 const route = useRoute();
 
@@ -11,6 +12,7 @@ useAnimations().startPageAnimation();
 <template>
   <UApp>
     <AppHeader/>
+    <AppScrollToTopButton/>
     <AppLoader/>
     <div class="pt-(--header-height) hidden md:block" v-if="route.name !== RouterNames.HOME"/>
     <main class="min-h-screen">

@@ -4,10 +4,10 @@ import {GScrollTo} from "@/composables/useAnimations.ts";
 import {SectionIds} from "@/utils/constants";
 </script>
 <template>
-  <section :id="SectionIds.HomeLanding" ref="sectionHomeLandingRef">
+  <section :id="SectionIds.HomeLanding">
     <BaseWrapper
         data-home-landing class="overflow-hidden h-screen relative flex items-center justify-center text-center" full-width>
-      <img ref="imgRef"
+      <img
            data-animate-landing-img
            class="absolute left-0 top-0 origin-top min-w-full max-w-none min-h-full"
            src="@/assets/imgs/home/landing.jpg"
