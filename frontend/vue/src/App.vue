@@ -15,7 +15,7 @@ useAnimations().startPageAnimation();
     <AppScrollToTopButton/>
     <AppLoader/>
     <div class="pt-(--header-height) hidden md:block" v-if="route.name !== RouterNames.HOME"/>
-    <main class="min-h-screen">
+    <main data-vaul-drawer-wrapper class="min-h-screen">
       <RouterView/>
     </main>
     <AppFooter/>

@@ -1,46 +1,25 @@
 <script setup lang="ts">
-import {IProductCard, Rating} from "@/types";
-import {breakpointsTailwind, useBreakpoints} from "@vueuse/core";
-import {computed} from "vue";
+import {IProductCard} from "@/types";
+import {breakpointsTailwind, useBreakpoints, useImage} from "@vueuse/core";
 
-const props = defineProps<IProductCard>();
-
-const DISCOUNT = .1
+const product = defineProps<IProductCard>();
 const breakpoints = useBreakpoints(breakpointsTailwind)
 
-function onProductViewClick() {
-}
+const imgUrl = product.images[0]
 
-const rating: Rating = {
-  rate: 1,
-  count: 1
-}
-
-const colors = ["red", "green"]
-const loadingImgUrl = "https://picsum.photos/seed/360/360";
-
-function firstImgIsValid(images: string[]) {
-  return images && !!images.length && !(images[0].includes("vercel"));
-}
-
-const imgUrl = computed(() => {
-  let imgToShow: string = loadingImgUrl;
-  const images = props.images;
-  if (firstImgIsValid(images))
-    imgToShow = images[0];
-  return imgToShow;
-});
-
+const {isLoading} = useImage({src: imgUrl})
 
 function getProductLink() {
-  return "/products/" + props.id
+  return "/products/" + product.id
 }
 </script>
 <template>
-  <UCard variant="outline" :ui="{body:'p-0 sm:p-0'}" class="ring ring-(--ring-color) overflow-hidden max-w-96">
+  <UCard variant="outline" :ui="{body:'p-0 sm:p-0',root:'ring-(--ring-color)'}" class="bg-transparent overflow-hidden max-w-96">
     <RouterLink :to="getProductLink()" class="relative w-full aspect-square bg-white">
       <!-- img -->
+      <USkeleton v-if="isLoading" class="w-full aspect-square"/>
       <img
+          v-else
           class="aspect-square w-full object-cover"
           :src="imgUrl" :alt="title" loading="lazy"/>
     </RouterLink>
@@ -54,7 +33,7 @@ function getProductLink() {
       <div class="my-2 flex items-center justify-between">
         <div class="flex items-center gap-1 text-xs">
           <UIcon name="mdi-star-outline"/>
-          <span v-text="`(${rating.rate})`"/>
+          <span v-text="`(${rating?.rate})`"/>
         </div>
         <div class="flex items-center">
           <div v-for="color in colors" class="-ms-0.5 aspect-square w-3 rounded-full ring ring-(--ring-color)"
@@ -66,15 +45,18 @@ function getProductLink() {
       <div class="flex items-center justify-between">
         <div class="space-x-1">
           <strong v-text="`$${price}`" class="text-xs sm:text-base"/>
-          <span v-text="`(-${DISCOUNT}%)`" class="text-xs text-orange-600"/>
+          <span v-text="`(-${(discount ?? 0) * 100}%)`" class="text-xs text-orange-600"/>
         </div>
         <div class="flex items-center sm:gap-1">
-          <!--              <ProductsView v-model="modal" :product="props.product">-->
-          <UButton icon="mdi-eye-outline" :size="breakpoints.smallerOrEqual('sm') ? 'xs' : 'sm'" variant="ghost"
-                   color="primary" @click="onProductViewClick"
-                   class="rounded-full p-1 text-black/70 hover:bg-black/10 dark:text-white/60 dark:hover:bg-white/10 sm:p-2"
-                   square/>
-          <!--              </ProductsView>-->
+          <ProductPreview :product="product">
+            <template #trigger>
+              <UButton
+                  icon="mdi-eye-outline" variant="ghost"
+                  :size="breakpoints.smallerOrEqual('sm') ? 'xs' : 'sm'"
+                  color="primary" square
+                  class="rounded-full p-1 text-black/70 hover:bg-black/10 dark:text-white/60 dark:hover:bg-white/10 sm:p-2"/>
+            </template>
+          </ProductPreview>
         </div>
       </div>
     </div>

@@ -4,18 +4,18 @@ import {computed, ref} from "vue";
 import {IProductCard} from "@/types";
 import {FooterLinks} from "@/utils/constants";
 import QuantityController from "@/components/product/QuantityController.vue";
+import {useImage} from "@vueuse/core";
 
-const props = defineProps<IProductCard & { isModal?: boolean }>()
-const {images, title, id, price, category, colors = ['black', 'red', 'green']} = props
+const props = defineProps<IProductCard>()
+const {images, title, id, price, category, colors} = props
+const imgUrl = images[0];
 
+const {isLoading} = useImage({src: imgUrl})
 const activeColor = ref(0)
 const productQuantity = computed(() => 0)
-const modal = defineModel({required: false, default: false})
 const productLink = computed(() => import.meta.env.BASE_URL + "/products/" + id)
 
-const DISCOUNT = 0.2;
 const MAX_ITEMS = 2;
-const purpleColor = "!bg-[#f55da4] hover:!bg-[#ef458f]";
 const productInfo = [
 
   {
@@ -24,7 +24,7 @@ const productInfo = [
   },
   {
     label: "discount",
-    value: `$${PriceAfterDiscount(price)} &nbsp; <span class='text-orange-600 dark:text-orange-500'>(${DISCOUNT}% Discount)</span>`
+    value: `$${PriceAfterDiscount(price)} &nbsp; <span class='text-orange-600 dark:text-orange-500'>(${(props.discount ?? 0) * 100}% Discount)</span>`
   },
   {
     label: "Available",
@@ -52,14 +52,11 @@ function addToCart() {
 </script>
 
 <template>
-  <main class='rounded-md ui-ring   p-5 lg:p-8 dark:bg-background '>
-    <UButton icon="i-heroicons-x-mark" v-if="props.isModal" @click="modal = false" square size="lg"
-             class="rounded-full aspect-square  mb-4 float-end" color="neutral"/>
+  <main class='rounded-md ui-ring p-5 lg:p-8 dark:bg-background'>
     <div class="grid-cols-1 md:grid-cols-2 grid w-full gap-6">
-      <div>
-        <div class="px-4 py-6 max-w-md mx-auto bg-white t-ring ">
-          <img :src="images[0]" class="object-contain w-full aspect-auto max-h-64 lg:max-h-72" :alt="title" loading="lazy"/>
-        </div>
+      <div class="p-4 max-w-md mx-auto ui-ring rounded-md w-full flex items-center justify-center max-h-full">
+        <USkeleton v-if="isLoading" class="w-auto max-h-full h-full aspect-square"/>
+        <img :src="imgUrl" class="object-contain max-h-full rounded-md h-full w-auto aspect-auto" :alt="title" loading="lazy"/>
       </div>
       <div>
         <div v-text="title" class="text-lg sm:text-xl md:text-2xl font-bold sm:three-dots leading-5"/>
@@ -106,13 +103,13 @@ function addToCart() {
         <div class="mb-4 grid grid-cols-2 gap-2 max-w-full">
           <UButton @click="addToCart" label="add to cart" block class="capitalize dark:text-white"
                    color="primary" size="lg"/>
-          <UButton label="buy now" size="lg" block :class="purpleColor" to="/cart" class="capitalize dark:text-white"/>
+          <UButton label="buy now" size="lg" block color="secondary" to="/cart" class="capitalize dark:text-white"/>
         </div>
         <div class="mt-5 flex items-center justify-center gap-2">
           <CopyToClipboardBtn :product-link="productLink"/>
           <UButton v-for="({ icon, color }) in FooterLinks" square size="sm" variant="link">
             <template #trailing>
-              <UIcon :name="icon" size="25" :style="{ color }"/>
+              <UIcon :name="icon" class="text-xl" :style="{ color }"/>
             </template>
           </UButton>
         </div>

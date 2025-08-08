@@ -20,7 +20,7 @@ const breadcrumbLinks = computed<BreadcrumbItem[]>(() => {
 </script>
 
 <template>
-  <main class="h-fit w-full mb-6">
+  <main class="h-fit w-full mb-6 overflow-hidden">
     <div class='relative rounded-lg bg-gradient-to-r from-primary to-blue-600 text-white p-6'>
       <div v-text="label" class="capitalize mb-4 text-3xl three-dots max-w-[70%] font-bold"/>
       <UBreadcrumb

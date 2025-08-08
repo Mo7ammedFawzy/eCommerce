@@ -8,8 +8,8 @@ export const useMyFetch = createFetch({
 })
 
 export const getAllProducts = (): UseFetchReturn<IProductCard[]> => {
-  return useFetch(BASE_URL + "products").json<IProductCard[]>();
+  return useFetch(BASE_URL + "/products").json<IProductCard[]>();
 }
 export const getProduct = (id: string): UseFetchReturn<IProductCard> => {
-  return useFetch(BASE_URL + "products/" + id).json<IProductCard>();
+  return useFetch(BASE_URL + "/products/" + id).json<IProductCard>();
 }
