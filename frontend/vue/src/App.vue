@@ -7,7 +7,6 @@ import AppScrollToTopButton from "@/components/app/AppScrollToTopButton.vue";
 const route = useRoute();
 
 useAnimations().startPageAnimation();
-
 </script>
 <template>
   <UApp>
