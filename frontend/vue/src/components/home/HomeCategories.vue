@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import CommonUtils from "@/utils/common.ts";
+import CommonUtils from "@/utils/CommonUtils.ts";
 import {Categories} from "@/utils/constants";
 import {RouteLocationAsRelativeGeneric} from "vue-router";
 import {RouterNames} from "@/router/routerNames.ts";

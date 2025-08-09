@@ -3,6 +3,7 @@
 import {onMounted, ref, watch} from "vue";
 import {Categories} from "@/utils/constants";
 import {useRoute, useRouter} from "vue-router";
+import {GScrollTo} from "@/composables/useAnimations.ts";
 
 const router = useRouter();
 const route = useRoute();
@@ -22,7 +23,10 @@ const clearFilters = () => {
 };
 
 watch(selected, () => router.push({query: selected.value ? {category: selected.value} : {}}));
-watch(() => route.query, () => loadFilters());
+watch(() => route.query, () => {
+  loadFilters();
+  GScrollTo("#page-header", 50)
+});
 
 onMounted(() => loadFilters());
 

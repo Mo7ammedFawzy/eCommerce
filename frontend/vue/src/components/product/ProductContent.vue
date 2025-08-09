@@ -7,34 +7,36 @@ import QuantityController from "@/components/product/QuantityController.vue";
 import {useImage} from "@vueuse/core";
 
 const props = defineProps<IProductCard>()
-const {images, title, id, price, category, colors} = props
-const imgUrl = images[0];
+const imgUrl = props.images[0];
 
 const {isLoading} = useImage({src: imgUrl})
-const activeColor = ref(0)
+const activeColor = ref(-1)
 const productQuantity = computed(() => 0)
-const productLink = computed(() => import.meta.env.BASE_URL + "/products/" + id)
-
+const productLink = computed(() => import.meta.env.BASE_URL + "/products/" + props.id)
+const stars = (props.rating?.rate ?? 0) / 2
 const MAX_ITEMS = 2;
-const productInfo = [
 
+const priceAfterDiscount = props.price - props.price * (props.discount ?? 0);
+const priceBeforeDiscount = props.price;
+
+function toDiscount() {
+  return Number((props.discount ?? 0) * 100).toFixed(0)
+}
+
+const productInfo = [
   {
     label: 'Category',
-    value: category
+    value: props.category
   },
   {
     label: "discount",
-    value: `$${PriceAfterDiscount(price)} &nbsp; <span class='text-orange-600 dark:text-orange-500'>(${(props.discount ?? 0) * 100}% Discount)</span>`
+    value: `$${priceAfterDiscount} &nbsp; <span class='text-orange-600 dark:text-orange-500'>(${toDiscount()}% Discount)</span>`
   },
   {
     label: "Available",
     value: `${MAX_ITEMS} Items`
   },
 ]
-
-function PriceAfterDiscount(price: number) {
-  return price;
-}
 
 function increaseQuantity() {
 
@@ -47,30 +49,36 @@ function decreaseQuantity() {
 function addToCart() {
 
 }
-
-
 </script>
 
 <template>
-  <main class='rounded-md ui-ring p-5 lg:p-8 dark:bg-background'>
+  <main class='rounded-md ui-ring p-5 lg:p-8 bg-background'>
     <div class="grid-cols-1 md:grid-cols-2 grid w-full gap-6">
       <div class="p-4 max-w-md mx-auto ui-ring rounded-md w-full flex items-center justify-center max-h-full">
         <USkeleton v-if="isLoading" class="w-auto max-h-full h-full aspect-square"/>
-        <img :src="imgUrl" class="object-contain max-h-full rounded-md h-full w-auto aspect-auto" :alt="title" loading="lazy"/>
+        <img v-else :src="imgUrl" class="object-contain max-h-full rounded-md h-full w-auto aspect-auto" :alt="title" loading="lazy"/>
       </div>
       <div>
         <div v-text="title" class="text-lg sm:text-xl md:text-2xl font-bold sm:three-dots leading-5"/>
         <div class="my-2 flex items-center justify-between">
-          <div class="flex items-center gap-1 sm:gap-2">
-            <div class="inline-flex">
-              <UIcon name="circum:star" v-for="_ in 5"/>
+          <div class="flex items-center gap-1 sm:gap-2 text-sm">
+            <div class="inline-flex items-center gap-0">
+              <span class="text-primary" v-for="i in 5">
+                <UIcon v-if="i <= Math.floor(stars)" name="mingcute:star-fill"/>
+                <UIcon v-else-if="(i - stars) <=0.5" name="mingcute:star-half-fill"/>
+                <UIcon v-else name="circum:star"/>
+              </span>
+              ({{ rating?.rate }})
             </div>
-            <p class="!text-main-300 text-sm font-semibold">0 Review</p>
+            <span>
+              <span v-text="rating?.count" class="font-bold"/>
+              Review
+            </span>
           </div>
           <div>
             <div class="space-x-1">
-              <del class="text-xs text-gray-600 dark:text-gray-400">${{ Number(price + 10).toFixed(2) }}</del>
-              <span v-text="`$${price}`" class="font-bold text-base"/>
+              <del class="text-xs text-gray-600 dark:text-gray-400">${{ priceBeforeDiscount }}</del>
+              <span v-text="`$${priceAfterDiscount}`" class="font-bold text-base"/>
             </div>
           </div>
         </div>
@@ -83,11 +91,11 @@ function addToCart() {
           <strong v-text="'Colors:'" class="text-lg"/>
           &nbsp;
           &nbsp;
-          <div class="flex items-center gap-1">
-            <UBadge @click="activeColor = index" v-for="(color, index) in colors"
-                    class="cursor-pointer aspect-square ui-ring w-8 rounded-full" :style="{ backgroundColor: color }">
-              <UIcon name="mingcute:check-2-fill" class="text-white text-2xl"
-                     :class="[activeColor == index ? 'opacity-100' : 'opacity-0']"/>
+          <div class="flex items-center gap-2">
+            <UBadge
+                :class="{'shadow-[0_0_0_2px_white,0_0_0_4px_var(--ui-primary)]':activeColor==index}"
+                @click="activeColor = index" v-for="(color, index) in colors"
+                class="cursor-pointer aspect-square ui-ring ring-2 w-8 rounded-full" :style="{ backgroundColor: color }">
             </UBadge>
           </div>
         </div>

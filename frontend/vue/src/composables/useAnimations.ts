@@ -7,7 +7,7 @@ import {onMounted, ref, useTemplateRef, watch} from "vue";
 import {useRoute} from "vue-router";
 import {RouterNames} from "@/router/routerNames.ts";
 import {landingImgLoadKey} from "@/utils/constants";
-import TweenVars = gsap.TweenVars;
+
 
 gsap.registerPlugin(CustomEase)
 gsap.registerPlugin(ScrollToPlugin)
@@ -146,9 +146,12 @@ export default function useAnimations() {
     registerZoomInImgOnScrollListener, startPageAnimation
   }
 }
-export const GScrollTo = (target: TweenVars['scrollTo']) => {
+export const GScrollTo = (target: ScrollToPlugin.Vars["y"], offsetY: number = 0) => {
   gsap.to(window, {
-    scrollTo: target,
+    scrollTo: {
+      y: target,
+      offsetY
+    },
     ease: "Power4.easeInOut",
     duration: 1
   })

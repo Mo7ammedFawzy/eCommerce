@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {Vue3Marquee} from 'vue3-marquee';
-import CommonUtils from "@/utils/common.ts";
+import CommonUtils from "@/utils/CommonUtils.ts";
 </script>
 
 <template>

@@ -1,3 +1,3 @@
 <template>
-  <span class="absolute left-0 top-0 w-full h-full bg-black/60"/>
+  <span class="absolute inset-0 w-full h-full bg-black/65"/>
 </template>
