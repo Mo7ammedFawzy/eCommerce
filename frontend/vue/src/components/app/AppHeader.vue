@@ -128,44 +128,44 @@ const profileBtnIsActive = computed<(action: HeaderAction) => boolean>(
   <header
       id="app-header"
       ref="headerRef"
-      class="ring-1 dark:ring-slate-700 ring-slate-600/20 fixed overflow-hidden translate-y-[calc(var(--header-height)+var(--spacing)*9)] md:translate-y-0 bottom-0 md:top-0 origin-bottom md:origin-top left-0 h-fit z-40 max-h-fit w-full
+      class="ring-1 dark:ring-slate-700 ring-slate-600/20 fixed overflow-hidden translate-y-[calc(var(--header-height)+var(--spacing)*9)] md:-translate-y-[calc(var(--header-height)+var(--spacing)*9)] bottom-0 md:top-0 origin-bottom md:origin-top left-0 h-fit z-40 max-h-fit w-full
     bg-background md:ui-ring backdrop-blur-md">
     <BaseWrapper full-width class="flex md:py-1.5 h-(--header-height) items-center justify-between !px-0 md:!px-4 overflow-hidden">
-      <Logo class="hidden md:block" data-animate-one-time/>
+      <Logo class="hidden md:block" />
       <!-- LINKS -->
       <ul class="hidden items-center justify-center gap-3 text-sm capitalize md:inline-flex overflow-hidden">
-        <RouterLink data-animate-one-time :aria-checked="route.fullPath==link.route || undefined" v-for="link in headerLinks" :to="link.route"
+        <RouterLink  :aria-checked="route.fullPath==link.route || undefined" v-for="link in headerLinks" :to="link.route"
                     class="hover:!text-primary aria-checked:text-primary" v-text="link.label">
         </RouterLink>
       </ul>
       <!-- ACTIONS -->
       <div class="flex items-center w-full md:w-fit md:gap-1 h-full md:h-fit">
         <template v-for="action in headerActions">
-            <UButton
-                v-if="canShowHeaderActionButton(action)"
-                :to="toValue(action.route)"
-                variant="ghost"
-                data-animate-one-time
+          <UButton
+              v-if="canShowHeaderActionButton(action)"
+              :to="toValue(action.route)"
+              variant="ghost"
+
+              size="xl"
+              @click="action.onClick"
+              square
+              :class="{'bg-black/10 dark:bg-white/15':profileBtnIsActive(action)}"
+              class="rounded-none w-full h-full md:rounded-full flex-1 cursor-pointer transition-colors hover:bg-black/10 dark:hover:bg-white/10 dark:[&>*]:text-white"
+              color="neutral"
+              active-class="bg-primary [&>*]:text-white">
+            <AppHeaderProfileMenu v-model="profileMenuModel" v-if="isProfileAction(action)"/>
+            <UChip
                 size="xl"
-                @click="action.onClick"
-                square
-                :class="{'bg-black/10 dark:bg-white/15':profileBtnIsActive(action)}"
-                class="rounded-none w-full h-full md:rounded-full flex-1 cursor-pointer transition-colors hover:bg-black/10 dark:hover:bg-white/10 dark:[&>*]:text-white"
-                color="neutral"
-                active-class="bg-primary [&>*]:text-white">
-              <AppHeaderProfileMenu v-model="profileMenuModel" v-if="isProfileAction(action)"/>
-              <UChip
-                  size="xl"
-                  :show="Boolean(action.badgeNumber)"
-                  :text="toValue(action.badgeNumber)"
-                  :ui="{base:'dark:text-white min-h-0 px-0.5 py-1.5'}"
-                  class="flex flex-col mx-auto">
-                <UIcon
-                    class="text-xl md:text-md"
-                    :name="toValue(action.icon)"/>
-                <span v-if="isMobileBreakpoint" v-text="action.label" class="dark:text-white text-xs font-normal capitalize mt-0.5"/>
-              </UChip>
-            </UButton>
+                :show="Boolean(action.badgeNumber)"
+                :text="toValue(action.badgeNumber)"
+                :ui="{base:'dark:text-white min-h-0 px-0.5 py-1.5'}"
+                class="flex flex-col mx-auto">
+              <UIcon
+                  class="text-xl md:text-md"
+                  :name="toValue(action.icon)"/>
+              <span v-if="isMobileBreakpoint" v-text="action.label" class="dark:text-white text-xs font-normal capitalize mt-0.5"/>
+            </UChip>
+          </UButton>
         </template>
       </div>
     </BaseWrapper>

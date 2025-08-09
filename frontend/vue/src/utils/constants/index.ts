@@ -1,4 +1,5 @@
 import {FooterLink} from "@/types";
+import {EventBusKey} from "@vueuse/core";
 
 export const BASE_URL = "http://localhost:8081/api/v1";//"https://api.escuelajs.co/api/v1/"
 
@@ -29,3 +30,5 @@ export enum SectionIds {
 export enum Categories {
   ELECTRONICS = "electronics", BOOKS = "books", CLOTHING = "clothing", HOME = "home", TOYS = "toys"
 }
+
+export const landingImgLoadKey: EventBusKey<any> = Symbol()

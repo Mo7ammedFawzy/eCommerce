@@ -1,14 +1,8 @@
 export default class CommonUtils {
-  static getImgUrl(dir: string, imgId: string | number, imgType: string = 'png') {
+  static getImgUrl(imgPath: string) {
 
-    let url = `../assets/imgs/${dir}/${imgId}.${imgType}`;
-    let base = import.meta.url;
+    const url = `../assets/imgs${imgPath}`;
+    const base = import.meta.url;
     return new URL(url, base).href
-  }
-
-  static getPropertyStyle(property: string): string {
-    return getComputedStyle(document.documentElement)
-      .getPropertyValue(property)
-      .trim();
   }
 }
