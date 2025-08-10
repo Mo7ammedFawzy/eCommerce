@@ -9,7 +9,10 @@ const {data} = getProduct(productId);
 </script>
 
 <template>
-  <BaseWrapper class="my-6">
+  <BaseWrapper class="my-6 relative">
+    <BaseLandingImg>
+      <BaseBlob/>
+    </BaseLandingImg>
     <BasePageHeader :label="data?.title" subtitle="data"/>
     <ProductContent v-bind="data" v-if="data"/>
     <SkeletonProductContent v-else/>

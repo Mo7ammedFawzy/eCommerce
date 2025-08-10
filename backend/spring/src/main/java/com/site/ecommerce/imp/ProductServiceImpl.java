@@ -34,7 +34,7 @@ public class ProductServiceImpl implements ProductService
 	}
 
 	@Override
-	public List<Product> getAllProducts()
+	public List<Product> getProducts()
 	{
 		return this.productRepository.findAll();
 	}
@@ -65,6 +65,12 @@ public class ProductServiceImpl implements ProductService
 		Product existingProduct = this.productRepository.findById(id).orElseThrow(() -> new RuntimeException(message));
 		dtoUpdateProduct.copyToActual(existingProduct);
 		return this.productRepository.save(existingProduct);
+	}
+
+	@Override
+	public List<Product> filterProductsByCategory(String category)
+	{
+		return this.productRepository.findAllByCategory(category);
 	}
 }
 

@@ -11,7 +11,7 @@ public interface ProductService
 
 	List<Product> createProducts(List<Product> products);
 
-	List<Product> getAllProducts();
+	List<Product> getProducts();
 
 	void clearAllProducts();
 
@@ -20,4 +20,6 @@ public interface ProductService
 	void deleteProductById(Long id);
 
 	Product updateProduct(Long id, DTOUpdateProduct updatedProduct);
+
+	List<Product> filterProductsByCategory(String category);
 }

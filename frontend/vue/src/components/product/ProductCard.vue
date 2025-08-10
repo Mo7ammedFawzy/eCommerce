@@ -1,26 +1,32 @@
 <script setup lang="ts">
 import {IProductCard} from "@/types";
 import {breakpointsTailwind, useBreakpoints, useImage} from "@vueuse/core";
+import CommonUtils from "@/utils/CommonUtils.ts";
 
 const product = defineProps<IProductCard>();
 const breakpoints = useBreakpoints(breakpointsTailwind)
+
+function toDiscount() {
+  let number = product.discount ?? 0;
+  return Number(number * 100).toFixed(0);
+}
 
 const imgUrl = product.images[0]
 
 const {isLoading} = useImage({src: imgUrl})
 
 function getProductLink() {
-  return "/products/" + product.id
+  return "/products/" + product.id + "/" + CommonUtils.toSlug(product.title);
 }
 </script>
 <template>
-  <UCard variant="outline" :ui="{body:'p-0 sm:p-0',root:'ring-(--ring-color)'}" class="bg-transparent overflow-hidden max-w-96">
-    <RouterLink :to="getProductLink()" class="relative w-full aspect-square bg-white">
+  <UCard variant="outline" :ui="{body:'p-0 sm:p-0',root:'ring-(--ring-color)'}" class="bg-background overflow-hidden max-w-96">
+    <RouterLink :to="getProductLink()" class="relative w-full aspect-square">
       <!-- img -->
       <USkeleton v-if="isLoading" class="w-full aspect-square"/>
       <img
           v-else
-          class="aspect-square w-full object-cover"
+          class="aspect-square w-full object-cover ui-ring"
           :src="imgUrl" :alt="title" loading="lazy"/>
     </RouterLink>
     <!-- title -->
@@ -32,7 +38,7 @@ function getProductLink() {
       <!-- rating+colors -->
       <div class="my-2 flex items-center justify-between">
         <div class="flex items-center gap-1 text-xs">
-          <UIcon name="mdi-star-outline"/>
+          <UIcon name="mingcute:star-half-fill"/>
           <span v-text="`(${rating?.rate})`"/>
         </div>
         <div class="flex items-center">
@@ -45,7 +51,7 @@ function getProductLink() {
       <div class="flex items-center justify-between">
         <div class="space-x-1">
           <strong v-text="`$${price}`" class="text-xs sm:text-base"/>
-          <span v-text="`(-${(discount ?? 0) * 100}%)`" class="text-xs text-orange-600"/>
+          <span v-text="`(-${toDiscount()}%)`" class="text-xs text-orange-600"/>
         </div>
         <div class="flex items-center sm:gap-1">
           <ProductPreview :product="product">
