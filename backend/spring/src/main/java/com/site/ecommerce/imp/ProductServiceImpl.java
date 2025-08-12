@@ -4,7 +4,10 @@ import com.site.ecommerce.dtos.DTOUpdateProduct;
 import com.site.ecommerce.models.Product;
 import com.site.ecommerce.repositories.ProductRepository;
 import com.site.ecommerce.services.ProductService;
+import com.site.ecommerce.utils.ProductUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -71,6 +74,19 @@ public class ProductServiceImpl implements ProductService
 	public List<Product> filterProductsByCategory(String category)
 	{
 		return this.productRepository.findAllByCategory(category);
+	}
+
+	@Override
+	public List<Product> getProductsFiltered(String category, String search, Integer limit)
+	{
+		if (!ObjectUtils.isEmpty(category) && !ProductUtils.isValidCategory(category))
+		{
+			throw new RuntimeException("Invalid Category"); //TODO
+		}
+		if (limit == null)
+			limit = 15;
+		Pageable pageable = PageRequest.of(0, limit);
+		return productRepository.findProducts(category, search, pageable);
 	}
 }
 
