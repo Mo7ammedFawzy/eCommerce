@@ -26,4 +26,17 @@ export default class ObjectChecker {
       return false
     return true;
   }
+
+  static isEmptyObject(o: object) {
+    if (!o)
+      return true
+    else
+      return Object.keys(o).length === 0;
+  }
+
+  static isLastElement(element: any, array: any[]) {
+    return array[array.length - 1] === element;
+  }
+
+
 }

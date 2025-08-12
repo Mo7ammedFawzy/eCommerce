@@ -1,5 +1,5 @@
 <template>
-  <div class='w-full h-full rounded-lg ring-1 dark:ring-gray-100/10 ring-gray-300'>
+  <div class='w-full h-full rounded-lg ring-1 dark:ring-gray-100/10 bg-background ring-gray-300 ui-shadow'>
     <USkeleton class="w-full  aspect-square"/>
     <div class="p-4">
       <USkeleton class="w-full h-2"/>

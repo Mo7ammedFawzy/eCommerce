@@ -55,3 +55,19 @@ body {
     -webkit-user-select: auto !important;
     user-select: auto !important;
 }
+
+@keyframes hopSmooth {
+    0% {
+        transform: scale(1.45);
+    }
+    50% {
+        transform: scale(1.098);
+    }
+    100% {
+        transform: scale(1.45);
+    }
+}
+
+.landing-img-live {
+    animation: hopSmooth 24s cubic-bezier(0.8, 0.1, 0.2, 0.9) infinite;
+}

@@ -22,7 +22,7 @@ watch(isLoading, () => {
 
 watch(canLoadImg, () => {
   bus.emit();
-})
+}, {immediate: true})
 
 </script>
 <template>
@@ -30,7 +30,7 @@ watch(canLoadImg, () => {
   <img
       v-else
       data-animate-landing-img
-      class="absolute left-0 top-0 origin-center min-w-full max-w-none min-h-full -z-10"
+      class="absolute left-0 top-0 origin-center min-w-full max-w-none min-h-full -z-10 landing-img-live"
       :src="imgUrl"
       alt="landing-img"/>
 </template>

@@ -9,14 +9,16 @@ const open = shallowRef(false)
   <UDrawer
       handle-only
       v-model:open="open"
-      :ui="{content:'bg-background ui-ring',header:'flex justify-end items-center',body:'max-h-full overflow-y-auto ui-scrollbar-y'}"
+      :ui="{content:'bg-background ui-ring',header:'flex justify-end items-center',body:'max-h-full min-h-[70vh] overflow-y-auto ui-scrollbar-y'}"
       should-scale-background set-background-color-on-scale>
     <slot name="trigger"/>
     <template #header>
       <UButton color="neutral" class="rounded-full" variant="ghost" icon="i-lucide-x" @click="open = false"/>
     </template>
     <template #body>
-      <ProductContent v-bind="product"/>
+      <BaseWrapper class="py-2">
+        <ProductContent v-bind="product"/>
+      </BaseWrapper>
     </template>
   </UDrawer>
 </template>

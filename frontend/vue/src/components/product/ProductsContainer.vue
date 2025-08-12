@@ -13,7 +13,7 @@ const productsToShow = computed(() => {
 </script>
 <template>
   <BaseWrapper>
-    <div class="@container flex items-center justify-center flex-wrap">
+    <div class="@container flex items-center flex-wrap">
       <div
           v-for="(product,index) in productsToShow"
           :key="product?.id  + index"

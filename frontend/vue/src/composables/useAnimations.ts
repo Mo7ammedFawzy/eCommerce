@@ -13,6 +13,7 @@ gsap.registerPlugin(CustomEase)
 gsap.registerPlugin(ScrollToPlugin)
 gsap.registerPlugin(SplitText)
 CustomEase.create("hop", "0.9, 0, 0.1, 1");
+CustomEase.create("hopSmooth", "0.8, 0.1, 0.2, 0.9");
 
 export default function useAnimations() {
 
@@ -65,6 +66,7 @@ export default function useAnimations() {
       y: "50vh",
       opacity: 0.5
     })
+    document.querySelector(landingImg)?.classList.remove("landing-img-live")
     tl.set(landingImg, {
       scale: 1.8
     })
@@ -116,11 +118,19 @@ export default function useAnimations() {
     tl.to(landingImg, {
       scale: 1.098,
       duration: baseDuration,
-      ease: smoothEase,
-    }, "<")
-    tl.set("html", {
-      cursor: "auto",
-    })
+      ease: "hopSmooth",
+      onComplete() {
+        gsap.set("html", {
+          cursor: "auto",
+        })
+      }
+    }, "<").to(landingImg, {
+      keyframes: [
+        {scale: 1.45, duration: 12, ease: "hopSmooth"},
+        {scale: 1.098, duration: 12, ease: "hopSmooth"}
+      ],
+      repeat: -1
+    });
   }
   const startPageAnimation = () => {
     const bus = useEventBus(landingImgLoadKey);

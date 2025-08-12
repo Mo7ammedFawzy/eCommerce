@@ -45,7 +45,7 @@ const loaderIcon = computed<string>(() => {
       <div data-app-loader-wrapper class="absolute flex items-center justify-center h-full w-full left-0 bottom-0">
         <div class="fit flex items-end gap-2 opacity-0 -translate-y-2" data-app-loader-inner>
           <h1 class="capitalize text-5xl md:text-7xl dark:text-white" v-text="loaderTitle"/>
-          <UIcon :name="loaderIcon" class="text-5xl md:text-7xl"/>
+          <UIcon :name="loaderIcon" class="text-4xl md:text-6xl"/>
         </div>
       </div>
     </BaseWrapper>

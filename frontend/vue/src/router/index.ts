@@ -29,65 +29,45 @@ export const routes: RouteRecordRaw[] = [
     component: () => import('@/views/DashboardPage.vue'),
   },
   {
+    name: RouterNames.PRODUCTS,
     path: '/products',
-    children: [
-      {
-        name: RouterNames.PRODUCTS,
-        path: '',
-        component: () => import('@/views/products/ProductsPage.vue'),
-      },
-      {
-        name: RouterNames.PRODUCT_PAGE,
-        path: ':id/:title',
-        component: () => import('@/views/products/ProductPage.vue'),
-        props: true
-      },
-    ],
+    component: () => import('@/views/products/ProductsPage.vue'),
   },
   {
-    name: RouterNames.AUTH,
-    path: '/auth',
-    children: [
-      {
-        name: RouterNames.AUTH_LOGIN,
-        path: 'login',
-        component: () => import('@/views/auth/login.vue'),
-      },
-      {
-        name: RouterNames.AUTH_REGISTER,
-        path: 'register',
-        component: () => import('@/views/auth/register.vue'),
-      },
-    ],
+    name: RouterNames.PRODUCT_PAGE,
+    path: '/products/:id/:title',
+    component: () => import('@/views/products/ProductPage.vue'),
+    props: true
+  },
+  {
+    name: RouterNames.AUTH_LOGIN,
+    path: '/auth/login',
+    component: () => import('@/views/auth/login.vue'),
+  },
+  {
+    name: RouterNames.AUTH_REGISTER,
+    path: '/auth/register',
+    component: () => import('@/views/auth/register.vue'),
   },
   {
     name: RouterNames.PROFILE,
     path: '/profile',
     component: () => import('@/views/profile/ProfilePage.vue'),
-    children: [
-      {
-        name: RouterNames.PROFILE_INDEX,
-        path: '',
-        component: () => import('@/views/profile/ProfilePage.vue'),
-      },
-      {
-        name: RouterNames.PROFILE_GENERAL,
-        path: 'general',
-        component: () => import('@/views/profile/GeneralPage.vue'),
-      },
-      {
-        name: RouterNames.PROFILE_ORDERS,
-        path: 'orders',
-        component: () => import('@/views/profile/orders/OrdersPage.vue'),
-        children: [
-          {
-            name: RouterNames.PROFILE_ORDERS_ID,
-            path: ':id',
-            component: () => import('@/views/profile/orders/OrderPage.vue'),
-          },
-        ],
-      },
-    ],
+  },
+  {
+    name: RouterNames.PROFILE_GENERAL,
+    path: '/profile/general',
+    component: () => import('@/views/profile/GeneralPage.vue'),
+  },
+  {
+    name: RouterNames.PROFILE_ORDERS,
+    path: '/profile/orders',
+    component: () => import('@/views/profile/orders/OrdersPage.vue'),
+  },
+  {
+    name: RouterNames.PROFILE_ORDERS_ID,
+    path: '/profile/orders/:id',
+    component: () => import('@/views/profile/orders/OrderPage.vue'),
   },
 ]
 

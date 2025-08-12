@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import Logo from "@/components/Logo.vue";
 import {breakpointsTailwind, MaybeRefOrGetter, useBreakpoints, useColorMode, useDark, useToggle} from "@vueuse/core";
-import {computed, ref, toValue, useTemplateRef, watch} from "vue";
-import type {Base, Route} from "@/types";
+import {computed, inject, ref, toValue, useTemplateRef, watch} from "vue";
+import {Base, Route} from "@/types";
 import {useRoute} from "vue-router";
-import {Categories} from "@/utils/constants";
+import {appSearchDialogModelKey, Categories} from "@/utils/constants";
 import {GlobalIcons} from "@/utils/constants/GlobalIcons.ts";
 
 interface HeaderLink extends Base {
@@ -46,6 +46,7 @@ const headerLinks: HeaderLink[] = [
 ]
 const badgeNumber = ref(2);
 const profileMenuModel = ref(false)
+const appSearchDialogModel = inject(appSearchDialogModelKey, ref(false))
 
 const headerActions = ref<HeaderAction[]>(
     [
@@ -58,16 +59,8 @@ const headerActions = ref<HeaderAction[]>(
       {
         label: 'search',
         icon: GlobalIcons.SEARCH,
-        route: computed(() => {
-          if (!isMobileBreakpoint.value)
-            return undefined;
-          else
-            return '/search';
-        }),
         onClick() {
-          if (isMobileBreakpoint.value)
-            return;
-          console.log('show search dialog')
+          appSearchDialogModel.value = true;
         }
       },
       {
@@ -135,7 +128,7 @@ const profileBtnIsActive = computed<(action: HeaderAction) => boolean>(
       <!-- LINKS -->
       <ul class="hidden items-center justify-center gap-3 text-sm capitalize md:inline-flex overflow-hidden">
         <RouterLink :aria-checked="route.fullPath==link.route || undefined" v-for="link in headerLinks" :to="link.route"
-                    class="hover:!text-primary aria-checked:text-primary" v-text="link.label">
+                    class="hover:!text-primary aria-checked:text-primary dark:aria-checked:text-blue-ribbon-400" v-text="link.label">
         </RouterLink>
       </ul>
       <!-- ACTIONS -->

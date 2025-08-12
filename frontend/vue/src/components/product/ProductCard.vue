@@ -2,6 +2,7 @@
 import {IProductCard} from "@/types";
 import {breakpointsTailwind, useBreakpoints, useImage} from "@vueuse/core";
 import CommonUtils from "@/utils/CommonUtils.ts";
+import ProductUtils from "@/utils/ProductUtils.ts";
 
 const product = defineProps<IProductCard>();
 const breakpoints = useBreakpoints(breakpointsTailwind)
@@ -14,14 +15,10 @@ function toDiscount() {
 const imgUrl = product.images[0]
 
 const {isLoading} = useImage({src: imgUrl})
-
-function getProductLink() {
-  return "/products/" + product.id + "/" + CommonUtils.toSlug(product.title);
-}
 </script>
 <template>
   <UCard variant="outline" :ui="{body:'p-0 sm:p-0',root:'ring-(--ring-color)'}" class="bg-background overflow-hidden max-w-96">
-    <RouterLink :to="getProductLink()" class="relative w-full aspect-square">
+    <RouterLink :to="ProductUtils.toLink(product)" class="relative w-full aspect-square">
       <!-- img -->
       <USkeleton v-if="isLoading" class="w-full aspect-square"/>
       <img

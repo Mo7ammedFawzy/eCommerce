@@ -4,17 +4,39 @@ import {useRoute} from "vue-router";
 import {computed} from "vue";
 import {BreadcrumbItem} from "@nuxt/ui";
 import BaseCircle from "@/components/base/BaseCircle.vue";
+import {RouterNames} from "@/router/routerNames.ts";
 
-const props = defineProps<{ label?: string, subtitle?: string }>()
+const props = defineProps<{ label?: string }>()
 const route = useRoute()
 
-const label = computed(() => props.label ?? route.name)
-const breadcrumbLinks = computed<BreadcrumbItem[]>(() => {
-  const home = 'home'
-  return home.concat(route.path).split("/").filter(el => el).map((el, index, array) => index !== array.length - 1 ? ({
-    label: el,
-    to: {name: el}
-  }) : ({label: props.subtitle ?? el}))
+const label = computed(() => props.label ?? route.name);
+
+const topRouteCrumbItem: BreadcrumbItem = {
+  to: "/",
+  label: "home"
+}
+
+const subRouteCrumbItems = computed<BreadcrumbItem[]>(() => {
+  const midRoot: BreadcrumbItem = {
+    to: {name: route.name},
+    label: route.name
+  }
+  if (route.name != RouterNames.PRODUCT_PAGE)
+    return [midRoot]
+  const productRoot: BreadcrumbItem = {
+    to: {name: RouterNames.PRODUCTS}, label: RouterNames.PRODUCTS
+  }
+  const product: BreadcrumbItem = {
+    label: route.params.title
+  }
+  return [productRoot, product]
+})
+
+const items = computed<BreadcrumbItem[]>(() => {
+  const allItems = [topRouteCrumbItem, ...subRouteCrumbItems.value]
+  allItems[allItems.length - 1].ui = {item: "!no-underline"}
+  allItems[allItems.length - 1].to = undefined
+  return allItems
 })
 
 </script>
@@ -24,7 +46,7 @@ const breadcrumbLinks = computed<BreadcrumbItem[]>(() => {
     <div class='relative rounded-lg bg-gradient-to-r from-primary to-blue-600 text-white p-6'>
       <div v-text="label" class="capitalize mb-4 text-3xl three-dots max-w-[70%] font-bold"/>
       <UBreadcrumb
-          :links="breadcrumbLinks" class="text-white  capitalize"
+          :items="items" class="text-white  capitalize"
           :ui="{
          link: 'text-white/80 !text-xs dark:text-white/80 three-dots max-w-48',
         separator:'text-white w-4',

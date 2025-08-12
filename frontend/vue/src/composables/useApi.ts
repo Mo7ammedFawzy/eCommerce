@@ -1,27 +1,35 @@
-import {createFetch, useFetch, UseFetchReturn} from "@vueuse/core";
+import {MaybeRefOrGetter, useFetch, UseFetchReturn} from "@vueuse/core";
 import {BASE_URL} from "@/utils/constants";
-import {IProductCard} from "@/types";
-import {useRoute} from "vue-router";
-import {computed} from "vue";
+import {IProductCard, ProductParams} from "@/types";
+import {computed, toValue} from "vue";
+import ObjectChecker from "@/utils/ObjectChecker.ts";
+import CommonUtils from "@/utils/CommonUtils.ts";
 
-export const useMyFetch = createFetch({
-  baseUrl: BASE_URL,
-})
 
-export const getAllProducts = (): UseFetchReturn<IProductCard[]> => {
-  //if im in products page
-  const route = useRoute();
-  const category = computed(() => route.query.category)
 
+export const getProducts = (params?: MaybeRefOrGetter<ProductParams>): UseFetchReturn<IProductCard[]> => {
   const url = computed(() => {
+    console.log("watch")
     const base = BASE_URL + "/products";
-    if (category.value)
-      return base + "?category=" + category.value;
-    else
+    const paramsToValue: ProductParams = toValue(params);
+    CommonUtils.deleteEmptyValues(paramsToValue);
+    if (ObjectChecker.isEmptyObject(paramsToValue))
       return base;
+    let queryFilter: string = "?";
+    const strings: any = Object.keys(paramsToValue);
+    for (const paramKey of strings) {
+      if (paramsToValue[paramKey])
+        queryFilter += paramKey + "=" + paramsToValue[paramKey];
+      if (!ObjectChecker.isLastElement(paramKey, strings) && queryFilter.length > 1)
+        queryFilter += "&"
+    }
+    return base + queryFilter;
   });
   return useFetch(url, {refetch: true}).json<IProductCard[]>();
 }
-export const getProduct = (id: string): UseFetchReturn<IProductCard> => {
-  return useFetch(BASE_URL + "/products/" + id).json<IProductCard>();
+export const getProduct = (id: MaybeRefOrGetter): UseFetchReturn<IProductCard> => {
+  const url = computed(() => BASE_URL + "/products/" + toValue(id));
+  return useFetch(url, {
+    refetch: true
+  }).json<IProductCard>();
 }

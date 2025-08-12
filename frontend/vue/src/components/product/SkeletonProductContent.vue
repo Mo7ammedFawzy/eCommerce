@@ -1,5 +1,4 @@
 <template>
-  <main>
     <div
         class="rounded-md ui-ring w-full grid-cols-1 md:grid-cols-2 grid p-5 lg:p-8 bg-background gap-0">
       <div class=" max-h-72 md:max-h-96 p-6">
@@ -15,5 +14,4 @@
         </div>
       </div>
     </div>
-  </main>
 </template>

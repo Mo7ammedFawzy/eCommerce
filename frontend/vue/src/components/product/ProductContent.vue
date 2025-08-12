@@ -63,7 +63,7 @@ function addToCart() {
         <div class="my-2 flex items-center justify-between">
           <div class="flex items-center gap-1 sm:gap-2 text-sm">
             <div class="inline-flex items-center gap-0">
-              <span class="text-primary" v-for="i in 5">
+              <span class="text-primary dark:text-blue-ribbon-400" v-for="i in 5">
                 <UIcon v-if="i <= Math.floor(stars)" name="mingcute:star-fill"/>
                 <UIcon v-else-if="(i - stars) <=0.5" name="mingcute:star-half-fill"/>
                 <UIcon v-else name="circum:star"/>

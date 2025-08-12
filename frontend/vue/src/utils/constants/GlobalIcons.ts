@@ -8,7 +8,7 @@ export enum GlobalIcons {
   CHECKOUT = "mdi:credit-card-outline",
   DASHBOARD = "material-symbols:dashboard-outline",
 
-  PRODUCT_PAGE = "mdi:tag-outline",
+  PRODUCT_PAGE = "solar:box-linear",
 
   AUTH = "mdi:account-outline",
   AUTH_LOGIN = "mdi:login",

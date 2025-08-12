@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import {getAllProducts} from "@/composables/useApi.ts";
+import {getProducts} from "@/composables/useApi.ts";
 import {SectionIds} from "@/utils/constants";
 import ProductsContainer from "@/components/product/ProductsContainer.vue";
 
-const {data: products} = getAllProducts()
+const {data: products} = getProducts({limit: 8})
 
 </script>
 
