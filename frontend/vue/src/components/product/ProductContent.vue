@@ -5,28 +5,29 @@ import {IProductCard} from "@/types";
 import {FooterLinks} from "@/utils/constants";
 import QuantityController from "@/components/product/QuantityController.vue";
 import {useImage} from "@vueuse/core";
+import {useCartStore} from "@/store/cart.ts";
 
-const props = defineProps<IProductCard>()
-const imgUrl = props.images[0];
+const product = defineProps<IProductCard>()
+const imgUrl = product.images[0];
 
+const {addToCart, decreaseQuantity, increaseQuantity, getProductQuantity} = useCartStore();
 const {isLoading} = useImage({src: imgUrl})
 const activeColor = ref(-1)
-const productQuantity = computed(() => 0)
-const productLink = computed(() => import.meta.env.BASE_URL + "/products/" + props.id)
-const stars = (props.rating?.rate ?? 0) / 2
+const productLink = computed(() => import.meta.env.BASE_URL + "/products/" + product.id)
+const stars = (product.rating?.rate ?? 0) / 2
 const MAX_ITEMS = 2;
 
-const priceAfterDiscount = props.price - props.price * (props.discount ?? 0);
-const priceBeforeDiscount = props.price;
+const priceAfterDiscount = product.price - product.price * (product.discount ?? 0);
+const priceBeforeDiscount = product.price;
 
 function toDiscount() {
-  return Number((props.discount ?? 0) * 100).toFixed(0)
+  return Number((product.discount ?? 0) * 100).toFixed(0)
 }
 
 const productInfo = [
   {
     label: 'Category',
-    value: props.category
+    value: product.category
   },
   {
     label: "discount",
@@ -38,17 +39,6 @@ const productInfo = [
   },
 ]
 
-function increaseQuantity() {
-
-}
-
-function decreaseQuantity() {
-
-}
-
-function addToCart() {
-
-}
 </script>
 
 <template>
@@ -103,13 +93,13 @@ function addToCart() {
           <strong class="text-lg font-semibold" v-text="'Quantity:'"/>
           <div class="w-fit">
             <QuantityController
-                :max-items="MAX_ITEMS" :quantity="productQuantity"
-                @increase-quantity="increaseQuantity" @decrease-quantity="decreaseQuantity"
+                :max-items="MAX_ITEMS" :quantity="getProductQuantity(product)"
+                @increase-quantity="increaseQuantity(product)" @decrease-quantity="decreaseQuantity"
             />
           </div>
         </div>
         <div class="mb-4 grid grid-cols-2 gap-2 max-w-full">
-          <UButton @click="addToCart" label="add to cart" block class="capitalize dark:text-white"
+          <UButton @click="addToCart(product)" label="add to cart" block class="capitalize dark:text-white"
                    color="primary" size="lg"/>
           <UButton label="buy now" size="lg" block color="secondary" to="/cart" class="capitalize dark:text-white"/>
         </div>

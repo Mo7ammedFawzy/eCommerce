@@ -5,6 +5,7 @@ import useAnimations from "@/composables/useAnimations.ts";
 import AppScrollToTopButton from "@/components/app/AppScrollToTopButton.vue";
 import AppSearchDialog from "@/components/app/AppSearchDialog.vue";
 import AppContext from "@/components/app/AppContext.vue";
+import {Notification, Notivue} from "notivue"
 
 const route = useRoute();
 
@@ -12,6 +13,9 @@ useAnimations().startPageAnimation();
 </script>
 <template>
   <UApp>
+    <Notivue v-slot="item">
+      <Notification :item="item"/>
+    </Notivue>
     <AppContext>
       <AppHeader/>
     <AppScrollToTopButton/>
@@ -22,7 +26,7 @@ useAnimations().startPageAnimation();
       <RouterView/>
     </main>
     <AppFooter/>
-    <div class="pb-(--header-height)  md:hidden"/>
+      <div class="pb-(--header-height) md:hidden"/>
     </AppContext>
   </UApp>
 </template>

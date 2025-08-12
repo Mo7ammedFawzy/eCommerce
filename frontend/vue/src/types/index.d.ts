@@ -62,9 +62,39 @@ export interface ProfileMenuLink extends DropdownMenuItem {
 
 export type CategoryType = `${Categories}` //typeof Categories[keyof typeof Categories];
 
-
 export interface ProductParams {
   limit?: number,
   category?: string,
   search?: string
+}
+
+export interface Cart {
+  product: IProductCard,
+  quantity: number
+}
+
+export interface CartActions {
+  pushToCart(product: IProductCard): void,
+
+  addToCart(product: IProductCard): void,
+
+  decreaseQuantity(product: IProductCard): void,
+
+  increaseQuantity(product: IProductCard): void,
+
+  deleteProductFromCart(product: IProductCard): void,
+
+  clearCart(): void
+}
+
+export interface CartGetters {
+  getProductQuantity(state): number,
+
+  getCartLength(state): number,
+
+  isCartEmpty(state): boolean,
+
+  getTotalPrice(state): number,
+
+  getTotalPriceAfterShipping(state): number
 }

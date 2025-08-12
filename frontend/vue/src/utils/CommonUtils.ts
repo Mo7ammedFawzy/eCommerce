@@ -32,4 +32,17 @@ export default class CommonUtils {
         delete obj[key];
     }
   }
+
+  static findInArray<T>(el: T, array: T[]): T | undefined {
+    return array.find(elInArray => elInArray === el);
+  }
+
+  static findInArrayWithKey<T>(el?: any, array: T[], key: string): T | undefined {
+    return array.find(obj => obj[key] === el);
+  }
+
+  static removeFromArrayWithKey<T>(toDelete: T, array: any[], key: string): void {
+    const indexOfDeleted = array.findIndex((item) => item[key] === toDelete);
+    array.splice(indexOfDeleted, 1);
+  }
 }

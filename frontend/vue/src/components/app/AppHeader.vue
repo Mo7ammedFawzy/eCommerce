@@ -6,6 +6,8 @@ import {Base, Route} from "@/types";
 import {useRoute} from "vue-router";
 import {appSearchDialogModelKey, Categories} from "@/utils/constants";
 import {GlobalIcons} from "@/utils/constants/GlobalIcons.ts";
+import {useCartStore} from "@/store/cart.ts";
+import ObjectChecker from "@/utils/ObjectChecker.ts";
 
 interface HeaderLink extends Base {
   route: Route
@@ -44,7 +46,6 @@ const headerLinks: HeaderLink[] = [
   {label: Categories.CLOTHING, route: "/products?category=clothing"},
   {label: Categories.BOOKS, route: "/products?category=books"},
 ]
-const badgeNumber = ref(2);
 const profileMenuModel = ref(false)
 const appSearchDialogModel = inject(appSearchDialogModelKey, ref(false))
 
@@ -73,7 +74,7 @@ const headerActions = ref<HeaderAction[]>(
         label: 'cart',
         icon: GlobalIcons.CART,
         route: '/cart',
-        badgeNumber
+        badgeNumber: computed(() => useCartStore().getCartLength)
       },
       {
         label: 'user',
@@ -149,7 +150,7 @@ const profileBtnIsActive = computed<(action: HeaderAction) => boolean>(
             <AppHeaderProfileMenu v-model="profileMenuModel" v-if="isProfileAction(action)"/>
             <UChip
                 size="xl"
-                :show="Boolean(action.badgeNumber)"
+                :show="ObjectChecker.isNumber(action.badgeNumber)"
                 :text="toValue(action.badgeNumber)"
                 :ui="{base:'dark:text-white min-h-0 px-0.5 py-1.5'}"
                 class="flex flex-col mx-auto">
