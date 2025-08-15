@@ -83,7 +83,12 @@ export default function useAnimations() {
     tl.to(appLoader, {
       top: "-100%",
       duration: baseDuration,
-      ease: baseEase
+      ease: baseEase,
+      onComplete() {
+        gsap.set("html", {
+          cursor: "auto",
+        })
+      }
     })
     tl.to(landingImg, {
       scale: 1,
@@ -118,9 +123,6 @@ export default function useAnimations() {
       duration: baseDuration,
       ease: smoothEase,
     }, "<")
-    tl.set("html", {
-      cursor: "auto",
-    })
   }
   const startPageAnimation = () => {
     const bus = useEventBus(landingImgLoadKey);
