@@ -1,16 +1,12 @@
 <script setup lang="ts">
 import ProductsContainer from "@/components/product/ProductsContainer.vue";
 import BaseBlob from "@/components/base/BaseBlob.vue";
-import {computed, toRef, watch} from "vue";
+import {computed, toRef} from "vue";
 import {useRoute} from "vue-router";
 import {getProducts} from "@/composables/useApi.ts";
 
 const route = useRoute();
 const category = computed<string>(() => (<string>route.query.category))
-
-watch(category, (v) => {
-  console.log({v} + "from top root")
-})
 
 const {data: products} = getProducts(toRef({category, limit: 8}));
 
