@@ -23,7 +23,7 @@ const iconsMap: Record<string, string> = {
 }
 const loaderTitle = computed<RouteNameType | string>(() => {
   const productTitle = route.params.title;
-  if (route.name == RouterNames.PRODUCT_PAGE && ObjectChecker.isString(productTitle) && ObjectChecker.isNotEmptyOrNull(productTitle))
+  if (route.name == RouterNames.PRODUCT_PAGE && ObjectChecker.isString(productTitle) && ObjectChecker.isNotEmptyOrNullish(productTitle))
     return CommonUtils.slugToTitle(productTitle);
   else
     return (<RouteNameType>route.name) ?? defaultName

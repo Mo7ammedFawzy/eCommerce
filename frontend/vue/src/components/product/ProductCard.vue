@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import {IProductCard} from "@/types";
+import {ProductCard} from "@/types";
 import {breakpointsTailwind, useBreakpoints, useImage} from "@vueuse/core";
-import CommonUtils from "@/utils/CommonUtils.ts";
 import ProductUtils from "@/utils/ProductUtils.ts";
 
-const product = defineProps<IProductCard>();
+const product = defineProps<ProductCard>();
 const breakpoints = useBreakpoints(breakpointsTailwind)
 
 function toDiscount() {

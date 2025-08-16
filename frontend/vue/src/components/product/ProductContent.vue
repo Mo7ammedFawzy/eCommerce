@@ -1,13 +1,13 @@
 <script setup lang='ts'>
 
 import {computed, ref} from "vue";
-import {IProductCard} from "@/types";
+import {ProductCard} from "@/types";
 import {FooterLinks} from "@/utils/constants";
 import QuantityController from "@/components/product/QuantityController.vue";
 import {useImage} from "@vueuse/core";
 import {useCartStore} from "@/store/cart.ts";
 
-const product = defineProps<IProductCard>()
+const product = defineProps<ProductCard>()
 const imgUrl = product.images[0];
 
 const {addToCart, decreaseQuantity, increaseQuantity, getProductQuantity} = useCartStore();
@@ -15,7 +15,7 @@ const {isLoading} = useImage({src: imgUrl})
 const activeColor = ref(-1)
 const productLink = computed(() => import.meta.env.BASE_URL + "/products/" + product.id)
 const stars = (product.rating?.rate ?? 0) / 2
-const MAX_ITEMS = 2;
+const MAX_ITEMS = 6;
 
 const priceAfterDiscount = product.price - product.price * (product.discount ?? 0);
 const priceBeforeDiscount = product.price;
@@ -94,7 +94,7 @@ const productInfo = [
           <div class="w-fit">
             <QuantityController
                 :max-items="MAX_ITEMS" :quantity="getProductQuantity(product)"
-                @increase-quantity="increaseQuantity(product)" @decrease-quantity="decreaseQuantity"
+                @increase-quantity="increaseQuantity(product)" @decrease-quantity="decreaseQuantity(product)"
             />
           </div>
         </div>

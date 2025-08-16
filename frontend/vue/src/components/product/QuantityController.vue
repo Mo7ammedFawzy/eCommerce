@@ -1,9 +1,11 @@
 <script setup lang='ts'>
+import {computed} from "vue";
+
 const props = defineProps<{ maxItems: number, quantity: number }>()
 const emit = defineEmits(['increase-quantity', 'decrease-quantity'])
 
-const canDecreaseQuantity = props.quantity >= 1
-const canIncreaseQuantity = props.quantity < props.maxItems
+const canDecreaseQuantity = computed(() => props.quantity >= 1)
+const canIncreaseQuantity = computed(() => props.quantity < props.maxItems)
 </script>
 
 <template>

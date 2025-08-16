@@ -13,13 +13,15 @@ import {ObjectPlugin} from "@vue/runtime-core";
 import {createNotivue} from "notivue";
 
 const myPlugin: ObjectPlugin = {
-    install(app: App) {
-        app.component("BaseWrapper", BaseWrapper);
-        console.info("plugin installed")
-    }
+  install(app: App) {
+    app.component("BaseWrapper", BaseWrapper);
+    console.info("plugin installed")
+  }
 }
 
-const notivue = createNotivue();
+const notivue = createNotivue({
+  limit: 2
+});
 const app = createApp(MyApp);
 
 app.use(uiPlugin);

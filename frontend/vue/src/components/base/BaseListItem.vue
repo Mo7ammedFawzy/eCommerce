@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import {IProductCard} from "@/types";
+import {ProductCard} from "@/types";
 
-defineProps<{ product: IProductCard }>();
+defineProps<{ product: ProductCard }>();
 </script>
 
 <template>

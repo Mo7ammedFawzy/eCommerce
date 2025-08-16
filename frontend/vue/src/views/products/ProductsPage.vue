@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import ProductsContainer from "@/components/product/ProductsContainer.vue";
-import {getProducts} from "@/composables/useApi.ts";
 import BaseBlob from "@/components/base/BaseBlob.vue";
 import {computed, toRef, watch} from "vue";
 import {useRoute} from "vue-router";
+import {getProducts} from "@/composables/useApi.ts";
 
 const route = useRoute();
 const category = computed<string>(() => (<string>route.query.category))
@@ -34,7 +34,7 @@ const {data: products} = getProducts(toRef({category, limit: 8}));
           <!--          <ProductsPagination v-model="page" :page-count="Number(pageCount)" :max-length="data?.length ?? [].length"/>-->
 
           <!--     TODO::     -->
-          <ProductsPagination class="mt-10 mx-auto w-fit" v-if="false"/>
+          <!--          <ProductsPagination class="mt-10 mx-auto w-fit" v-if="false"/>-->
         </div>
       </div>
     </BaseWrapper>

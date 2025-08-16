@@ -1,7 +1,4 @@
 import {DropdownMenuItem} from "@nuxt/ui";
-import {Categories} from "@/utils/constants";
-
-//TODO:: make module
 
 export interface Base {
   label: string,
@@ -14,7 +11,6 @@ export interface ListItem extends Base {
   id?: number
 }
 
-
 export type Route = `/${string}`
 
 export interface Rating {
@@ -22,18 +18,16 @@ export interface Rating {
   count: number
 }
 
-export interface IProductCard {
-  // Required
+export interface ProductCard {
   category: string;
   description: string;
   id: number;
-  images: string[];
+  images: readonly string[];
   price: number;
   rating?: Rating;
   title: string;
 
-  // Optional
-  colors?: string[];
+  colors?: readonly string[];
   createdAt?: string;
   discount?: number;
   updatedAt?: string;
@@ -60,8 +54,6 @@ export interface ProfileMenuLink extends DropdownMenuItem {
 
 }
 
-export type CategoryType = `${Categories}` //typeof Categories[keyof typeof Categories];
-
 export interface ProductParams {
   limit?: number,
   category?: string,
@@ -69,32 +61,6 @@ export interface ProductParams {
 }
 
 export interface Cart {
-  product: IProductCard,
+  product: ProductCard,
   quantity: number
-}
-
-export interface CartActions {
-  pushToCart(product: IProductCard): void,
-
-  addToCart(product: IProductCard): void,
-
-  decreaseQuantity(product: IProductCard): void,
-
-  increaseQuantity(product: IProductCard): void,
-
-  deleteProductFromCart(product: IProductCard): void,
-
-  clearCart(): void
-}
-
-export interface CartGetters {
-  getProductQuantity(state): number,
-
-  getCartLength(state): number,
-
-  isCartEmpty(state): boolean,
-
-  getTotalPrice(state): number,
-
-  getTotalPriceAfterShipping(state): number
 }

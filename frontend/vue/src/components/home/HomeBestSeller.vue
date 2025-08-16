@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import {getProducts} from "@/composables/useApi.ts";
-import {IProductCard} from "@/types";
+import {ProductCard} from "@/types";
 import {computed} from "vue";
 
 const {data} = getProducts();
 
-function toProduct(item: any): IProductCard {
+function toProduct(item: any): ProductCard {
   return item
 }
 
-const items = computed<IProductCard[]>(() => {
+const items = computed<ProductCard[]>(() => {
   const products = data.value;
   if (products?.length)
     return products;

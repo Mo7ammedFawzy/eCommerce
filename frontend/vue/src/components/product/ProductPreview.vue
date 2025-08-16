@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import {shallowRef} from "vue";
-import {IProductCard} from "@/types";
+import {ProductCard} from "@/types";
 
-defineProps<{ product: IProductCard }>()
+defineProps<{ product: ProductCard }>()
 const open = shallowRef(false)
 </script>
 <template>

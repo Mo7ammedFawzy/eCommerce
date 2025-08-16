@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import {IProductCard} from "@/types";
+import {ProductCard} from "@/types";
 import {computed} from "vue";
 
-const props = defineProps<{ products: IProductCard[] | null }>()
+const props = defineProps<{ products: ProductCard[] | null }>()
 
 const productsToShow = computed(() => {
   if (!!props.products?.length)

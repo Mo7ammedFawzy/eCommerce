@@ -27,27 +27,7 @@ const cartStore = useCartStore();
                   <div class="col-span-1" v-text="'Action'"/>
                 </div>
               </div>
-              <div class="bg-background ui-ring p-4 lg:p-6">
-                <div class="text-base font-bold lg:text-xl" v-text="'Payment Summary'"/>
-                <div class="my-3">
-                  <ul class="!text-sm lg:text-base">
-                    <li class="flex items-center justify-between">
-                      <p v-text="'Subtotal'" class="text-sm"/>
-                      <strong v-text="`$${12}`"/>
-                    </li>
-                    <li class="flex items-center justify-between">
-                      <p v-text="'Shipping'" class="text-sm"/>
-                      <strong v-text="`$${12}`"/>
-                    </li>
-                  </ul>
-                </div>
-                <USeparator class="mb-3"/>
-                <div class="flex items-center justify-between">
-                  <strong v-text="'Total Price'" class="text-sm"/>
-                  <strong v-text="`$${12}`"/>
-                </div>
-              </div>
-              <template v-for="(product, index) in cartStore.cart">
+              <template v-for="product in cartStore.cart">
                 <CartProductController :cart-item="product"/>
               </template>
             </div>
@@ -61,9 +41,31 @@ const cartStore = useCartStore();
           </div>
         </div>
         <div class="col-span-full md:col-span-2">
-          <UButton
-              class="dark:text-white" color="primary" size="lg" label="Checkout"
-              :ui="{ rounded: 'rounded-lg' }"/>
+          <div class="bg-background ui-ring p-4 lg:p-6">
+            <div class="text-base font-bold lg:text-xl" v-text="'Payment Summary'"/>
+            <div class="my-3">
+              <ul class="!text-sm lg:text-base">
+                <li class="flex items-center justify-between">
+                  <p v-text="'Subtotal'" class="text-sm"/>
+                  <strong v-text="`$${12}`"/>
+                </li>
+                <li class="flex items-center justify-between">
+                  <p v-text="'Shipping'" class="text-sm"/>
+                  <strong v-text="`$${12}`"/>
+                </li>
+              </ul>
+            </div>
+            <USeparator class="mb-3"/>
+            <div class="flex items-center justify-between">
+              <strong v-text="'Total Price'" class="text-sm"/>
+              <strong v-text="`$${12}`"/>
+            </div>
+            <UButton
+                block
+                class="dark:text-white mt-2" color="primary" size="lg" label="Checkout"
+                :ui="{ base:'rounded-lg' }"/>
+          </div>
+
         </div>
       </div>
     </BaseWrapper>

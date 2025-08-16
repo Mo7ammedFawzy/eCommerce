@@ -1,42 +1,50 @@
 export default class ObjectChecker {
 
-  constructor(public obj: any) {
-    this.obj = obj;
-  }
-
-  // TODO:: check chaining
-  static check(o: any) {
-    return new ObjectChecker(o);
-  }
-
-  public static isString(o: any): o is string {
+  public static isString(o: unknown): o is string {
     return typeof o === "string";
   }
 
-  static isNumber(o: any): o is number {
-    return typeof o === "number";
+  static isNumber(o: unknown): o is number {
+    return typeof o === "number" && !isNaN(o);
   }
 
-  static isNotEmptyOrNull<T>(o: T | null | undefined): o is T {
+  static isObject(o: unknown): o is object {
+    return o !== null && typeof o === "object" && !this.isArray(o);
+  }
+
+  static isArray(o: unknown): o is any[] {
+    return Array.isArray(o);
+  }
+
+  static isEmptyOrNullish<T>(o: T | null | undefined): o is null | undefined {
     if (o == null)
-      return false;
-    else if (!o)
-      return false;
-    else if (this.isString(o) && !o.length)
-      return false
-    return true;
+      return true;
+    else if (this.isString(o))
+      return this.isEmptyString(o);
+    else if (this.isArray(o))
+      return this.isEmptyArray(o);
+    else if (this.isObject(o))
+      return this.isEmptyObject(o);
+    return false;
+  }
+
+  static isNotEmptyOrNullish<T>(o: T | null | undefined): o is NonNullable<T> {
+    return !this.isEmptyOrNullish(o);
+  }
+
+  private static isEmptyString(o: string) {
+    return o.trim().length < 1;
   }
 
   static isEmptyObject(o: object) {
-    if (!o)
-      return true
-    else
-      return Object.keys(o).length === 0;
+    return Object.keys(o).length === 0;
+  }
+
+  private static isEmptyArray(o: any[]) {
+    return o.length === 0;
   }
 
   static isLastElement(element: any, array: any[]) {
     return array[array.length - 1] === element;
   }
-
-
 }

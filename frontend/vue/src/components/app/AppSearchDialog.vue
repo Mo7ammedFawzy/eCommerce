@@ -1,25 +1,23 @@
 <script setup lang="ts">
 import {computed, inject, ref} from "vue";
-
 import {appSearchDialogModelKey} from "@/utils/constants";
 import {getProducts} from "@/composables/useApi.ts";
 import {CommandPaletteGroup, CommandPaletteItem} from "@nuxt/ui/components/CommandPalette.vue";
-import {IProductCard, ProductParams} from "@/types";
+import {ProductCard, ProductParams} from "@/types";
 import {refDebounced} from "@vueuse/core";
 import ProductUtils from "@/utils/ProductUtils.ts";
 import CommonUtils from "@/utils/CommonUtils.ts";
 
 const appSearchDialogModel = inject(appSearchDialogModelKey, ref(false));
 
-
-const searchTerm = ref(null)
+const searchTerm = ref(undefined)
 const searchTermDebounced = refDebounced(searchTerm, 300)
 const params = computed<ProductParams>(() => ({
   search: searchTermDebounced.value ?? ''
 }))
 const {data: products, isFetching} = getProducts(params);
 
-function toCommandPaletteItem(product: IProductCard): CommandPaletteItem {
+function toCommandPaletteItem(product: ProductCard): CommandPaletteItem {
   return {
     label: product.title,
     id: product.id,
@@ -52,7 +50,7 @@ CommonUtils.onRouteChanged(() => {
       should-scale-background set-background-color-on-scale
       :ui="{content:'bg-background ui-ring pt-0',
       header:'flex justify-end items-center',
-      body:'max-h-full pt-0 min-h-[75vh] md:min-h-fit overflow-y-auto ui-scrollbar-y',root:'my-name !pt-0'}">
+      body:'max-h-full pt-0 min-h-[75vh] md:min-h-fit overflow-y-auto ui-scrollbar-y'}">
     <template #header>
       <UButton color="neutral" class="rounded-full" variant="ghost" icon="i-lucide-x" @click="appSearchDialogModel = false"/>
     </template>

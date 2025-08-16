@@ -85,7 +85,12 @@ export default function useAnimations() {
     tl.to(appLoader, {
       top: "-100%",
       duration: baseDuration,
-      ease: baseEase
+      ease: baseEase,
+      onComplete() {
+        gsap.set("html", {
+          cursor: "auto",
+        })
+      }
     })
     tl.to(landingImg, {
       scale: 1,
@@ -118,12 +123,7 @@ export default function useAnimations() {
     tl.to(landingImg, {
       scale: 1.098,
       duration: baseDuration,
-      ease: "hopSmooth",
-      onComplete() {
-        gsap.set("html", {
-          cursor: "auto",
-        })
-      }
+      ease: "hopSmooth"
     }, "<").to(landingImg, {
       keyframes: [
         {scale: 1.45, duration: 12, ease: "hopSmooth"},
