@@ -3,7 +3,7 @@ import {computed, inject, ref} from "vue";
 import {appSearchDialogModelKey} from "@/utils/constants";
 import {getProducts} from "@/composables/useApi.ts";
 import {CommandPaletteGroup, CommandPaletteItem} from "@nuxt/ui/components/CommandPalette.vue";
-import {ProductCard, ProductParams} from "@/types";
+import {ProductCard, ProductParams} from "@/types.ts";
 import {refDebounced} from "@vueuse/core";
 import ProductUtils from "@/utils/ProductUtils.ts";
 import CommonUtils from "@/utils/CommonUtils.ts";
@@ -61,7 +61,7 @@ CommonUtils.onRouteChanged(() => {
           v-model:search-term="searchTerm"
           :loading="isFetching"
           :groups="groups"
-          placeholder="Search users..."
+          placeholder="Search Products..."
           class="max-h-[75vh] md:h-80"
       />
     </template>

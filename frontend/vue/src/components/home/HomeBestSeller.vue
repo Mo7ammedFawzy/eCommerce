@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {getProducts} from "@/composables/useApi.ts";
-import {ProductCard} from "@/types";
+import {type ProductCard} from "@/types.ts";
 import {computed} from "vue";
 
 const {data} = getProducts();
@@ -30,7 +30,7 @@ const items = computed<ProductCard[]>(() => {
           next:'!-end-4 bg-background hover:bg-elevated',prev:'!-start-4 bg-background hover:bg-elevated'}"
           prev-icon="i-heroicons-arrow-left-20-solid"
           next-icon="i-heroicons-arrow-right-20-solid">
-        <div class="w-full max-w-full py-1">
+        <div class="w-full max-w-full p-1">
           <ProductCard v-bind="toProduct(item)" v-if="item"/>
           <SkeletonProductCard v-else/>
         </div>

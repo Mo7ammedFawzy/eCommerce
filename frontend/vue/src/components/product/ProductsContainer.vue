@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ProductCard} from "@/types";
+import {type ProductCard} from "@/types.ts";
 import {computed} from "vue";
 
 const props = defineProps<{ products: ProductCard[] | null }>()

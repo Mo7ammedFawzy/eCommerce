@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {shallowRef} from "vue";
-import {ProductCard} from "@/types";
+import {ProductCard} from "@/types.ts";
 
 defineProps<{ product: ProductCard }>()
 const open = shallowRef(false)

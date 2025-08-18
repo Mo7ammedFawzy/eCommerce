@@ -2,7 +2,7 @@
 import Logo from "@/components/Logo.vue";
 import {breakpointsTailwind, MaybeRefOrGetter, useBreakpoints, useColorMode, useDark, useToggle} from "@vueuse/core";
 import {computed, inject, ref, toValue, useTemplateRef, watch} from "vue";
-import {Base, Route} from "@/types";
+import {Base, Route} from "@/types.ts";
 import {useRoute} from "vue-router";
 import {appSearchDialogModelKey, Categories} from "@/utils/constants";
 import {GlobalIcons} from "@/utils/constants/GlobalIcons.ts";

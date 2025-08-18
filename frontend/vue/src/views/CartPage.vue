@@ -1,6 +1,8 @@
 <script setup lang='ts'>
 import CommonUtils from "@/utils/CommonUtils.ts";
 import {useCartStore} from "@/store/cart.ts";
+import {SHIPPING_TAXES} from "@/utils/constants";
+import BasePageHeader from "@/components/base/BasePageHeader.vue";
 
 const cartStore = useCartStore();
 </script>
@@ -11,7 +13,7 @@ const cartStore = useCartStore();
       <BasePageHeader/>
       <div class="grid grid-cols-7 gap-4 lg:gap-5">
         <div class="col-span-full md:col-span-5">
-          <div class="bg-background ui-ring p-4 lg:p-6">
+          <div class="bg-background ui-rounded-ring p-4 lg:p-6">
             <div>
               <span class="text-xl sm:text-2xl font-bold">Shopping Cart:</span>
               &nbsp;
@@ -32,40 +34,41 @@ const cartStore = useCartStore();
               </template>
             </div>
             <div v-else>
-              <img :src="CommonUtils.getImgUrl('/home/landing.jpg')"
+              <img :src="CommonUtils.getImgUrl('/empty-cart.png')"
                    class="max-w-xs w-52  aspect-auto max-h-60 mt-8 mx-auto" alt="empty-cart" loading="lazy"/>
               <USeparator class="my-6"/>
-              <UButton icon="i-heroicons-arrow-left" label="Contiue Shopping" size="xl" color="neutral" variant="ghost"
+              <UButton icon="i-heroicons-arrow-left" label="Continue Shopping" size="xl" color="neutral" variant="ghost"
                        to="/products"/>
             </div>
           </div>
         </div>
         <div class="col-span-full md:col-span-2">
-          <div class="bg-background ui-ring p-4 lg:p-6">
+          <div class="bg-background ui-rounded-ring p-4 lg:p-6">
             <div class="text-base font-bold lg:text-xl" v-text="'Payment Summary'"/>
             <div class="my-3">
               <ul class="!text-sm lg:text-base">
                 <li class="flex items-center justify-between">
                   <p v-text="'Subtotal'" class="text-sm"/>
-                  <strong v-text="`$${12}`"/>
+                  <strong v-text="`$${cartStore.getTotalPrice}`"/>
                 </li>
                 <li class="flex items-center justify-between">
                   <p v-text="'Shipping'" class="text-sm"/>
-                  <strong v-text="`$${12}`"/>
+                  <strong v-text="`$${SHIPPING_TAXES}`"/>
                 </li>
               </ul>
             </div>
             <USeparator class="mb-3"/>
             <div class="flex items-center justify-between">
               <strong v-text="'Total Price'" class="text-sm"/>
-              <strong v-text="`$${12}`"/>
+              <strong v-text="`$${cartStore.getTotalPriceAfterShipping}`"/>
             </div>
             <UButton
-                block
-                class="dark:text-white mt-2" color="primary" size="lg" label="Checkout"
-                :ui="{ base:'rounded-lg' }"/>
+                disabled
+                block class="dark:text-white mt-2"
+                color="primary" size="lg" label="Checkout"
+                to="/checkout"
+                :ui="{ base:'rounded-lg aria-disabled:!disabled-btn' }"/>
           </div>
-
         </div>
       </div>
     </BaseWrapper>

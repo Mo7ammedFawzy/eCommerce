@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ProductCard} from "@/types";
+import {ProductCard} from "@/types.ts";
 
 defineProps<{ product: ProductCard }>();
 </script>

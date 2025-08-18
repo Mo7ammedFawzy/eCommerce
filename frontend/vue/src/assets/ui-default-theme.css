@@ -71,5 +71,5 @@
     --ui-secondary: var(--color-rose-500);
     --ui-background: var(--background-dark);
     --ui-bg-app: #162031;
-    --ring-color: theme(color.slate.800);
+    --ring-color: theme(color.gray.700);
 }

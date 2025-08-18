@@ -19,7 +19,7 @@ const topRouteCrumbItem: BreadcrumbItem = {
 const subRouteCrumbItems = computed<BreadcrumbItem[]>(() => {
   const midRoot: BreadcrumbItem = {
     to: {name: route.name},
-    label: route.name
+    label: String(route.name)
   }
   if (route.name != RouterNames.PRODUCT_PAGE)
     return [midRoot]
@@ -27,7 +27,7 @@ const subRouteCrumbItems = computed<BreadcrumbItem[]>(() => {
     to: {name: RouterNames.PRODUCTS}, label: RouterNames.PRODUCTS
   }
   const product: BreadcrumbItem = {
-    label: route.params.title
+    label: String(route.params.title)
   }
   return [productRoot, product]
 })

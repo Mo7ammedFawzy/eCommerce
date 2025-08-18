@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ProfileMenuLink} from "@/types";
+import {ProfileMenuLink} from "@/types.ts";
 import {DropdownMenuItem} from "@nuxt/ui";
 
 const profileMenuModel = defineModel({default: false, type: Boolean})

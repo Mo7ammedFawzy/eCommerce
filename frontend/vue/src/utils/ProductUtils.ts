@@ -1,4 +1,4 @@
-import {ProductCard} from "@/types";
+import {ProductCard} from "@/types.ts";
 import CommonUtils from "@/utils/CommonUtils.ts";
 
 export default class ProductUtils {

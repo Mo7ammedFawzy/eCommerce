@@ -28,10 +28,17 @@ body {
     @apply ring-(--ring-color) ring-1;
 }
 
+@utility ui-rounded-ring {
+    @apply ui-ring rounded-md
+}
+
 @utility responsive-card {
     @apply lg:basis-1/4 xs:basis-1/3 basis-1/2 lg:max-w-1/4 xs:max-w-1/3 max-w-1/2 p-[calc(var(--ui-gap)/2)];
 }
 
+@utility disabled-btn{
+    @apply bg-gray-200 text-black/40 bg-gray-500 dark:text-black/70;
+}
 
 .ui-scrollbar-y::-webkit-scrollbar-thumb {
     background: red !important;
@@ -71,3 +78,4 @@ body {
 .landing-img-live {
     animation: hopSmooth 24s cubic-bezier(0.8, 0.1, 0.2, 0.9) infinite;
 }
+

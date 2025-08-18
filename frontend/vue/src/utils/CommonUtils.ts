@@ -1,5 +1,6 @@
-import {watch} from "vue";
+import {isRef, unref, watch} from "vue";
 import {useRoute} from "vue-router";
+import {MaybeRefOrGetter} from "@vueuse/core";
 
 export default class CommonUtils {
   static getImgUrl(imgPath: string) {
@@ -22,5 +23,14 @@ export default class CommonUtils {
     watch(() => route.fullPath, () => {
       cb();
     })
+  }
+
+  static unrefs(obj: Record<string, MaybeRefOrGetter<any>>) {
+    const objCopy = obj;
+    for (const key in objCopy) {
+      if (isRef(objCopy[key]))
+        objCopy[key] = unref(objCopy[key])
+    }
+    return objCopy;
   }
 }

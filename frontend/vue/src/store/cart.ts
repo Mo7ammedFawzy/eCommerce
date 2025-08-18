@@ -1,5 +1,5 @@
 import {defineStore} from "pinia";
-import {Cart, ProductCard} from "@/types";
+import {Cart, ProductCard} from "@/types.ts";
 import {type NotificationClearMethods, push} from "notivue";
 import ObjectChecker from "@/utils/ObjectChecker.ts";
 import CollectionUtils from "@/utils/CollectionUtils.ts";
@@ -9,6 +9,11 @@ export const useCartStore = defineStore("cart-store", {
     cart: <Cart[]>[]
   }),
   actions: {
+    loadCart() {
+      const cart = localStorage.getItem("store")
+      if (cart)
+        this.$patch(JSON.parse(cart))
+    },
     pushToCart(product: ProductCard) {
       this.cart.push({
         product,
@@ -17,6 +22,7 @@ export const useCartStore = defineStore("cart-store", {
       push.success({
         message: "Product added successfully",
       })
+      localStorage.setItem("store", JSON.stringify(this.$state));
     }, addToCart(product: ProductCard): void {
       const productInCart = CollectionUtils.findInArrayWithKey(product, this.cart, "product");
       if (!productInCart)
@@ -29,19 +35,23 @@ export const useCartStore = defineStore("cart-store", {
         return (push.warning({title: `product with id:${product.id} not found`}))
       productInCart.quantity--;
       push.success({message: "Product quantity decreased"})
-    }, deleteProductFromCart(product: ProductCard): void {
-      CollectionUtils.removeFromArrayWithKey(product, this.cart, "product")
+    }, deleteProductFromCart(cartItem: Cart): void {
+      CollectionUtils.removeFromArrayWithKey(cartItem.product, this.cart, "product")
       push.info({
         message: "Product deleted successfully"
       })
+      localStorage.setItem("store", JSON.stringify(this.$state));
     }, clearCart(): void {
       this.cart = [];
     }, increaseQuantity(product: ProductCard): void {
       const productInCart = CollectionUtils.findInArrayWithKey(product, this.cart, "product")
       if (!productInCart)
         return this.pushToCart(product);
+      if (productInCart.quantity >= this.getProductMaxItems(product))
+        return;
       productInCart.quantity++;
       push.success({message: "Product quantity increased"})
+      localStorage.setItem("store", JSON.stringify(this.$state));
     }
   },
   getters: {
@@ -51,12 +61,20 @@ export const useCartStore = defineStore("cart-store", {
       return (product?: ProductCard) => {
         return CollectionUtils.findInArrayWithKey(product, this.cart, "product")?.quantity ?? 0
       };
-    }, getTotalPrice(): number {
+    },
+    getProductMaxItems() {
+      // API: implement max items of product
+      return (product: ProductCard) => 10;
+    },
+    getTotalPrice(): number {
       return this.cart.reduce((total, cartItem) => total + cartItem.product.price * cartItem.quantity, 0) ?? 0;
-      //todo::
     }, getTotalPriceAfterShipping(): number {
       return 0;
-    }, isCartEmpty(state): boolean {
+    },
+    getCartItemTotalPrice() {
+      return (cartItem: Cart) => cartItem.product.price * cartItem.quantity;
+    },
+    isCartEmpty(state): boolean {
       return state.cart.length === 0;
     }
   }

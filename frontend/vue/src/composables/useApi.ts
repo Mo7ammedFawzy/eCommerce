@@ -1,14 +1,14 @@
 import {MaybeRefOrGetter, useFetch, UseFetchReturn} from "@vueuse/core";
 import {BASE_URL} from "@/utils/constants";
-import {ProductCard, ProductParams} from "@/types";
+import {ProductCard, ProductParams} from "@/types.ts";
 import {computed, toValue} from "vue";
 import ObjectChecker from "@/utils/ObjectChecker.ts";
 import CollectionUtils from "@/utils/CollectionUtils.ts";
 
 
 export const getProducts = (params?: MaybeRefOrGetter<ProductParams>): UseFetchReturn<ProductCard[]> => {
+  const base = BASE_URL + "/products";
   const url = computed(() => {
-    const base = BASE_URL + "/products";
     const paramsToValue: ProductParams | undefined = toValue(params);
     if (ObjectChecker.isObject(paramsToValue))
       CollectionUtils.deleteEmptyValues(paramsToValue);

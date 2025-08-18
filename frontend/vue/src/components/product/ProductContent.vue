@@ -1,21 +1,20 @@
 <script setup lang='ts'>
 
 import {computed, ref} from "vue";
-import {ProductCard} from "@/types";
 import {FooterLinks} from "@/utils/constants";
 import QuantityController from "@/components/product/QuantityController.vue";
 import {useImage} from "@vueuse/core";
 import {useCartStore} from "@/store/cart.ts";
+import type {ProductCard} from "@/types.ts";
 
 const product = defineProps<ProductCard>()
 const imgUrl = product.images[0];
 
-const {addToCart, decreaseQuantity, increaseQuantity, getProductQuantity} = useCartStore();
+const {addToCart, getProductMaxItems} = useCartStore();
 const {isLoading} = useImage({src: imgUrl})
 const activeColor = ref(-1)
 const productLink = computed(() => import.meta.env.BASE_URL + "/products/" + product.id)
 const stars = (product.rating?.rate ?? 0) / 2
-const MAX_ITEMS = 6;
 
 const priceAfterDiscount = product.price - product.price * (product.discount ?? 0);
 const priceBeforeDiscount = product.price;
@@ -35,14 +34,14 @@ const productInfo = [
   },
   {
     label: "Available",
-    value: `${MAX_ITEMS} Items`
+    value: `${getProductMaxItems(product)} Items`
   },
 ]
 
 </script>
 
 <template>
-  <main class='rounded-md ui-ring p-5 lg:p-8 bg-background'>
+  <main class='rounded-md  p-5 lg:p-8 bg-background'>
     <div class="grid-cols-1 md:grid-cols-2 grid w-full gap-6">
       <div class="p-4 max-w-md mx-auto ui-ring rounded-md w-full flex items-center justify-center max-h-full">
         <USkeleton v-if="isLoading" class="w-auto max-h-full h-full aspect-square"/>
@@ -92,10 +91,7 @@ const productInfo = [
         <div class="flex my-6 gap-2 items-center">
           <strong class="text-lg font-semibold" v-text="'Quantity:'"/>
           <div class="w-fit">
-            <QuantityController
-                :max-items="MAX_ITEMS" :quantity="getProductQuantity(product)"
-                @increase-quantity="increaseQuantity(product)" @decrease-quantity="decreaseQuantity(product)"
-            />
+            <QuantityController :product="product"/>
           </div>
         </div>
         <div class="mb-4 grid grid-cols-2 gap-2 max-w-full">

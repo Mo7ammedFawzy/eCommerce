@@ -1,11 +1,13 @@
 <script setup lang='ts'>
 import {computed} from "vue";
+import {ProductCard} from "@/types.ts";
+import {useCartStore} from "@/store/cart.ts";
 
-const props = defineProps<{ maxItems: number, quantity: number }>()
-const emit = defineEmits(['increase-quantity', 'decrease-quantity'])
+const props = defineProps<{ product: ProductCard }>()
+const cartStore = useCartStore();
 
-const canDecreaseQuantity = computed(() => props.quantity >= 1)
-const canIncreaseQuantity = computed(() => props.quantity < props.maxItems)
+const canDecreaseQuantity = computed(() => cartStore.getProductQuantity(props.product) >= 1)
+const canIncreaseQuantity = computed(() => cartStore.getProductQuantity(props.product) < cartStore.getProductMaxItems(props.product))
 </script>
 
 <template>
@@ -15,13 +17,13 @@ const canIncreaseQuantity = computed(() => props.quantity < props.maxItems)
           icon="i-heroicons-minus" square class="rounded-full"
           :ui="{base: 'ui-ring bg-transparent'}" size="xs"
           variant="outline" color="neutral"
-          @click="emit('decrease-quantity')" :disabled="!canDecreaseQuantity"/>
-      <div v-text="quantity" class="w-8 text-sm three-dots max-w-8 text-center"/>
+          @click="cartStore.decreaseQuantity(product)" :disabled="!canDecreaseQuantity"/>
+      <div v-text="cartStore.getProductQuantity(product)" class="w-8 text-sm three-dots max-w-8 text-center"/>
       <UButton
           icon="i-heroicons-plus" square class="rounded-full"
           :ui="{base: 'ui-ring bg-transparent'}" size="xs"
           variant="outline" color="neutral"
-          @click="emit('increase-quantity')" :disabled="!canIncreaseQuantity"/>
+          @click="cartStore.increaseQuantity(product)" :disabled="!canIncreaseQuantity"/>
     </div>
   </div>
 </template>

@@ -1,4 +1,4 @@
-import {FooterLink} from "@/types";
+import {FooterLink} from "@/types.ts";
 import {EventBusKey} from "@vueuse/core";
 import type {InjectionKey, Ref} from "vue";
 
@@ -34,3 +34,5 @@ export enum Categories {
 
 export const landingImgLoadKey: EventBusKey<any> = Symbol();
 export const appSearchDialogModelKey = Symbol("appSearchDialogModelKey") as InjectionKey<Ref<boolean>>
+
+export const SHIPPING_TAXES = 12;

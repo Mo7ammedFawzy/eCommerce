@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import {ServiceCard} from "@/types";
+import {ServiceCard} from "@/types.ts";
 
 const services: ServiceCard[] = [
   {

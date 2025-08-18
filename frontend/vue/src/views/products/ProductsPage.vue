@@ -1,14 +1,19 @@
 <script setup lang="ts">
 import ProductsContainer from "@/components/product/ProductsContainer.vue";
 import BaseBlob from "@/components/base/BaseBlob.vue";
-import {computed, toRef} from "vue";
+import {computed} from "vue";
 import {useRoute} from "vue-router";
 import {getProducts} from "@/composables/useApi.ts";
+import {CategoryType, ProductParams} from "@/types.ts";
 
 const route = useRoute();
-const category = computed<string>(() => (<string>route.query.category))
+const category = computed<CategoryType>(() => (<CategoryType>route.query.category))
+const params = computed<ProductParams>(() => ({
+  category: category.value ?? '',
+  limit: 8
+}))
 
-const {data: products} = getProducts(toRef({category, limit: 8}));
+const {data: products} = getProducts(params);
 
 </script>
 

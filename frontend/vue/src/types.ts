@@ -1,4 +1,5 @@
 import {DropdownMenuItem} from "@nuxt/ui";
+import {Categories} from "@/utils/constants";
 
 export interface Base {
   label: string,
@@ -56,7 +57,7 @@ export interface ProfileMenuLink extends DropdownMenuItem {
 
 export interface ProductParams {
   limit?: number,
-  category?: string,
+  category?: CategoryType,
   search?: string
 }
 
@@ -64,3 +65,5 @@ export interface Cart {
   product: ProductCard,
   quantity: number
 }
+
+export type CategoryType = `${Categories}`

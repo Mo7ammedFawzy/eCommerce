@@ -8,6 +8,7 @@ import AppContext from "@/components/app/AppContext.vue";
 import {darkTheme, lightTheme, Notification, Notivue, type NotivueTheme} from "notivue"
 import {computed} from "vue";
 import {useDark} from "@vueuse/core";
+import {useCartStore} from "@/store/cart.ts";
 
 const route = useRoute();
 const isDark = useDark();
@@ -24,6 +25,8 @@ const notivueTheme = computed(() => {
 })
 
 useAnimations().startPageAnimation();
+
+useCartStore().loadCart();
 </script>
 <template>
   <UApp>
