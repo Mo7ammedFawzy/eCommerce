@@ -54,6 +54,15 @@ export default function useAnimations() {
     })
   }
 
+  function canAnimateOnceIn() {
+    return route.name === RouterNames.HOME;
+  }
+
+  function canAnimateLandingImg() {
+    const allowedRouters: string[] = [RouterNames.HOME, RouterNames.PRODUCTS, RouterNames.PRODUCT]
+    return allowedRouters.includes(String(route.name));
+  }
+
   const initElementsPositions = () => {
     tl.set("html", {
       cursor: "wait"
@@ -62,10 +71,13 @@ export default function useAnimations() {
       tl.set(appHeader, {
         paddingBlock: 4 * 4 + "px"
       })
+    if (canAnimateOnceIn())
     tl.set(onceInAnimate, {
       y: "50vh",
       opacity: 0.5
     })
+    if (!canAnimateLandingImg())
+      return;
     document.querySelector(landingImg)?.classList.remove("landing-img-live")
     tl.set(landingImg, {
       scale: 1.8
@@ -92,11 +104,13 @@ export default function useAnimations() {
         })
       }
     })
+    if (canAnimateLandingImg())
     tl.to(landingImg, {
       scale: 1,
       duration: baseDuration,
       ease: baseEase
     }, "<")
+    if (canAnimateOnceIn())
     tl.to(onceInAnimate, {
       y: "0vh",
       opacity: 1,
@@ -120,6 +134,7 @@ export default function useAnimations() {
       duration: baseDuration,
       ease: smoothEase
     })
+    if (canAnimateLandingImg())
     tl.to(landingImg, {
       scale: 1.098,
       duration: baseDuration,
@@ -144,7 +159,7 @@ export default function useAnimations() {
           return;
         console.log('animate from timeout')
         pageTransitionEnter();
-      }, 3500)
+      }, 2000)
     });
     watch([pageHasLoaded, landingImageHasLoaded], () => {
       if (pageHasLoaded.value && landingImageHasLoaded.value && !animateHasStarted.value)

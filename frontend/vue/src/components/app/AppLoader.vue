@@ -19,11 +19,11 @@ const iconsMap: Record<string, string> = {
   [RouterNames.PROFILE]: GlobalIcons.PROFILE,
   [RouterNames.CHECKOUT]: GlobalIcons.CHECKOUT,
   [RouterNames.DASHBOARD]: GlobalIcons.DASHBOARD,
-  [RouterNames.PRODUCT_PAGE]: GlobalIcons.PRODUCT_PAGE,
+  [RouterNames.PRODUCT]: GlobalIcons.PRODUCT_PAGE,
 }
 const loaderTitle = computed<RouteNameType | string>(() => {
   const productTitle = route.params.title;
-  if (route.name == RouterNames.PRODUCT_PAGE && ObjectChecker.isString(productTitle) && ObjectChecker.isNotEmptyOrNullish(productTitle))
+  if (route.name == RouterNames.PRODUCT && ObjectChecker.isString(productTitle) && ObjectChecker.isNotEmptyOrNullish(productTitle))
     return CommonUtils.slugToTitle(productTitle);
   else
     return (<RouteNameType>route.name) ?? defaultName
@@ -32,7 +32,7 @@ const loaderIcon = computed<string>(() => {
   const value = loaderTitle.value;
   if (value && value in iconsMap)
     return iconsMap[value]
-  else if (route.name === RouterNames.PRODUCT_PAGE)
+  else if (route.name === RouterNames.PRODUCT)
     return GlobalIcons.PRODUCT_PAGE
   return defaultIcon
 })

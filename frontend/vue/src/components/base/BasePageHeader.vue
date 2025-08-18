@@ -21,7 +21,7 @@ const subRouteCrumbItems = computed<BreadcrumbItem[]>(() => {
     to: {name: route.name},
     label: String(route.name)
   }
-  if (route.name != RouterNames.PRODUCT_PAGE)
+  if (route.name != RouterNames.PRODUCT)
     return [midRoot]
   const productRoot: BreadcrumbItem = {
     to: {name: RouterNames.PRODUCTS}, label: RouterNames.PRODUCTS

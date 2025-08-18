@@ -6,7 +6,7 @@ export enum RouterNames {
   DASHBOARD = "dashboard",
 
   PRODUCTS = "products",
-  PRODUCT_PAGE = "product",
+  PRODUCT = "product",
 
   AUTH = "auth",
   AUTH_LOGIN = "auth-login",

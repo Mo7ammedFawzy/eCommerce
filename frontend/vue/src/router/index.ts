@@ -34,7 +34,7 @@ export const routes: RouteRecordRaw[] = [
     component: () => import('@/views/products/ProductsPage.vue'),
   },
   {
-    name: RouterNames.PRODUCT_PAGE,
+    name: RouterNames.PRODUCT,
     path: '/products/:id/:title',
     component: () => import('@/views/products/ProductPage.vue'),
     props: true
