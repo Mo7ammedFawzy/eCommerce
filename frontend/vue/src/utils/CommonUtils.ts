@@ -1,16 +1,18 @@
 import {isRef, unref, watch} from "vue";
 import {useRoute} from "vue-router";
 import {MaybeRefOrGetter} from "@vueuse/core";
+import ObjectChecker from "@/utils/ObjectChecker.ts";
 
 export default class CommonUtils {
   static images = import.meta.glob('@/assets/imgs/**/*', {eager: true, import: 'default'});
 
-  static getImgUrl(imgPath?: string) {
+  static getImgUrl(imgPath?: string): string | undefined {
     if (!imgPath)
       return;
     const base = "/src/assets/imgs";
-    const img = base + imgPath;
-    return this.images[img];
+    const image = this.images[base + imgPath];
+    if (ObjectChecker.isString(image))
+      return image;
   }
 
   static toSlug(title: string) {
