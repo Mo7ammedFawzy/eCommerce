@@ -3,10 +3,14 @@ import {useRoute} from "vue-router";
 import {MaybeRefOrGetter} from "@vueuse/core";
 
 export default class CommonUtils {
-  static getImgUrl(imgPath: string) {
-    const url = `/src/assets/imgs${imgPath}`;
-    const base = import.meta.url;
-    return new URL(url, base).href
+  static images = import.meta.glob('@/assets/imgs/**/*', {eager: true, import: 'default'});
+
+  static getImgUrl(imgPath?: string) {
+    if (!imgPath)
+      return;
+    const base = "/src/assets/imgs";
+    const img = base + imgPath;
+    return this.images[img];
   }
 
   static toSlug(title: string) {
