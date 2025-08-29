@@ -5,7 +5,7 @@ import CommonUtils from "@/utils/CommonUtils.ts";
 import BaseLandingImg from "@/components/base/BaseLandingImg.vue";
 import BaseOverlay from "@/components/base/BaseOverlay.vue";
 
-const imgUrl = CommonUtils.getImgUrl("/home/landing.jpg");
+const imgUrl = CommonUtils.getImgUrl("/home/landing-2.jpg");
 
 </script>
 <template>
