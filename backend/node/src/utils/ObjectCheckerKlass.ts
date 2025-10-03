@@ -1,10 +1,7 @@
 class ObjectCheckerKlass {
-  private static _instance: ObjectCheckerKlass;
 
   static getInstance(): ObjectCheckerKlass {
-    if (!this._instance)
-      this._instance = new ObjectCheckerKlass();
-    return this._instance;
+    return new ObjectCheckerKlass();
   }
 
   isNotEmptyOrNull<T>(o: T | null | undefined): o is T {
@@ -30,6 +27,14 @@ class ObjectCheckerKlass {
 
   isNull(o: unknown): o is null | undefined {
     return !this.isNotNull(o);
+  }
+
+  isAnyNotEmptyOrNull(...list: unknown[]): boolean {
+    return !this.isAnyEmptyOrNull(list);
+  }
+
+  isAnyEmptyOrNull<T extends unknown>(...list: (T | null | undefined)[]) {
+    return list.some(el => this.isEmptyOrNull(el));
   }
 }
 

@@ -1,4 +1,5 @@
 import {Request} from "express";
+import {ObjectChecker} from "./ObjectCheckerKlass";
 
 class CommonUtilsKlass {
   private static _instance: CommonUtilsKlass;

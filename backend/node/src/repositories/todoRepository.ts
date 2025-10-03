@@ -3,15 +3,12 @@ import {ITodo, Todo} from "../models/todoModel";
 import {DeleteResult} from "mongoose";
 
 class TodoRepository implements ITodoRepository {
-  private static _instance: TodoRepository;
 
   private constructor() {
   }
 
   static getInstance(): TodoRepository {
-    if (!this._instance)
-      this._instance = new TodoRepository();
-    return this._instance;
+    return new TodoRepository();
   }
 
   async findAll(): Promise<ITodo[]> {

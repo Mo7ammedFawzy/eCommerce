@@ -2,13 +2,10 @@ import type {Response} from "express";
 import {ReasonPhrases, StatusCodes} from "http-status-codes";
 
 class ApiResponseKlass {
-  private static _instance: ApiResponseKlass;
   private _response!: Response;
 
-  static instance(): ApiResponseKlass {
-    if (!this._instance)
-      this._instance = new ApiResponseKlass();
-    return this._instance;
+  static getInstance(): ApiResponseKlass {
+    return new ApiResponseKlass();
   }
 
   get response(): Response {
@@ -31,7 +28,7 @@ class ApiResponseKlass {
     })
   }
 
-  success<T>(data: T, message?: string) {
+  success(data: unknown, message?: string) {
     return this.response.status(StatusCodes.OK).json({
       status: ReasonPhrases.OK,
       message,
@@ -52,6 +49,17 @@ class ApiResponseKlass {
       message
     })
   }
+
+  requiredFields(...fields: string[]) {
+    const message: string = fields.reduce((sentence, field) => {
+      sentence += field + " is required, ";
+      return sentence;
+    }, "");
+    return this.response.status(StatusCodes.BAD_REQUEST).json({
+      status: StatusCodes.BAD_REQUEST,
+      message
+    })
+  }
 }
 
-export const ApiResponse = ApiResponseKlass.instance()
+export const ApiResponse = ApiResponseKlass.getInstance()

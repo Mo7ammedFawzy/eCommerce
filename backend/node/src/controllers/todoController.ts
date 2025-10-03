@@ -8,12 +8,9 @@ import {ObjectChecker} from "../utils/ObjectCheckerKlass";
 
 // handle http requests/responses
 class TodoController {
-  private static _instance: TodoController;
 
-  static instance() {
-    if (ObjectChecker.isEmptyOrNull(this._instance))
-      this._instance = new TodoController();
-    return this._instance;
+  static getInstance() {
+    return new TodoController();
   }
 
   async getAll(req: Request, res: Response) {
@@ -44,7 +41,7 @@ class TodoController {
 
   async getTodoById(req: Request, res: Response) {
     const id = CommonUtils.getIdFromParams(req);
-    const todo = await todoService.getTodoById(id);
+    const todo = await todoService.getById(id);
     const apiResponse = ApiResponse.addResponse(res)
     if (ObjectChecker.isEmptyOrNull(todo))
       return apiResponse.notFound(Messages.TODO.NOT_FOUND);
@@ -62,7 +59,7 @@ class TodoController {
 
   async toggle(req: Request, res: Response) {
     const id = CommonUtils.getIdFromParams(req);
-    const todo = await todoService.getTodoById(id);
+    const todo = await todoService.getById(id);
     const apiResponse = ApiResponse.addResponse(res);
     if (ObjectChecker.isEmptyOrNull(todo))
       return !apiResponse.notFound(Messages.TODO.NOT_FOUND);
@@ -88,4 +85,4 @@ class TodoController {
   }
 }
 
-export const todoController = TodoController.instance();
+export const todoController = TodoController.getInstance();

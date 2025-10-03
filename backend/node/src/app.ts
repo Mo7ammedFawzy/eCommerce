@@ -1,6 +1,8 @@
 import express from "express";
 import cors from "cors";
 import {todoRouter} from "./routes/todoRoutes";
+import {authRouter} from "./routes/authRoutes";
+import {productRouter} from "./routes/productRoutes";
 
 
 const app = express();
@@ -8,6 +10,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+app.use("/api/auth", authRouter);
+app.use("/api/products", productRouter);
 app.use("/api/todos", todoRouter);
 // start routing
 app.use("/", (req, res) => {

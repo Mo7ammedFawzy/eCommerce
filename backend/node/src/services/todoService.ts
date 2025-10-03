@@ -1,19 +1,15 @@
 import {ITodoService} from "./ITodoService";
 import {ITodo} from "../models/todoModel";
 import {todoRepository} from "../repositories/todoRepository";
-import {DeleteResult, Promise} from "mongoose";
 
 // Service Layer
 export class TodoService implements ITodoService {
-  private static _instance: TodoService;
 
   private constructor() {
   }
 
   static getInstance(): TodoService {
-    if (!this._instance)
-      this._instance = new TodoService();
-    return this._instance;
+    return new TodoService();
   }
 
   async add(title: string) {
@@ -28,7 +24,7 @@ export class TodoService implements ITodoService {
     return todoRepository.update(id, updateData);
   }
 
-  async getTodoById(id: string) {
+  async getById(id: string) {
     return todoRepository.findById(id)
   }
 
