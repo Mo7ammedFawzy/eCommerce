@@ -11,21 +11,14 @@ const allowedOrigins = [
 ]
 
 app.use(express.json());
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) return callback(null, true);
-    callback(new Error("Not allowed by CORS"));
-  },
-  credentials: true,
-}));
+app.use(cors());
 
-app.use("/api/auth", authRouter);
 app.use("/api/products", productRouter);
+app.use("/api/auth", authRouter);
 app.use("/api/todos", todoRouter);
 // start routing
 app.use("/", (req, res) => {
-  res.send("<h1>Jobs API</h1> <a href='/api/todos'>Todos</a>")
+  res.send("<h1>Jobs API updated</h1> <a href='/api/products'>Products</a>")
 })
 
 export default app;
