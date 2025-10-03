@@ -40,10 +40,11 @@ class ProductService implements IProductService {
       }
     }
 
-    return Product.find(filter)
+    const products = await Product.find(filter)
       .limit(Number(limit))
       .skip((Number(page) - 1) * Number(limit))
       .sort(sortOption);
+    return products;
   }
 
   async getById(id: string): Promise<IProduct | null> {

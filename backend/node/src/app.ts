@@ -18,7 +18,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/todos", todoRouter);
 // start routing
 app.use("/", (req, res) => {
-  res.send("<h1>Jobs API updated-1</h1> <a href='/api/products'>Products</a>")
+  res.send("<h1>Jobs API updated-2</h1> <a href='/api/products'>Products</a>")
 })
 
 export default app;
