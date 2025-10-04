@@ -45,7 +45,7 @@ watch(breakpoints.current(), (currentValue) => {
 const isMobileBreakpoint = computed(() => breakpoints.smallerOrEqual("md").value)
 
 const headerLinks: HeaderLink[] = [
-  {label: RouterNames.HOME, routeName: RouterNames.HOME, route: "/"},
+  {label: RouterNames.HOME, routeName: RouterNames.HOME},
   {label: RouterNames.PRODUCTS, routeName: RouterNames.PRODUCTS},
   {
     label: Categories.ELECTRONICS,
