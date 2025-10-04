@@ -15,6 +15,6 @@ router.post("/", productController.createProduct)
 // | PUT    | `/api/products/:id`    | Update product |
 router.put("/:id", productController.updateProduct)
 // | DELETE | `/api/products/:id`    | Delete product |
-router.delete("/:id", productController.deleteProduct)
+router.delete("/:id", productController. deleteProduct)
 
 export const productRouter = router;

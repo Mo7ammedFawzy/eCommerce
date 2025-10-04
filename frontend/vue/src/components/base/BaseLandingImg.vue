@@ -13,10 +13,9 @@ const {isLoading} = useImage({src: props.imgUrl ?? ''})
 const bus = useEventBus(landingImgLoadKey)
 
 watch(isLoading, () => {
-  console.log("check image state")
   if (isLoading.value)
     return
-  console.log("image loaded")
+  else
   canLoadImg.value = true;
 })
 

@@ -4,7 +4,7 @@ import SkeletonProductContent from "@/components/product/SkeletonProductContent.
 
 const props = defineProps<{ id: string, title: string }>()
 
-const {data: product} = getProduct(props.id);
+const {data} = getProduct(props.id);
 </script>
 
 <template>
@@ -13,7 +13,7 @@ const {data: product} = getProduct(props.id);
       <BaseBlob/>
     </BaseLandingImg>
     <BasePageHeader :label="title"/>
-    <ProductContent v-bind="product" v-if="product"/>
+    <ProductContent v-bind="data?.data.product" v-if="data?.data.product"/>
     <SkeletonProductContent v-else/>
   </BaseWrapper>
 </template>

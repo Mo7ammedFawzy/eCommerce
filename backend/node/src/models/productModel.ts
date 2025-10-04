@@ -11,12 +11,12 @@ export interface IProduct extends Document {
   description?: string,
   price: number,
   category: Categories, //ELECTRONICS = "electronics", BOOKS = "books", CLOTHING = "clothing", HOME = "home", TOYS = "toys"
-  discount?: number;
-  colors?: string[];
   rating?: Rating;
+  thumbnail: string,
   images: string[],
   stock: number,
-  thumbnail: string,
+  colors?: string[];
+  discount?: number;
   // shortDescription:string,
   // discountPrice:number,
   // currency: Currency, // USD|EGP
@@ -45,7 +45,8 @@ const productSchema = new Schema<IProduct>({
   },
   category: {
     type: String,
-    required: true
+    required: true,
+    enum: Object.values(Categories) //ELECTRONICS = "electronics", BOOKS = "books", CLOTHING = "clothing", HOME = "home", TOYS = "toys"
   },
   rating: {
     rate: {
@@ -63,6 +64,17 @@ const productSchema = new Schema<IProduct>({
   images: {
     type: [String],
     required: true
+  },
+  stock: {
+    type: Number,
+    required: true
+  },
+  colors: {
+    type: [String]
+  },
+  discount: {
+    type: Number,
+    default: 0
   }
 }, {timestamps: true})
 

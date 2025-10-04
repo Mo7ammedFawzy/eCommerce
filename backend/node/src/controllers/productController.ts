@@ -5,7 +5,6 @@ import {CommonUtils} from "../utils/CommonUtils";
 import {ObjectChecker} from "../utils/ObjectCheckerKlass";
 import {IProduct} from "../models/productModel";
 import ProductUtils from "../utils/ProductUtils";
-import {GetProductResponse} from "../services/IProductService";
 
 class ProductController {
   private constructor() {
@@ -16,17 +15,8 @@ class ProductController {
   }
 
   async getProducts(req: Request, res: Response) {
-    const products = await productService.getProducts(req);
-    const productQuery = ProductUtils.getProductQuery(req);
-    const paginationResult: GetProductResponse = {
-      meta: {
-        totalPages: (await ProductUtils.getTotalPages(req)),
-        currentPage: productQuery.page,
-        count: products.length,
-      },
-      products
-    }
-    ApiResponse.addResponse(res).success(paginationResult);
+    const getProductsResponse = await productService.getProducts(req);
+    ApiResponse.addResponse(res).success(getProductsResponse);
   }
 
   async getProductById(req: Request, res: Response) {
@@ -35,11 +25,11 @@ class ProductController {
     const apiResponse = ApiResponse.addResponse(res);
     if (ObjectChecker.isEmptyOrNull(product))
       return apiResponse.notFound("Product is not found")
-    apiResponse.success(product)
+    apiResponse.success({product})
   }
 
   async createProduct(req: Request, res: Response) {
-    const requiredFields: (keyof IProduct)[] = ["title", "price", "stock", "images", "thumbnail"];
+    const requiredFields: (keyof IProduct)[] = ["title", "price", "stock", "images", "thumbnail", "description"];
     const body = req.body as IProduct;
     const apiResponse = ApiResponse.addResponse(res);
     if (ObjectChecker.isAnyEmptyOrNull(...requiredFields))
@@ -67,7 +57,10 @@ class ProductController {
   }
 
   async deleteProduct(req: Request, res: Response) {
-
+    const id = CommonUtils.getIdFromParams(req);
+    const deletedProduct = await productService.deleteById(id);
+    if (ObjectChecker.isEmptyOrNull(deletedProduct))
+      return
   }
 }
 

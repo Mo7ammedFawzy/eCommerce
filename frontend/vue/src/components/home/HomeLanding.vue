@@ -1,12 +1,21 @@
 <script setup lang="ts">
 import {GScrollTo} from "@/composables/useAnimations.ts";
-import {SectionIds} from "@/utils/constants";
+import {BASE_URL, SectionIds} from "@/utils/constants";
 import CommonUtils from "@/utils/CommonUtils.ts";
 import BaseLandingImg from "@/components/base/BaseLandingImg.vue";
 import BaseOverlay from "@/components/base/BaseOverlay.vue";
+import {useFetch} from "@vueuse/core";
+import {watch} from "vue";
 
 const imgUrl = CommonUtils.getImgUrl("/home/landing-2.jpg");
 
+// let url = BASE_URL + "/products";
+// const {data, isFetching} = useFetch(url, {refetch: true}).json()
+//
+//
+// watch(isFetching, v => {
+//   console.log(url, data) // works very well
+// })
 </script>
 <template>
   <section :id="SectionIds.HomeLanding">

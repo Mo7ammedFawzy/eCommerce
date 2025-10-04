@@ -3,7 +3,7 @@ import {computed, inject, ref} from "vue";
 import {appSearchDialogModelKey} from "@/utils/constants";
 import {getProducts} from "@/composables/useApi.ts";
 import {CommandPaletteGroup, CommandPaletteItem} from "@nuxt/ui/components/CommandPalette.vue";
-import {ProductCard, ProductParams} from "@/types.ts";
+import type {ProductCard, ProductParams} from "@/types/common.ts";
 import {refDebounced} from "@vueuse/core";
 import ProductUtils from "@/utils/ProductUtils.ts";
 import CommonUtils from "@/utils/CommonUtils.ts";
@@ -15,14 +15,14 @@ const searchTermDebounced = refDebounced(searchTerm, 300)
 const params = computed<ProductParams>(() => ({
   search: searchTermDebounced.value ?? ''
 }))
-const {data: products, isFetching} = getProducts(params);
+const {data, isFetching} = getProducts(params);
 
 function toCommandPaletteItem(product: ProductCard): CommandPaletteItem {
   return {
     label: product.title,
-    id: product.id,
+    id: product._id,
     suffix: product.description,
-    avatar: {src: product.images[0]},
+    avatar: {src: product.thumbnail},
     to: ProductUtils.toLink(product),
   }
 }
@@ -31,7 +31,7 @@ const groups = computed<CommandPaletteGroup<CommandPaletteItem>[]>(() => [
   {
     id: "products",
     label: searchTerm.value ? `Products matching “${searchTerm.value}”...` : 'Products',
-    items: products.value?.map(product => toCommandPaletteItem(product)),
+    items: data.value?.data?.products.map(product => toCommandPaletteItem(product)),
     ignoreFilter: true
   }
 ])

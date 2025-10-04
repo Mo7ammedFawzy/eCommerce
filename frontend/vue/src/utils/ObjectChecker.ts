@@ -1,5 +1,39 @@
 export default class ObjectChecker {
 
+  static isNotEmptyOrNull<T>(o: T | null | undefined): o is T {
+    return !this.isEmptyOrNull(o);
+  }
+
+  static isEmptyOrNull<T>(o: T | null | undefined):o is (null | undefined) {
+    return this.isEmpty(o) || this.isNull(o);
+  }
+
+  static isEmpty(o: unknown): boolean {
+    if (Array.isArray(o) || typeof o === "string")
+      return o.length === 0
+    else if (o && typeof o == "object")
+      return Object.keys(o).length === 0
+    else
+      return false;
+  }
+
+  static isNotNull<T>(o: T | null | undefined): o is NonNullable<T> {
+    return o !== null && o !== undefined;
+  }
+
+  static isNull(o: unknown): o is null | undefined {
+    return !this.isNotNull(o);
+  }
+
+  static isAnyNotEmptyOrNull(...list: unknown[]): boolean {
+    return !this.isAnyEmptyOrNull(list);
+  }
+
+  static isAnyEmptyOrNull<T extends unknown>(...list: (T | null | undefined)[]) {
+    return list.some(el => this.isEmptyOrNull(el));
+  }
+
+
   public static isString(o: unknown): o is string {
     return typeof o === "string";
   }

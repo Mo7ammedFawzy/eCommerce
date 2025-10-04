@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import {Cart} from "@/types.ts";
+import {Cart} from "@/types/common.ts";
 import {useCartStore} from "@/store/cart.ts";
 import ProductUtils from "@/utils/ProductUtils.ts";
 

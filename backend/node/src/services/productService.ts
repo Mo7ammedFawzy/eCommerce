@@ -1,7 +1,7 @@
 // Service Layer
 import {DeleteResult, RootFilterQuery} from "mongoose";
 import {Request} from "express";
-import {IProductService} from "./IProductService";
+import {GetProductsResponse, IProductService} from "./IProductService";
 import {IProduct, Product} from "../models/productModel";
 import ProductUtils from "../utils/ProductUtils";
 
@@ -18,7 +18,7 @@ class ProductService implements IProductService {
     return Product.find();
   }
 
-  async getProducts(req: Request): Promise<IProduct[]> {
+  async getProducts(req: Request): Promise<GetProductsResponse> {
     const {search, limit = ProductUtils.limit, category, page = 1, sort} = ProductUtils.getProductQuery(req);
     const filter: RootFilterQuery<IProduct> = {};
 
@@ -36,15 +36,28 @@ class ProductService implements IProductService {
       for (let sortEl of sort.split(",")) {
         const [field, order] = sortEl.split(":")
         if (field)
-          sortOption[field] = order == "desc" ? 1 : -1
+          sortOption[field] = order == "desc" ? -1 : 1
       }
     }
-
-    const products = await Product.find(filter)
-      .limit(Number(limit))
+    const productQuery = ProductUtils.getProductQuery(req);
+    let filteredProducts = Product.find(filter);
+    let productsWithPagination = filteredProducts.limit(Number(limit))
       .skip((Number(page) - 1) * Number(limit))
       .sort(sortOption);
-    return products;
+    const products: IProduct[] = await productsWithPagination.exec();
+    let totalProductsOfCurrentPage = products.length;
+    let totalPages = await ProductUtils.getTotalPages(req);
+    let totalItems = await Product.countDocuments(filter);
+    return {
+      meta: {
+        totalPages: totalPages,
+        currentPage: productQuery.page,
+        count: totalProductsOfCurrentPage,
+        limit: productQuery.limit,
+        totalItems
+      },
+      products
+    };
   }
 
   async getById(id: string): Promise<IProduct | null> {
@@ -59,7 +72,7 @@ class ProductService implements IProductService {
     return Product.insertMany(products);
   }
 
-  async delete(id: string): Promise<IProduct | null> {
+  async deleteById(id: string): Promise<IProduct | null> {
     return Product.findByIdAndDelete(id);
   }
 

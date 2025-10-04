@@ -3,6 +3,7 @@ import CommonUtils from "@/utils/CommonUtils.ts";
 import {useCartStore} from "@/store/cart.ts";
 import {SHIPPING_TAXES} from "@/utils/constants";
 import BasePageHeader from "@/components/base/BasePageHeader.vue";
+import ProductUtils from "@/utils/ProductUtils.ts";
 
 const cartStore = useCartStore();
 </script>
@@ -49,21 +50,21 @@ const cartStore = useCartStore();
               <ul class="!text-sm lg:text-base">
                 <li class="flex items-center justify-between">
                   <p v-text="'Subtotal'" class="text-sm"/>
-                  <strong v-text="`$${cartStore.getTotalPrice}`"/>
+                  <strong v-text="`${ProductUtils.toMoney(cartStore.getTotalPrice)}`"/>
                 </li>
                 <li class="flex items-center justify-between">
                   <p v-text="'Shipping'" class="text-sm"/>
-                  <strong v-text="`$${SHIPPING_TAXES}`"/>
+                  <strong v-text="`${ProductUtils.toMoney(SHIPPING_TAXES)}`"/>
                 </li>
               </ul>
             </div>
             <USeparator class="mb-3"/>
             <div class="flex items-center justify-between">
               <strong v-text="'Total Price'" class="text-sm"/>
-              <strong v-text="`$${cartStore.getTotalPriceAfterShipping}`"/>
+              <strong v-text="`${ProductUtils.toMoney(cartStore.getTotalPriceAfterShipping)}`"/>
             </div>
             <UButton
-                disabled
+                :disabled="cartStore.isCartEmpty"
                 block class="dark:text-white mt-2"
                 color="primary" size="lg" label="Checkout"
                 to="/checkout"

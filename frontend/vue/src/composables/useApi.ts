@@ -1,12 +1,12 @@
 import {MaybeRefOrGetter, useFetch, UseFetchReturn} from "@vueuse/core";
 import {BASE_URL} from "@/utils/constants";
-import {ProductCard, ProductParams} from "@/types.ts";
+import {ProductParams} from "@/types/common.ts";
 import {computed, toValue} from "vue";
 import ObjectChecker from "@/utils/ObjectChecker.ts";
 import CollectionUtils from "@/utils/CollectionUtils.ts";
+import {GetProductResponse, GetProductsResponse, GetResult} from "@/types/api";
 
-
-export const getProducts = (params?: MaybeRefOrGetter<ProductParams>): UseFetchReturn<ProductCard[]> => {
+export const getProducts = (params?: MaybeRefOrGetter<ProductParams>): UseFetchReturn<GetResult<GetProductsResponse>> => {
   const base = BASE_URL + "/products";
   const url = computed(() => {
     const paramsToValue: ProductParams | undefined = toValue(params);
@@ -24,11 +24,12 @@ export const getProducts = (params?: MaybeRefOrGetter<ProductParams>): UseFetchR
     }
     return base + queryFilter;
   });
-  return useFetch(url, {refetch: true}).json<ProductCard[]>();
+  return useFetch(url, {refetch: true}).json();
 }
-export const getProduct = (id: MaybeRefOrGetter): UseFetchReturn<ProductCard> => {
+
+export const getProduct = (id: MaybeRefOrGetter): UseFetchReturn<GetResult<GetProductResponse>> => {
   const url = computed(() => BASE_URL + "/products/" + toValue(id));
   return useFetch(url, {
     refetch: true
-  }).json<ProductCard>();
+  }).json<GetResult<GetProductResponse>>();
 }

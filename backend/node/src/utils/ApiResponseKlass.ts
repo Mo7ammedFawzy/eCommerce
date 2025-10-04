@@ -28,11 +28,11 @@ class ApiResponseKlass {
     })
   }
 
-  success(data: unknown, message?: string) {
+  success<T>(data: T, message?: string) {
     return this.response.status(StatusCodes.OK).json({
       status: ReasonPhrases.OK,
       message,
-      data,
+      data
     })
   }
 

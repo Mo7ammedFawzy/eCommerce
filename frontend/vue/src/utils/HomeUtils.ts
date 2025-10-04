@@ -1,6 +1,6 @@
 import {computed, type ComputedRef, ref} from 'vue'
 import {breakpointsTailwind, useBreakpoints} from '@vueuse/core'
-import type {Base, Route} from '@/types.ts'
+import type {Base, Route} from '@/types/common.ts'
 
 export interface HeaderLink extends Base {
   route: Route

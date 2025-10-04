@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {getProducts} from "@/composables/useApi.ts";
-import {type ProductCard} from "@/types.ts";
+import {type ProductCard} from "@/types/common.ts";
 import {computed} from "vue";
 
 const {data} = getProducts();
@@ -10,7 +10,7 @@ function toProduct(item: any): ProductCard {
 }
 
 const items = computed<ProductCard[]>(() => {
-  const products = data.value;
+  const products = data.value?.data.products;
   if (products?.length)
     return products;
   else

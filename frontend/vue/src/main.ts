@@ -15,7 +15,6 @@ import {createNotivue} from "notivue";
 const myPlugin: ObjectPlugin = {
   install(app: App) {
     app.component("BaseWrapper", BaseWrapper);
-    console.info("plugin installed")
   }
 }
 

@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 import {computed} from "vue";
-import {ProductCard} from "@/types.ts";
+import {ProductCard} from "@/types/common.ts";
 import {useCartStore} from "@/store/cart.ts";
 
 const props = defineProps<{ product: ProductCard }>()

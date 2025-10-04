@@ -28,7 +28,7 @@ class UserService implements IUserService {
     return User.create(user);
   }
 
-  async delete(id: string): Promise<IUser | null> {
+  async deleteById(id: string): Promise<IUser | null> {
     return User.findByIdAndDelete(id);
   }
 

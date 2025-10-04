@@ -3,7 +3,7 @@ import {Request} from "express";
 import {IProductQuery, IProductQueryKeys} from "../services/IProductService";
 
 export default class ProductUtils {
-  public static limit = 10;
+  public static limit = 8;
 
   static isValidProduct(p: IProduct): boolean {
     return Boolean(p.title && p.price && p.category && p.thumbnail && p.images?.length && p.stock);
@@ -14,9 +14,13 @@ export default class ProductUtils {
   }
 
   static async getTotalPages(req: Request) {
-    const productCount = await Product.countDocuments();
+    const totalItems = await this.getTotalItems();
     const limit = this.getProductQuery(req).limit
-    return Math.ceil(productCount / Number(limit))
+    return Math.ceil(totalItems / Number(limit))
+  }
+
+  static async getTotalItems(): Promise<number> {
+    return Product.countDocuments();
   }
 
   static getProductQuery(req: Request): IProductQuery {

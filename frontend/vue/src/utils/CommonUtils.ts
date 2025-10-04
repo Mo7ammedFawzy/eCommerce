@@ -1,5 +1,5 @@
 import {isRef, unref, watch} from "vue";
-import {useRoute} from "vue-router";
+import {LocationQuery, useRoute} from "vue-router";
 import {MaybeRefOrGetter} from "@vueuse/core";
 import ObjectChecker from "@/utils/ObjectChecker.ts";
 
@@ -28,6 +28,11 @@ export default class CommonUtils {
     watch(() => route.fullPath, () => {
       cb();
     })
+  }
+
+  static onQueryChanged(cb: (query: LocationQuery) => void) {
+    const route = useRoute();
+    watch(() => route.query, () => cb(route.query))
   }
 
   static unrefs(obj: Record<string, MaybeRefOrGetter<any>>) {

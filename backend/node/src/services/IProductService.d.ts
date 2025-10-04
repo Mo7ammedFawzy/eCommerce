@@ -7,7 +7,7 @@ export interface IProductService extends BaseService<IProduct> {
 
   addMany(products: Partial<IProduct[]>): Promise<IProduct[]>;
 
-  getProducts(req: Request): Promise<IProduct[]>
+  getProducts(req: Request): Promise<GetProductsResponse>
 }
 
 export type IProductQueryKeys = "search" | "category" | "page" | "limit" | "sort";
@@ -20,11 +20,13 @@ export type IProductQuery = {
   sort?: string
 }
 
-export interface GetProductResponse {
+export interface GetProductsResponse {
   products: IProduct[],
   meta: {
     totalPages: number,
     currentPage: number,
     count: number,
+    limit: number,
+    totalItems: number
   }
 }

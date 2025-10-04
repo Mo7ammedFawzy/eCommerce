@@ -1,8 +1,11 @@
-import {FooterLink} from "@/types.ts";
+import {FooterLink} from "@/types/common.ts";
 import {EventBusKey} from "@vueuse/core";
 import type {InjectionKey, Ref} from "vue";
 
-export const BASE_URL = "http://localhost:8081/api/v1";//"https://api.escuelajs.co/api/v1/"
+const NODE_URL = "https://e-commerce-node-backend.vercel.app/api"
+const SPRING_LOCAL_URL = "http://localhost:8081/api/v1"
+const NODE_LOCAL_URL = "http://localhost:5000/api"
+export const BASE_URL = NODE_URL;
 
 export const FooterLinks: FooterLink[] = [
   {

@@ -1,12 +1,12 @@
 <script setup lang="ts">
-
+import {GetProductsMeta} from "@/types/api";
 
 const page = defineModel({required: true, default: 1});
-const props = defineProps<{ maxLength: number; pageCount: number }>();
+defineProps<GetProductsMeta>();
 </script>
 
 <template>
-  <UPagination v-model="page" :total="props.maxLength" :page-count="props.pageCount"
+  <UPagination v-model:page="page" :total="totalItems" :items-per-page="limit"
                :ui="{ rounded: 'first-of-type:rounded-s-md last-of-type:rounded-e-md' }" color="white" class="mx-auto">
     <template #prev="{ onClick }">
       <UTooltip text="Previous page">

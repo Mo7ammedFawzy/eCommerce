@@ -20,17 +20,19 @@ export interface Rating {
 }
 
 export interface ProductCard {
-  category: string;
-  description: string;
-  id: number;
-  images: readonly string[];
-  price: number;
-  rating?: Rating;
+  _id: string;
   title: string;
+  description?: string;
+  price: number;
+  category: `${Categories}`;
+  rating?: Rating;
+  thumbnail: string,
+  images: readonly string[];
+  stock: number,
 
   colors?: readonly string[];
-  createdAt?: string;
   discount?: number;
+  createdAt?: string;
   updatedAt?: string;
 }
 
@@ -58,7 +60,8 @@ export interface ProfileMenuLink extends DropdownMenuItem {
 export interface ProductParams {
   limit?: number,
   category?: CategoryType,
-  search?: string
+  search?: string,
+  page?: number
 }
 
 export interface Cart {

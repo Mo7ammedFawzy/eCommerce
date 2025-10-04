@@ -1,16 +1,10 @@
 <script setup lang="ts">
-import {ProductCard} from "@/types.ts";
+import {ProductCard} from "@/types/common.ts";
 import {breakpointsTailwind, useBreakpoints, useImage} from "@vueuse/core";
 import ProductUtils from "@/utils/ProductUtils.ts";
 
 const product = defineProps<ProductCard>();
 const breakpoints = useBreakpoints(breakpointsTailwind)
-
-function toDiscount() {
-  let number = product.discount ?? 0;
-  return Number(number * 100).toFixed(0);
-}
-
 const imgUrl = product.images[0]
 
 const {isLoading} = useImage({src: imgUrl})
@@ -37,7 +31,7 @@ const {isLoading} = useImage({src: imgUrl})
           <UIcon name="mingcute:star-half-fill"/>
           <span v-text="`(${rating?.rate})`"/>
         </div>
-        <div class="flex items-center">
+        <div class="flex items-center" v-if="colors?.length">
           <div v-for="color in colors" class="-ms-0.5 aspect-square w-3 rounded-full ring ring-(--ring-color)"
                :style="{ backgroundColor: color }"/>
           <span v-text="colors?.length" class="ms-1 text-xs"/>
@@ -47,7 +41,7 @@ const {isLoading} = useImage({src: imgUrl})
       <div class="flex items-center justify-between">
         <div class="space-x-1">
           <strong v-text="`$${price}`" class="text-xs sm:text-base"/>
-          <span v-text="`(-${toDiscount()}%)`" class="text-xs text-orange-600"/>
+          <span v-if="ProductUtils.canShowDiscount(product)" v-text="`(-${ProductUtils.toDiscount(product)})`" class="text-xs text-orange-600"/>
         </div>
         <div class="flex items-center sm:gap-1">
           <ProductPreview :product="product">

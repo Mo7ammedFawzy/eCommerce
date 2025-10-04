@@ -15,10 +15,7 @@ export default class CollectionUtils {
 
   static findInArrayWithKey<T extends Record<string, any>>(el: any, array: T[], key: string): T | undefined {
     return array.find(obj => {
-      if (obj[key] === el)
-        return obj[key] === el
-      else
-        return false
+      return JSON.stringify(obj[key]) === JSON.stringify(el)
     });
   }
 

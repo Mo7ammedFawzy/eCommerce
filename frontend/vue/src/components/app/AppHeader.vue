@@ -2,15 +2,19 @@
 import Logo from "@/components/Logo.vue";
 import {breakpointsTailwind, MaybeRefOrGetter, useBreakpoints, useColorMode, useDark, useToggle} from "@vueuse/core";
 import {computed, inject, ref, toValue, useTemplateRef, watch} from "vue";
-import {Base, Route} from "@/types.ts";
-import {useRoute} from "vue-router";
+import {Base} from "@/types/common.ts";
+import {useRoute, useRouter} from "vue-router";
 import {appSearchDialogModelKey, Categories} from "@/utils/constants";
 import {GlobalIcons} from "@/utils/constants/GlobalIcons.ts";
 import {useCartStore} from "@/store/cart.ts";
 import ObjectChecker from "@/utils/ObjectChecker.ts";
+import {RouterNames} from "@/router/routerNames.ts";
 
 interface HeaderLink extends Base {
-  route: Route
+  routeName: `${RouterNames}`,
+  query?: {
+    category?: `${Categories}`
+  }
 }
 
 interface HeaderAction {
@@ -27,6 +31,7 @@ const headerRef = useTemplateRef<HTMLHeadElement>("headerRef")
 const colorMode = useColorMode();
 const isDark = useDark();
 const route = useRoute();
+const router = useRouter();
 const breakpoints = useBreakpoints({
   ...breakpointsTailwind,
   md: 900
@@ -40,11 +45,19 @@ watch(breakpoints.current(), (currentValue) => {
 const isMobileBreakpoint = computed(() => breakpoints.smallerOrEqual("md").value)
 
 const headerLinks: HeaderLink[] = [
-  {label: 'home', route: "/"},
-  {label: 'products', route: '/products'},
-  {label: Categories.ELECTRONICS, route: "/products?category=electronics"},
-  {label: Categories.CLOTHING, route: "/products?category=clothing"},
-  {label: Categories.BOOKS, route: "/products?category=books"},
+  {label: RouterNames.HOME, routeName: RouterNames.HOME, route: "/"},
+  {label: RouterNames.PRODUCTS, routeName: RouterNames.PRODUCTS},
+  {
+    label: Categories.ELECTRONICS,
+    routeName: RouterNames.PRODUCTS, query: {category: Categories.ELECTRONICS}
+  },
+  {
+    label: Categories.CLOTHING,
+    routeName: RouterNames.PRODUCTS, query: {category: Categories.CLOTHING}
+  },
+  {
+    label: Categories.BOOKS, routeName: RouterNames.PRODUCTS, query: {category: Categories.BOOKS}
+  },
 ]
 const profileMenuModel = ref(false)
 const appSearchDialogModel = inject(appSearchDialogModelKey, ref(false))
@@ -116,6 +129,28 @@ const profileBtnIsActive = computed<(action: HeaderAction) => boolean>(
     () => (action) => profileMenuModel.value && isProfileAction(action)
 )
 
+const headerLinkIsActive = computed(() => (link: HeaderLink) => {
+  if (route.name === RouterNames.HOME === link.routeName)
+    return true;
+  else if ('category' in route.query)
+    return route.name === RouterNames.PRODUCTS && link.query?.category === route.query.category;
+  else
+    return false;
+})
+
+
+function toProductsPage(event: MouseEvent, link: HeaderLink) {
+  if (!link.query)
+    return;
+  event.preventDefault();
+  router.push({
+    name: RouterNames.PRODUCTS,
+    query: {
+      ...route.query,
+      category: link.query.category
+    }
+  })
+}
 </script>
 
 <template>
@@ -128,8 +163,13 @@ const profileBtnIsActive = computed<(action: HeaderAction) => boolean>(
       <Logo class="hidden md:block"/>
       <!-- LINKS -->
       <ul class="hidden items-center justify-center gap-3 text-sm capitalize md:inline-flex overflow-hidden">
-        <RouterLink :aria-checked="route.fullPath==link.route || undefined" v-for="link in headerLinks" :to="link.route"
-                    class="hover:!text-primary aria-checked:text-primary dark:aria-checked:text-blue-ribbon-400" v-text="link.label">
+        <RouterLink
+            v-for="link in headerLinks" :to="{name:link.routeName,query:(link.query??{})}"
+            :aria-checked="headerLinkIsActive(link)"
+            @click="toProductsPage($event,link)"
+            class="hover:!text-primary aria-checked:text-primary dark:aria-checked:text-blue-ribbon-400">
+          {{ link.label }}
+          {{ console.log(link) }}
         </RouterLink>
       </ul>
       <!-- ACTIONS -->
@@ -139,7 +179,6 @@ const profileBtnIsActive = computed<(action: HeaderAction) => boolean>(
               v-if="canShowHeaderActionButton(action)"
               :to="toValue(action.route)"
               variant="ghost"
-
               size="xl"
               @click="action.onClick"
               square

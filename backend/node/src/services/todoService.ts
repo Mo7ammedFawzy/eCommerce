@@ -28,7 +28,7 @@ export class TodoService implements ITodoService {
     return todoRepository.findById(id)
   }
 
-  async delete(id: string) {
+  async deleteById(id: string) {
     return todoRepository.delete(id);
   }
 

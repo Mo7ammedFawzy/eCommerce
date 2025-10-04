@@ -5,7 +5,11 @@ import {FooterLinks} from "@/utils/constants";
 import QuantityController from "@/components/product/QuantityController.vue";
 import {useImage} from "@vueuse/core";
 import {useCartStore} from "@/store/cart.ts";
-import type {ProductCard} from "@/types.ts";
+import type {ProductCard} from "@/types/common.ts";
+import ProductUtils from "@/utils/ProductUtils.ts";
+import {RouteLocationRaw, useRoute, useRouter} from "vue-router";
+import {RouterNames} from "@/router/routerNames.ts";
+import CommonUtils from "@/utils/CommonUtils.ts";
 
 const product = defineProps<ProductCard>()
 const imgUrl = product.images[0];
@@ -13,15 +17,23 @@ const imgUrl = product.images[0];
 const {addToCart, getProductMaxItems} = useCartStore();
 const {isLoading} = useImage({src: imgUrl})
 const activeColor = ref(-1)
-const productLink = computed(() => import.meta.env.BASE_URL + "/products/" + product.id)
+const router = useRouter();
+const route = useRoute()
+const productLink = computed(() => {
+  console.log(route)
+  const routeLocation: RouteLocationRaw = {
+    name: RouterNames.PRODUCT,
+    params: {
+      id: product._id,
+      title: CommonUtils.toSlug(product.title)
+    }
+  };
+  return window.location.origin + router.resolve(routeLocation).href;
+})
 const stars = (product.rating?.rate ?? 0) / 2
 
-const priceAfterDiscount = product.price - product.price * (product.discount ?? 0);
+const priceAfterDiscount = product.price - product.price * (product.discount ?? 0) / 100;
 const priceBeforeDiscount = product.price;
-
-function toDiscount() {
-  return Number((product.discount ?? 0) * 100).toFixed(0)
-}
 
 const productInfo = [
   {
@@ -30,7 +42,8 @@ const productInfo = [
   },
   {
     label: "discount",
-    value: `$${priceAfterDiscount} &nbsp; <span class='text-orange-600 dark:text-orange-500'>(${toDiscount()}% Discount)</span>`
+    value: `${ProductUtils.toMoney(priceAfterDiscount)} &nbsp; <span class='text-orange-600 dark:text-orange-500'>(${ProductUtils.toDiscount(product)} Discount)</span>`,
+    hideInfo: !ProductUtils.canShowDiscount(product)
   },
   {
     label: "Available",
@@ -66,17 +79,21 @@ const productInfo = [
           </div>
           <div>
             <div class="space-x-1">
-              <del class="text-xs text-gray-600 dark:text-gray-400">${{ priceBeforeDiscount }}</del>
-              <span v-text="`$${priceAfterDiscount}`" class="font-bold text-base"/>
+              <del v-if="ProductUtils.canShowDiscount(product)" class="text-xs text-gray-600 dark:text-gray-400">
+                {{ ProductUtils.toMoney(priceBeforeDiscount) }}
+              </del>
+              <span v-text="`${ProductUtils.toMoney(priceAfterDiscount)}`" class="font-bold text-base"/>
             </div>
           </div>
         </div>
-        <div class="text-base flex items-center sm:text-lg capitalize mb-1" v-for="{ label, value } in productInfo">
-          <strong v-text="label"/>:
-          &nbsp;
-          <p v-html="value" class="text-sm sm:text-base  three-dots max-w-[70%]"/>
-        </div>
-        <div class="mt-2 flex items-center gap-2">
+        <template v-for="{ label, value,hideInfo } in productInfo">
+          <div class="text-base flex items-center sm:text-lg capitalize mb-1" v-if="!hideInfo">
+            <strong v-text="label"/>:
+            &nbsp;
+            <p v-html="value" class="text-sm sm:text-base  three-dots max-w-[70%]"/>
+          </div>
+        </template>
+        <div class="mt-2 flex items-center gap-2" v-if="colors?.length">
           <strong v-text="'Colors:'" class="text-lg"/>
           &nbsp;
           &nbsp;

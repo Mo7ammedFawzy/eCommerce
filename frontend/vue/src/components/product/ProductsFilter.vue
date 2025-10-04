@@ -1,35 +1,27 @@
 <script setup lang="ts">
 
-import {onMounted, ref, watch} from "vue";
 import {Categories} from "@/utils/constants";
 import {useRoute, useRouter} from "vue-router";
 import {GScrollTo} from "@/composables/useAnimations.ts";
+import CommonUtils from "@/utils/CommonUtils.ts";
 
 const router = useRouter();
 const route = useRoute();
 const emit = defineEmits(['clear-filters'])
-
-const selected = ref();
-
-const loadFilters = () => {
-  selected.value = route.query.category ?? null;
-};
+const category = defineModel({type: String});
 
 const clearFilters = () => {
   emit('clear-filters')
   if (Object.keys(route.query).length === 0)
     return;
-  router.push({query: {}});
+  category.value = null;
 };
 
-watch(selected, () => router.push({query: selected.value ? {category: selected.value} : {}}));
-watch(() => route.query, () => {
-  loadFilters();
+CommonUtils.onQueryChanged((query) => {
   GScrollTo("#page-header", 50)
-});
-
-onMounted(() => loadFilters());
-
+  if ('category' in query)
+    category.value = query.category
+})
 </script>
 
 <template>
@@ -44,7 +36,7 @@ onMounted(() => loadFilters());
       <div v-text="'Categories'" class="mb-3 text-lg font-bold"/>
       <div>
         <URadioGroup
-            v-model="selected"
+            v-model="category"
             :items="Object.values(Categories)"
             :ui="{ fieldset: 'grid grid-cols-2 gap-2 w-full',
               item: 'border-gray-400',

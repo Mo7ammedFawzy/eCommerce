@@ -50,7 +50,7 @@ class TodoController {
 
   async delete(req: Request, res: Response) {
     const id = CommonUtils.getIdFromParams(req);
-    const deletedTodo = await todoService.delete(id);
+    const deletedTodo = await todoService.deleteById(id);
     const apiResponse = ApiResponse.addResponse(res)
     if (ObjectChecker.isEmptyOrNull(deletedTodo))
       return apiResponse.notFound(Messages.TODO.NOT_FOUND);

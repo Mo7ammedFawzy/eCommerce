@@ -7,7 +7,7 @@ export interface BaseService<T> {
 
   update(id: string, updateData: Partial<T>): Promise<T | null>;
 
-  delete(id: string): Promise<T | null>;
+  deleteById(id: string): Promise<T | null>;
 
   deleteAll(): Promise<DeleteResult>;
 }
