@@ -2,11 +2,10 @@
 import {type ProductCard} from "@/types/common.ts";
 import {computed} from "vue";
 
-const props = defineProps<{ products?: ProductCard[] }>()
+const props = defineProps<{ products?: ProductCard[], isFetching: boolean }>()
 
 const productsToShow = computed(() => {
   if (!!props.products?.length) {
-    console.log(props.products)
     return props.products;
   }
   else
@@ -20,7 +19,7 @@ const productsToShow = computed(() => {
           v-for="product in productsToShow"
           :key="product?._id"
           class="basis-full max-w-full @xs:basis-1/2 @xs:max-w-1/2 @lg:basis-1/3 @lg:max-w-1/3 @2xl:basis-1/4 @2xl:max-w-1/4 p-[calc(var(--ui-gap)/2)]">
-        <ProductCard v-bind="product" v-if="product && product._id !== -1"/>
+        <ProductCard v-bind="product" v-if="product && product._id !== -1 && !isFetching"/>
         <SkeletonProductCard v-else/>
       </div>
     </div>

@@ -130,10 +130,14 @@ const profileBtnIsActive = computed<(action: HeaderAction) => boolean>(
 )
 
 const headerLinkIsActive = computed(() => (link: HeaderLink) => {
-  if (route.name === RouterNames.HOME === link.routeName)
+  if (route.name == RouterNames.HOME && route.name == link.routeName)
     return true;
-  else if ('category' in route.query)
-    return route.name === RouterNames.PRODUCTS && link.query?.category === route.query.category;
+  else if (route.name === RouterNames.PRODUCTS) {
+    if ('category' in route.query)
+      return link.query?.category === route.query.category
+    else if (RouterNames.PRODUCTS == link.label)
+      return true;
+  }
   else
     return false;
 })

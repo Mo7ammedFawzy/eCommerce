@@ -63,7 +63,7 @@ watch(params, paramsValue => {
 //   })
 // })
 
-const {data} = getProducts(params);
+const {data, isFetching} = getProducts(params);
 
 </script>
 
@@ -81,7 +81,7 @@ const {data} = getProducts(params);
         <div class="col-span-7 min-h-screen overflow-y-auto relative lg:col-span-5">
           <ProductLimiter class="mb-8" v-model="pageLimit" :max-length="data?.data.meta.count ?? [].length"
                           :total-items="Number(data?.data.meta.totalItems) ?? 0"/>
-          <ProductsContainer :products="data?.data.products"/>
+          <ProductsContainer :isFetching="isFetching" :products="data?.data.products"/>
           <ProductsPagination
               v-if="data?.data.meta"
               class="mt-10 mx-auto w-fit"
