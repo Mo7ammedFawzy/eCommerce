@@ -1,5 +1,5 @@
 import {MaybeRefOrGetter, useFetch, UseFetchReturn} from "@vueuse/core";
-import {BASE_URL} from "@/utils/constants";
+import {API_COUNTRIES_URL, BASE_URL} from "@/utils/constants";
 import {ProductParams} from "@/types/common.ts";
 import {computed, toValue} from "vue";
 import ObjectChecker from "@/utils/ObjectChecker.ts";
@@ -32,4 +32,8 @@ export const getProduct = (id: MaybeRefOrGetter): UseFetchReturn<GetResult<GetPr
   return useFetch(url, {
     refetch: true
   }).json<GetResult<GetProductResponse>>();
+}
+
+export const getCountries = () => {
+  return useFetch(API_COUNTRIES_URL, ).json();
 }

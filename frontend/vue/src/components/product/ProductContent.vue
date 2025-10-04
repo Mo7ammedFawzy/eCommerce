@@ -20,7 +20,6 @@ const activeColor = ref(-1)
 const router = useRouter();
 const route = useRoute()
 const productLink = computed(() => {
-  console.log(route)
   const routeLocation: RouteLocationRaw = {
     name: RouterNames.PRODUCT,
     params: {

@@ -70,3 +70,73 @@ export interface Cart {
 }
 
 export type CategoryType = `${Categories}`
+
+export interface NativeName {
+  official: string;
+  common: string;
+}
+
+export interface Country {
+  name: {
+    common: string;
+    official: string;
+    nativeName: { [key: string]: NativeName };
+  }
+}
+
+export interface Customer {
+  firstName: string,
+  lastName: string,
+  email: string,
+  phoneNumber: string,
+  address: string,
+  townCity: string,
+  state: string,
+  zip: string,
+  country: string
+}
+
+export interface Order {
+  id: string,
+  customer: Customer,
+  items: Cart[],
+  total: number | string,
+  state: "pending" | 'confirmed' | 'shippd' | 'delivered' | 'canceled',
+  paymentMethod: 'cash_on_delivery' | 'paypal' | 'credit_card',
+  createdAt: Date | string
+}
+
+export type UIColors = "blue" | 'orange' | 'red' | 'green' | 'lime' | 'purple' | 'primary'
+
+export type BadgeState = { [key in Order['state']]: UIColors }
+
+export interface Login {
+  email?: string,
+  password?: string,
+  username?: string
+}
+
+export interface LoginError {
+  name: string,
+  data: { error: string },
+  message: string,
+  status: number,
+  statusCode: number
+}
+
+export interface User {
+  id: number;
+  username: string;
+  email: string;
+  role: Role,
+  firstName?: string,
+  lastName?: string
+}
+
+export type Role = "Admin" | "User";
+
+
+export interface LoginCredentials {
+  email: string,
+  password: string
+}

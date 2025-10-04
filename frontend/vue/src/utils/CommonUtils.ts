@@ -1,7 +1,8 @@
 import {isRef, unref, watch} from "vue";
-import {LocationQuery, useRoute} from "vue-router";
+import {LocationQuery, RouteLocationRaw, useRoute} from "vue-router";
 import {MaybeRefOrGetter} from "@vueuse/core";
 import ObjectChecker from "@/utils/ObjectChecker.ts";
+import router from "@/router";
 
 export default class CommonUtils {
   static images = import.meta.glob('@/assets/imgs/**/*', {eager: true, import: 'default'});
@@ -42,5 +43,13 @@ export default class CommonUtils {
         objCopy[key] = unref(objCopy[key])
     }
     return objCopy;
+  }
+
+  static navigateTo(to: RouteLocationRaw) {
+    router.push(to).then()
+  }
+
+  static async waitFor(ms: number = 250) {
+    return new Promise(resolve => setTimeout(resolve, ms))
   }
 }

@@ -30,7 +30,7 @@ defineProps<{ maxLength: number, totalItems: number }>();
           v-model="pageLimit"
           :items="items"
           size="lg"
-          color="primary"
+          :ui="{base:'bg-background'}"
       />
       <p class="basis-full lg:basis-auto">
         Showing 1-{{ maxLength }} items of {{ totalItems }}

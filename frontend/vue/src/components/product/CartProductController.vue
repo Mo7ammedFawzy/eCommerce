@@ -17,8 +17,8 @@ const cartStore = useCartStore();
           class="text-left p-1 ">
         <div class="flex items-center gap-2 my-1">
           <div class="overflow-hidden rounded-full bg-white aspect-square flex items-center justify-center"
-               :class="[!readonly ? 'w-20' : 'w-12']">
-            <img :src="cartItem.product.images[0]" class="object-contain aspect-auto w-full rounded-full max-h-full"
+               :class="[!readonly ? 'max-w-20' : 'max-w-12']">
+            <img :src="cartItem.product.thumbnail" class="object-cover aspect-auto h-full max-h-full"
                  :alt="cartItem.product.title" loading="lazy"/>
           </div>
           <div class="flex-1  three-dots" v-text="cartItem.product.title"
@@ -31,7 +31,7 @@ const cartStore = useCartStore();
       <div class="flex items-center"
            :class="[readonly ? 'col-span-1 justify-end' : 'col-span-2 xl:col-span-1 justify-center']">
         <div class="w-fit text-center">
-          ${{ cartStore.getCartItemTotalPrice(cartItem) }}<br/>
+          {{ ProductUtils.toMoney(cartStore.getCartItemTotalPrice(cartItem)) }}<br/>
           <p class="text-xs" v-text="readonly ? `×${12}` : ''"/>
         </div>
       </div>
