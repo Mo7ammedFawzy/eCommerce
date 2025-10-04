@@ -168,13 +168,11 @@ function toProductsPage(event: MouseEvent, link: HeaderLink) {
       <!-- LINKS -->
       <ul class="hidden items-center justify-center gap-3 text-sm capitalize md:inline-flex overflow-hidden">
         <RouterLink
+            v-text="link.label"
             v-for="link in headerLinks" :to="{name:link.routeName,query:(link.query??{})}"
             :aria-checked="headerLinkIsActive(link)"
             @click="toProductsPage($event,link)"
-            class="hover:!text-primary aria-checked:text-primary dark:aria-checked:text-blue-ribbon-400">
-          {{ link.label }}
-          {{ console.log(link) }}
-        </RouterLink>
+            class="hover:!text-primary aria-checked:text-primary dark:aria-checked:text-blue-ribbon-400"/>
       </ul>
       <!-- ACTIONS -->
       <div class="flex items-center w-full md:w-fit md:gap-1 h-full md:h-fit">
