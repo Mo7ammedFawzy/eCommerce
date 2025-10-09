@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Logo from "@/components/Logo.vue";
-import {breakpointsTailwind, MaybeRefOrGetter, useBreakpoints, useColorMode, useDark, useToggle} from "@vueuse/core";
-import {computed, inject, ref, toValue, useTemplateRef, watch} from "vue";
+import {MaybeRefOrGetter, useColorMode, useDark, useToggle} from "@vueuse/core";
+import {computed, inject, ref, toValue, useTemplateRef} from "vue";
 import {Base} from "@/types/common.ts";
 import {useRoute, useRouter} from "vue-router";
 import {appSearchDialogModelKey, Categories} from "@/utils/constants";
@@ -9,6 +9,7 @@ import {GlobalIcons} from "@/utils/constants/GlobalIcons.ts";
 import {useCartStore} from "@/store/cart.ts";
 import ObjectChecker from "@/utils/ObjectChecker.ts";
 import {RouterNames} from "@/router/routerNames.ts";
+import {useUIBreakpoints} from "@/composables/useUIBreakpoints.ts";
 
 interface HeaderLink extends Base {
   routeName: `${RouterNames}`,
@@ -32,17 +33,7 @@ const colorMode = useColorMode();
 const isDark = useDark();
 const route = useRoute();
 const router = useRouter();
-const breakpoints = useBreakpoints({
-  ...breakpointsTailwind,
-  md: 900
-});
-const isMDScreen = ref(breakpoints.isGreaterOrEqual("md"));
-
-watch(breakpoints.current(), (currentValue) => {
-  isMDScreen.value = currentValue.includes("md");
-})
-
-const isMobileBreakpoint = computed(() => breakpoints.smallerOrEqual("md").value)
+const {isMobileScreen, breakpoints} = useUIBreakpoints()
 
 const headerLinks: HeaderLink[] = [
   {label: RouterNames.HOME, routeName: RouterNames.HOME},
@@ -68,7 +59,7 @@ const headerActions = ref<HeaderAction[]>(
         label: 'home',
         icon: GlobalIcons.HOME,
         route: '/',
-        canShow: isMobileBreakpoint,
+        canShow: isMobileScreen,
       },
       {
         label: 'search',
@@ -81,7 +72,7 @@ const headerActions = ref<HeaderAction[]>(
         label: 'products',
         icon: GlobalIcons.PRODUCTS,
         route: '/products',
-        canShow: isMobileBreakpoint,
+        canShow: isMobileScreen,
       },
       {
         label: 'cart',
@@ -93,13 +84,13 @@ const headerActions = ref<HeaderAction[]>(
         label: 'user',
         icon: GlobalIcons.PROFILE,
         route: computed(() => {
-          if (!isMobileBreakpoint.value)
+          if (!isMobileScreen.value)
             return undefined;
           else
             return '/profile';
         }),
         onClick() {
-          if (isMobileBreakpoint.value)
+          if (isMobileScreen.value)
             return;
           profileMenuModel.value = true;
         }
@@ -198,7 +189,7 @@ function toProductsPage(event: MouseEvent, link: HeaderLink) {
               <UIcon
                   class="text-xl md:text-md"
                   :name="toValue(action.icon)"/>
-              <span v-if="isMobileBreakpoint" v-text="action.label" class="dark:text-white text-xs font-normal capitalize mt-0.5"/>
+              <span v-if="isMobileScreen" v-text="action.label" class="dark:text-white text-xs font-normal capitalize mt-0.5"/>
             </UChip>
           </UButton>
         </template>

@@ -23,4 +23,12 @@ export default class CollectionUtils {
     const indexOfDeleted = array.findIndex((item) => item[key] === toDelete);
     array.splice(indexOfDeleted, 1);
   }
+
+  static isNotLastElementInArray(o: any, array: any[]): boolean {
+    return !this.isLastElementInArray(o, array);
+  }
+
+  static isLastElementInArray(o: any, array: any[]): boolean {
+    return array[array.length - 1] === o;
+  }
 }

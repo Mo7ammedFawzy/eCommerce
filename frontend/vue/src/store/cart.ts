@@ -10,8 +10,11 @@ export const useCartStore = defineStore("cart-store", {
     cart: <Cart[]>[]
   }),
   actions: {
+    saveLocal() {
+      localStorage.setItem("cart-store", JSON.stringify(this.$state));
+    },
     loadCart() {
-      const cart = localStorage.getItem("store")
+      const cart = localStorage.getItem("cart-store")
       if (cart)
         this.$patch(JSON.parse(cart))
     },
@@ -23,7 +26,7 @@ export const useCartStore = defineStore("cart-store", {
       push.success({
         message: "Product added successfully",
       })
-      localStorage.setItem("store", JSON.stringify(this.$state));
+      this.saveLocal();
     }, addToCart(product: ProductCard): void {
       const productInCart = CollectionUtils.findInArrayWithKey(product, this.cart, "product");
       if (!productInCart)
@@ -41,7 +44,7 @@ export const useCartStore = defineStore("cart-store", {
       push.info({
         message: "Product deleted successfully"
       })
-      localStorage.setItem("store", JSON.stringify(this.$state));
+      this.saveLocal();
     }, clearCart(): void {
       this.cart = [];
     }, increaseQuantity(product: ProductCard): void {
@@ -51,8 +54,10 @@ export const useCartStore = defineStore("cart-store", {
       if (productInCart.quantity >= this.getProductMaxItems(product))
         return;
       productInCart.quantity++;
-      push.success({message: "Product quantity increased"})
-      localStorage.setItem("store", JSON.stringify(this.$state));
+      if (productInCart.quantity === product.stock)
+        push.info({message: "Looks like that’s all we have in stock right now!"});
+      push.success({message: "Product quantity increased"});
+      this.saveLocal();
     }
   },
   getters: {
@@ -73,7 +78,7 @@ export const useCartStore = defineStore("cart-store", {
       if (this.isCartEmpty)
         return 0;
       else
-        return this.getTotalPrice - SHIPPING_TAXES;
+        return this.getTotalPrice + SHIPPING_TAXES;
     },
     getCartItemTotalPrice() {
       return (cartItem: Cart) => cartItem.product.price * cartItem.quantity;

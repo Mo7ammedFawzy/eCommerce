@@ -4,6 +4,7 @@ import {SectionIds} from "@/utils/constants";
 import CommonUtils from "@/utils/CommonUtils.ts";
 import BaseLandingImg from "@/components/base/BaseLandingImg.vue";
 import BaseOverlay from "@/components/base/BaseOverlay.vue";
+import BaseWrapper from "@/components/base/BaseWrapper.vue";
 
 const imgUrl = CommonUtils.getImgUrl("/home/landing-2.jpg");
 

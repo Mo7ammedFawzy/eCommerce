@@ -4,32 +4,24 @@ import {useCartStore} from "@/store/cart.ts";
 import {SHIPPING_TAXES} from "@/utils/constants";
 import BasePageHeader from "@/components/base/BasePageHeader.vue";
 import ProductUtils from "@/utils/ProductUtils.ts";
+import {ButtonAction} from "@/utils/ButtonAction.ts";
 
 const cartStore = useCartStore();
 </script>
 
 <template>
   <main>
-    <BaseWrapper class='mt-8'>
+    <BaseWrapper class='mt-(--ui-gap)'>
       <BasePageHeader/>
-      <div class="grid grid-cols-7 gap-4 lg:gap-5">
-        <div class="col-span-full md:col-span-5">
-          <div class="bg-background ui-rounded-ring p-4 lg:p-6">
-            <div>
+      <div class="grid grid-cols-7 ui-gap">
+        <div class="col-span-full md:col-span-5 order-1 md:order-0 p-1">
+          <div class="ui-rounded-ring p-4">
+            <div class="mb-(--ui-gap)">
               <span class="text-xl sm:text-2xl font-bold">Shopping Cart:</span>
               &nbsp;
               <span v-text="`(${cartStore.getCartLength} item)`"/>
             </div>
-            <div class="max-h-[400px] overflow-y-auto p-2  overflow-x-auto my-3" v-if="cartStore.getCartLength > 0">
-              <div class="min-w-[550px]">
-                <div
-                    class="text-center grid grid-cols-8 font-semibold [&>div]:bg-gray-5 gap-2 items-center">
-                  <div class=" col-span-3 xl:col-span-4 text-left" v-text="'Product'"/>
-                  <div class="col-span-2" v-text="'Quantity'"/>
-                  <div class="col-span-2 xl:col-span-1" v-text="'Total Price'"/>
-                  <div class="col-span-1" v-text="'Action'"/>
-                </div>
-              </div>
+            <div class="max-h-full space-y-(--ui-gap) p-2" v-if="cartStore.getCartLength > 0">
               <template v-for="product in cartStore.cart">
                 <CartProductController :cart-item="product"/>
               </template>
@@ -43,8 +35,8 @@ const cartStore = useCartStore();
             </div>
           </div>
         </div>
-        <div class="col-span-full md:col-span-2">
-          <div class="bg-background ui-rounded-ring p-4 lg:p-6">
+        <div class="col-span-full md:col-span-2 p-1">
+          <div class="bg-background ui-rounded-ring p-4">
             <div class="text-base font-bold lg:text-xl" v-text="'Payment Summary'"/>
             <div class="my-3">
               <ul class="!text-sm lg:text-base">
@@ -64,11 +56,10 @@ const cartStore = useCartStore();
               <strong v-text="`${ProductUtils.toMoney(cartStore.getTotalPriceAfterShipping)}`"/>
             </div>
             <UButton
-                :disabled="cartStore.isCartEmpty"
                 block class="dark:text-white mt-2"
                 color="primary" size="lg" label="Checkout"
                 to="/checkout"
-                :ui="{ base:'rounded-lg aria-disabled:!disabled-btn' }"/>
+                v-bind="{...ButtonAction.getDisabledButtonProps(cartStore.isCartEmpty).value}"/>
           </div>
         </div>
       </div>

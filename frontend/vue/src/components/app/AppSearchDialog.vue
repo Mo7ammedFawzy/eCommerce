@@ -57,7 +57,7 @@ CommonUtils.onRouteChanged(() => {
     <template #body>
       <UCommandPalette
           :fuse="{ fuseOptions: { includeMatches: true },matchAllWhenSearchEmpty:true }"
-          :ui="{itemLeadingAvatarSize:'3xl'}"
+          :ui="{itemLeadingAvatarSize:'3xl',root:'divide-(--ring-color)'}"
           v-model:search-term="searchTerm"
           :loading="isFetching"
           :groups="groups"

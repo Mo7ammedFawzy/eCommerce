@@ -18,7 +18,7 @@ const items = [
 
 
 const pageLimit = defineModel<number>({default: ProductUtils.PAGE_LIMIT, type: Number});
-defineProps<{ maxLength: number, totalItems: number }>();
+defineProps<{ maxLength: number | string, totalItems: number | string }>();
 
 </script>
 

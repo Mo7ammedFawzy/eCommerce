@@ -2,42 +2,51 @@
 import {Cart} from "@/types/common.ts";
 import {useCartStore} from "@/store/cart.ts";
 import ProductUtils from "@/utils/ProductUtils.ts";
+import {ButtonAction} from "@/utils/ButtonAction.ts";
+import CommonUtils from "@/utils/CommonUtils.ts";
+import {useUIBreakpoints} from "@/composables/useUIBreakpoints.ts";
+import {useImage} from "@vueuse/core";
 
-defineProps<{ cartItem: Cart, readonly?: boolean, checkedOut?: boolean }>()
+const props = defineProps<{ cartItem: Cart, readonly?: boolean, checkedOut?: boolean }>()
 const cartStore = useCartStore();
+
+const {isLoading} = useImage({src: props.cartItem.product.thumbnail})
 
 </script>
 
 <template>
-  <div :class="{ 'min-w-[550px]': !readonly }">
-    <div class="grid gap-3 font-semibold items-center text-center"
-         :class="[readonly ? 'grid-cols-3' : 'grid-cols-8']">
+  <div :class="[readonly?'items-center':'flex-col md:flex-row md:items-center']"
+       class="bg-background rounded-md text-left flex py-1 ps-2 pe-2 md:pe-4">
+    <div class="flex flex-grow ui-gap overflow-hidden">
+      <USkeleton v-if="isLoading" :class="[readonly?'h-20 max-h-20':'h-28 max-h-28']" class="w-auto max-w-full aspect-[4/3]"/>
       <RouterLink
-          :to="ProductUtils.toLink(cartItem.product)" :class="[readonly ? 'col-span-2' : 'col-span-3 xl:col-span-4 hover:text-blue-500']"
-          class="text-left p-1 ">
-        <div class="flex items-center gap-2 my-1">
-          <div class="overflow-hidden rounded-full bg-white aspect-square flex items-center justify-center"
-               :class="[!readonly ? 'max-w-20' : 'max-w-12']">
-            <img :src="cartItem.product.thumbnail" class="object-cover aspect-auto h-full max-h-full"
-                 :alt="cartItem.product.title" loading="lazy"/>
-          </div>
-          <div class="flex-1  three-dots" v-text="cartItem.product.title"
-               :class="[!readonly ? 'text-sm' : 'text-xs']"/>
-        </div>
+          v-else
+          :to="ProductUtils.toLink(cartItem.product)"
+          :class="[readonly?'h-20 max-h-20':'h-28 max-h-28']"
+          class="text-left p-1 28 w-auto shrink-0 max-w-full aspect-[4/3]">
+        <img :src="cartItem.product.thumbnail" class="object-cover max-h-full aspect-auto"
+             :alt="cartItem.product.title" loading="lazy"/>
       </RouterLink>
-      <div class="col-span-2" v-if="!readonly">
-        <QuantityController :product="cartItem.product"/>
+      <div class="flex-grow text-left max-w-full overflow-hidden">
+        <RouterLink :to="ProductUtils.toLink(cartItem.product)" class="w-fit max-w-full block">
+          <div v-text="cartItem.product.title" class="three-dots max-w-full text-muted dark:hover:text-white hover:text-black"/>
+        </RouterLink>
+        <div v-text="ProductUtils.toMoney(cartStore.getCartItemTotalPrice(cartItem))" class="font-semibold my-1"/>
+        <QuantityController v-if="useUIBreakpoints().isNotMobileScreen.value && !readonly" :product="cartItem.product" class="float-left p-1"/>
       </div>
-      <div class="flex items-center"
-           :class="[readonly ? 'col-span-1 justify-end' : 'col-span-2 xl:col-span-1 justify-center']">
-        <div class="w-fit text-center">
-          {{ ProductUtils.toMoney(cartStore.getCartItemTotalPrice(cartItem)) }}<br/>
-          <p class="text-xs" v-text="readonly ? `×${12}` : ''"/>
-        </div>
-      </div>
-      <div class="col-span-1" v-if="!readonly">
-        <UButton @click="cartStore.deleteProductFromCart(cartItem)" square icon="i-heroicons-trash" size="sm" class="rounded-full"/>
-      </div>
+    </div>
+    <div v-if="readonly" class="text-center">
+      <p class="text-xs" v-text="readonly ? `×${cartItem.quantity}` : ''"/>
+    </div>
+    <div class="flex items-center justify-start ui-gap shrink-0" v-else>
+      <QuantityController v-if="useUIBreakpoints().isMobileScreen.value" :product="cartItem.product" class="float-left p-1"/>
+      <UButton :disabled="ButtonAction.isButtonDisabled().value"
+               @click="ButtonAction.performAction(()=>cartStore.deleteProductFromCart(cartItem))"
+               icon="i-heroicons-trash"
+               color="primary"
+               size="sm"
+               label="delete"
+               v-bind="{...CommonUtils.getDisabledUI()}"/>
     </div>
   </div>
 </template>

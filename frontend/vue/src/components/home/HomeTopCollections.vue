@@ -3,7 +3,7 @@ import {getProducts} from "@/composables/useApi.ts";
 import {SectionIds} from "@/utils/constants";
 import ProductsContainer from "@/components/product/ProductsContainer.vue";
 
-const {data} = getProducts({limit: 8})
+const {data, isFetching} = getProducts({limit: 8})
 
 
 </script>
@@ -11,10 +11,10 @@ const {data} = getProducts({limit: 8})
 <template>
   <section :id="SectionIds.HomeTopCollections">
     <BaseSectionHeader title="top collections"/>
-    <ProductsContainer :products="data?.data.products"/>
+    <ProductsContainer :isFetching="isFetching" :products="data?.data.products"/>
     <UButton
         to="/products"
-        size="xl" leading-icon="hugeicons:link-04"
+        size="xl" leading-icon="iconamoon:link-external-thin"
         label="View All" color="primary" class="w-fit px-6 mt-4 mx-auto flex"/>
   </section>
 </template>

@@ -7,18 +7,18 @@ import {useImage} from "@vueuse/core";
 import {useCartStore} from "@/store/cart.ts";
 import type {ProductCard} from "@/types/common.ts";
 import ProductUtils from "@/utils/ProductUtils.ts";
-import {RouteLocationRaw, useRoute, useRouter} from "vue-router";
+import {RouteLocationRaw, useRouter} from "vue-router";
 import {RouterNames} from "@/router/routerNames.ts";
 import CommonUtils from "@/utils/CommonUtils.ts";
+import {ButtonAction} from "@/utils/ButtonAction.ts";
 
 const product = defineProps<ProductCard>()
 const imgUrl = product.images[0];
 
 const {addToCart, getProductMaxItems} = useCartStore();
 const {isLoading} = useImage({src: imgUrl})
-const activeColor = ref(-1)
+const activeColorIndex = ref(-1)
 const router = useRouter();
-const route = useRoute()
 const productLink = computed(() => {
   const routeLocation: RouteLocationRaw = {
     name: RouterNames.PRODUCT,
@@ -29,7 +29,7 @@ const productLink = computed(() => {
   };
   return window.location.origin + router.resolve(routeLocation).href;
 })
-const stars = (product.rating?.rate ?? 0) / 2
+const stars = (product.rating?.rate ?? 0)
 
 const priceAfterDiscount = product.price - product.price * (product.discount ?? 0) / 100;
 const priceBeforeDiscount = product.price;
@@ -56,7 +56,8 @@ const productInfo = [
   <main class='rounded-md  p-5 lg:p-8 bg-background'>
     <div class="grid-cols-1 md:grid-cols-2 grid w-full gap-6">
       <div class="p-4 max-w-md mx-auto ui-ring rounded-md w-full flex items-center justify-center max-h-full">
-        <USkeleton v-if="isLoading" class="w-auto max-h-full h-full aspect-square"/>
+        <!--    TODO::ratio should change later    -->
+        <USkeleton v-if="isLoading" class="w-auto max-h-full w-full h-full aspect-[6/4]"/>
         <img v-else :src="imgUrl" class="object-contain max-h-full rounded-md h-full w-auto aspect-auto" :alt="title" loading="lazy"/>
       </div>
       <div>
@@ -98,8 +99,8 @@ const productInfo = [
           &nbsp;
           <div class="flex items-center gap-2">
             <UBadge
-                :class="{'shadow-[0_0_0_2px_white,0_0_0_4px_var(--ui-primary)]':activeColor==index}"
-                @click="activeColor = index" v-for="(color, index) in colors"
+                :class="{'shadow-[0_0_0_2px_white,0_0_0_4px_var(--ui-primary)]':activeColorIndex==index}"
+                @click="activeColorIndex = index" v-for="(color, index) in colors"
                 class="cursor-pointer aspect-square ui-ring ring-2 w-8 rounded-full" :style="{ backgroundColor: color }">
             </UBadge>
           </div>
@@ -111,9 +112,12 @@ const productInfo = [
           </div>
         </div>
         <div class="mb-4 grid grid-cols-2 gap-2 max-w-full">
-          <UButton @click="addToCart(product)" label="add to cart" block class="capitalize dark:text-white"
+          <UButton v-bind="{...ButtonAction.getDisabledButtonProps().value}" @click="ButtonAction.performAction(()=>addToCart(product))"
+                   label="add to cart"
+                   block class="capitalize dark:text-white"
                    color="primary" size="lg"/>
-          <UButton label="buy now" size="lg" block color="secondary" to="/cart" class="capitalize dark:text-white"/>
+          <UButton v-bind="{...ButtonAction.getDisabledButtonProps().value}" label="buy now" size="lg" block color="secondary" to="/cart"
+                   class="capitalize dark:text-white"/>
         </div>
         <div class="mt-5 flex items-center justify-center gap-2">
           <CopyToClipboardBtn :product-link="productLink"/>

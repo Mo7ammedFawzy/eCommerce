@@ -59,7 +59,7 @@
     --ui-background: var(--background-light);
 
     --header-height: theme(spacing.16);
-    --ui-gap: theme(spacing.4);
+    --ui-gap: theme(spacing.3);
     --card-spacing: theme(spacing.5);
 
     --y-animate: 50vh;

@@ -66,7 +66,8 @@ export interface ProductParams {
 
 export interface Cart {
   product: ProductCard,
-  quantity: number
+  quantity: number,
+  color?: string
 }
 
 export type CategoryType = `${Categories}`
@@ -100,13 +101,13 @@ export interface Order {
   id: string,
   customer: Customer,
   items: Cart[],
-  total: number | string,
+  total: number,
   state: "pending" | 'confirmed' | 'shippd' | 'delivered' | 'canceled',
   paymentMethod: 'cash_on_delivery' | 'paypal' | 'credit_card',
   createdAt: Date | string
 }
 
-export type UIColors = "blue" | 'orange' | 'red' | 'green' | 'lime' | 'purple' | 'primary'
+export type UIColors = "error" | "primary" | "secondary" | "success" | "info" | "warning" | "neutral" | undefined
 
 export type BadgeState = { [key in Order['state']]: UIColors }
 

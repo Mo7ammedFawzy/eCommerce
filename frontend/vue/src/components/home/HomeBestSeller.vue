@@ -26,7 +26,7 @@ const items = computed<ProductCard[]>(() => {
           :items="items"
           arrows v-slot="{ item }" class="rounded-lg"
           :ui="{container:'gap-0',item: 'basis-3/4 max-w-[75%] sm:basis-1/2 sm:max-w-[50%]' +
-          'md:basis-1/3 md:max-w-[33.33%] lg:basis-1/4 lg:max-w-[25%]',
+          'md:basis-1/3 md:max-w-[33.33%] lg:basis-1/4 lg:max-w-[25%] ps-[calc(var(--ui-gap)/2)]',
           next:'!-end-4 bg-background hover:bg-elevated',prev:'!-start-4 bg-background hover:bg-elevated'}"
           prev-icon="i-heroicons-arrow-left-20-solid"
           next-icon="i-heroicons-arrow-right-20-solid">

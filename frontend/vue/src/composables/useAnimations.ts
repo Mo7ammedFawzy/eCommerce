@@ -159,7 +159,7 @@ export default function useAnimations() {
           return;
         console.log('animate from timeout')
         pageTransitionEnter();
-      }, 1500)
+      }, 500)
     });
     watch([pageHasLoaded, landingImageHasLoaded], () => {
       if (pageHasLoaded.value && landingImageHasLoaded.value && !animateHasStarted.value)

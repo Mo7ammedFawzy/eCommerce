@@ -48,12 +48,12 @@ watch(() => route.fullPath, () => {
 })
 </script>
 <template>
-  <footer class="min-h-[50vh] w-full py-20 bg-white text-center dark:bg-[#162031] ui-ring rounded-none">
+  <footer class="min-h-[20vh] w-full py-[calc(var(--ui-gap)*2)] bg-white text-center dark:bg-[#162031] ui-ring rounded-none">
     <div class="max-w-3xl mx-auto">
       <BaseSectionHeader
           class="mx-auto max-w-xl [&>p]:text-gray-600 dark:[&>p]:text-gray-500"
           title="newsletter"
-          text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
+          text=""
       />
       <UForm
           ref="uFormRef"
@@ -70,7 +70,7 @@ watch(() => route.fullPath, () => {
               :trailing="true"
               placeholder="Search..."
               class="mx-auto max-w-md"
-              :ui="{trailingIcon: 'pointer-events-auto',base: 'ring-gray-400 h-14 bg-transparent'}"
+              :ui="{trailingIcon: 'pointer-events-auto',base: 'ring-gray-400 h-10 bg-transparent'}"
           >
             <template #trailing>
               <UButton
@@ -91,14 +91,14 @@ watch(() => route.fullPath, () => {
           </UInput>
         </UFormField>
       </UForm>
-      <div class="my-8">
-        <div class="max-w-xs mx-auto text-center items-center justify-center gap-8 flex flex-wrap">
+      <div class="my-(--ui-gap)">
+        <div class="max-w-xs mx-auto text-center items-center justify-center gap-(--ui-gap) flex flex-wrap">
           <RouterLink to="/" class="flex items-center justify-center" v-for="{ icon, color } in FooterLinks">
             <UIcon :name="icon" class="text-3xl rounded-md" :style="{ color: color }"/>
           </RouterLink>
         </div>
       </div>
-      <p>
+      <p class="text-sm text-muted">
         &copy; {{ new Date().getFullYear() }} Commercehope. All rights reserved
       </p>
     </div>

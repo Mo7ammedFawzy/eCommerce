@@ -27,6 +27,9 @@ body {
 @utility ui-ring {
     @apply ring-(--ring-color) ring-1;
 }
+@utility ui-gap {
+    @apply gap-(--ui-gap);
+}
 
 @utility ui-rounded-ring {
     @apply ui-ring rounded-md
@@ -38,6 +41,10 @@ body {
 
 @utility disabled-btn {
     @apply bg-gray-200 text-black/40 dark:bg-gray-500 dark:text-black/70;
+}
+
+@utility ui-disabled-btn {
+    @apply disabled:!disabled-btn aria-disabled:!disabled-btn;
 }
 
 .ui-scrollbar-y::-webkit-scrollbar-thumb {

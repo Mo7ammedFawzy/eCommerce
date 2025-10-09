@@ -1,9 +1,9 @@
 <script setup lang='ts'>
 import {z} from "zod"
-import type {FormSubmitEvent} from "@nuxt/ui"
+import type {Form, FormSubmitEvent} from "@nuxt/ui"
 import {v4 as uuidv4} from 'uuid';
 import {Country, Customer, Order, User} from "@/types/common.ts";
-import {computed, reactive, Ref, ref} from "vue";
+import {computed, reactive, ShallowRef, useTemplateRef} from "vue";
 import {RouterNames} from "@/router/routerNames.ts";
 import {push} from "notivue";
 import {useOrderStore} from "@/store/order.ts";
@@ -14,16 +14,12 @@ import CommonUtils from "@/utils/CommonUtils.ts";
 
 const orderStore = useOrderStore()
 const cartStore = useCartStore()
-
-const emit = defineEmits<{
-  (e: "onSubmit"): void
-}>()
 const props = withDefaults(defineProps<{ user?: User | null, selectedPaymentMethod?: Order['paymentMethod'], general?: boolean }>(), {
   general: false,
   selectedPaymentMethod: "cash_on_delivery"
 })
 
-const form = ref<HTMLFormElement>()
+const uFormRef = useTemplateRef<Form<any | null>>("uFormRef")
 
 const canEdit = defineModel({required: false, default: false})
 const isInputDisabled = computed(() => !canEdit.value && props.general)
@@ -55,7 +51,7 @@ const state = reactive<Customer>({
 
 type Schema = z.output<typeof schema>
 
-async function onSubmit(event: FormSubmitEvent<Schema>) {
+ function onSubmit(event: FormSubmitEvent<Schema>) {
   // check if there is items in cart first
 
   if (props.general)
@@ -73,8 +69,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     customer: {...event.data},
     items: [...cartStore.cart]
   }
-  emit("onSubmit")
-  await orderStore.placeOrder(order)
+   orderStore.placeOrder(order)
   push.success('Order Successfully has ben placed')
 }
 
@@ -84,9 +79,9 @@ const normalize = computed(() => (data: Country[]) => {
   return data?.map(country => country?.name?.common ?? '') ?? []
 })
 
-defineExpose<{ form: Ref<HTMLFormElement | undefined>, onSubmit: Function }>({
+defineExpose<{ uFormRef: Readonly<ShallowRef<Form<any> | null>>, onSubmit: Function }>({
   onSubmit,
-  form
+  uFormRef
 })
 
 
@@ -94,7 +89,7 @@ defineExpose<{ form: Ref<HTMLFormElement | undefined>, onSubmit: Function }>({
 
 <template>
   <!-- <UButton @click="props.placeOrder" label="getData" ref="form" /> -->
-  <UForm ref="form" :schema="schema" @submit="onSubmit" :state="state" :validate-on="['change', 'input', 'change']"
+  <UForm ref="uFormRef" :schema="schema" @submit="onSubmit" :state="state" :validate-on="['change', 'input', 'change']"
          class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
     <UFormField name="firstName" label="First Name">
       <UInput v-model="state.firstName" variant="outline" :ui="{base:'bg-background',root:'w-full'}" color="primary" :disabled="isInputDisabled"

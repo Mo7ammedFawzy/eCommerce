@@ -1,6 +1,6 @@
 import {isRef, unref, watch} from "vue";
 import {LocationQuery, RouteLocationRaw, useRoute} from "vue-router";
-import {MaybeRefOrGetter} from "@vueuse/core";
+import {MaybeRefOrGetter, useDateFormat} from "@vueuse/core";
 import ObjectChecker from "@/utils/ObjectChecker.ts";
 import router from "@/router";
 
@@ -51,5 +51,17 @@ export default class CommonUtils {
 
   static async waitFor(ms: number = 250) {
     return new Promise(resolve => setTimeout(resolve, ms))
+  }
+
+  static getDisabledUI() {
+    return {ui: {base: 'rounded-lg disabled:!disabled-btn aria-disabled:!disabled-btn'}}
+  }
+
+  static toCapitalize(text: string): string {
+    return text.split(" ").reduce((sentence, acc) => sentence + " " + acc.charAt(0).toUpperCase() + acc.substring(1), "")
+  }
+
+  static formattedDate(date: Date | string | undefined) {
+    return useDateFormat(date, 'YYYY-MM-DD HH:mm').value
   }
 }

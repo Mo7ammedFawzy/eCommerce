@@ -9,6 +9,7 @@ import {darkTheme, lightTheme, Notification, Notivue, type NotivueTheme} from "n
 import {computed} from "vue";
 import {useDark} from "@vueuse/core";
 import {useCartStore} from "@/store/cart.ts";
+import {useOrderStore} from "@/store/order.ts";
 
 const route = useRoute();
 const isDark = useDark();
@@ -27,6 +28,7 @@ const notivueTheme = computed(() => {
 useAnimations().startPageAnimation();
 
 useCartStore().loadCart();
+useOrderStore().loadOrders();
 </script>
 <template>
   <UApp>
@@ -39,7 +41,7 @@ useCartStore().loadCart();
       <AppSearchDialog/>
       <AppLoader/>
       <div class="pt-(--header-height) hidden md:block" v-if="route.name !== RouterNames.HOME"/>
-      <main data-vaul-drawer-wrapper class="min-h-screen overflow-hidden">
+      <main data-vaul-drawer-wrapper class="overflow-hidden my-(--ui-gap) min-h-screen">
         <RouterView/>
       </main>
       <AppFooter/>

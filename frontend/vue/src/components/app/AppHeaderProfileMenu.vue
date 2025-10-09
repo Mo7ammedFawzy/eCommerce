@@ -52,7 +52,7 @@ function toDropdownMenuItem(item: any): DropdownMenuItem {
     </template>
     <template #btn="{ item }">
       <div class="w-full">
-        <UButton v-if="true" :label="toDropdownMenuItem(item).label" block color="primary"
+        <UButton v-if="true" to="/auth/login" :label="toDropdownMenuItem(item).label" block color="primary"
                  variant="solid" icon="solar:login-2-outline" class="btn-primary"/>
         <UButton label="Logout" block color="error" icon="solar:logout-2-outline" class="btn-primary" v-else/>
       </div>

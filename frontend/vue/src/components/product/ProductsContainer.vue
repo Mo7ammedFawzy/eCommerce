@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import {type ProductCard} from "@/types/common.ts";
 import {computed} from "vue";
+import BaseWrapper from "@/components/base/BaseWrapper.vue";
+import SkeletonProductCard from "@/components/product/SkeletonProductCard.vue";
 
 const props = defineProps<{ products?: ProductCard[], isFetching: boolean }>()
 

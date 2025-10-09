@@ -1,21 +1,27 @@
 import {defineStore} from "pinia";
 import {validate} from "uuid"
-import {orders} from "@/utils/constants/orders.ts";
 import CommonUtils from "@/utils/CommonUtils.ts";
 import {useCartStore} from "@/store/cart.ts";
-import {Order} from "@/types/common.ts";
+import {Cart, Order} from "@/types/common.ts";
 
 export const useOrderStore = defineStore('order-store', {
   state: () => ({
-    orders: <Order[]>[...orders]
+    orders: <Order[]>[]
   }),
   actions: {
+    saveLocal() {
+      localStorage.setItem("order-store", JSON.stringify(this.$state));
+    },
+    loadOrders() {
+      const orderStore = localStorage.getItem("order-store")
+      if (orderStore)
+        this.$patch(JSON.parse(orderStore))
+    },
     async placeOrder(order: Order) {
       this.orders.push(order);
-      await CommonUtils.waitFor(1000)
       CommonUtils.navigateTo('/profile/orders')
-      await CommonUtils.waitFor(1000)
       useCartStore().clearCart()
+      this.saveLocal();
     }
   },
   getters: {

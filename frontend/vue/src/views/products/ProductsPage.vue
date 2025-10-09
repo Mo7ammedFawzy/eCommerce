@@ -2,15 +2,18 @@
 import ProductsContainer from "@/components/product/ProductsContainer.vue";
 import BaseBlob from "@/components/base/BaseBlob.vue";
 import {computed, ref, watch} from "vue";
-import {useRoute, useRouter} from "vue-router";
+import {LocationQueryRaw, useRoute, useRouter} from "vue-router";
 import {getProducts} from "@/composables/useApi.ts";
 import {CategoryType, ProductParams} from "@/types/common.ts";
 import ProductUtils from "@/utils/ProductUtils.ts";
 import CollectionUtils from "@/utils/CollectionUtils.ts";
+import BaseWrapper from "@/components/base/BaseWrapper.vue";
+import BasePageHeader from "@/components/base/BasePageHeader.vue";
+import BaseLandingImg from "@/components/base/BaseLandingImg.vue";
 
 const route = useRoute();
 const router = useRouter();
-const category = ref<CategoryType>(route.query.category)
+const category = ref<CategoryType>(route.query.category as CategoryType)
 const page = ref<number>(Number(route.query.page ?? 1));
 const pageLimit = ref<number>(Number(route.query.limit ?? ProductUtils.PAGE_LIMIT));
 const params = computed<ProductParams>(() => {
@@ -41,11 +44,11 @@ function resetPage() {
   page.value = 1;
 }
 
-watch(category, (oldValue, newValue) => {
+watch(category, (_) => {
   resetPage();
 })
-watch(params, paramsValue => {
-  const query: ProductParams = {
+watch(params, _ => {
+  const query: LocationQueryRaw = {
     page: page.value,
     limit: pageLimit.value,
     category: category.value
@@ -70,6 +73,7 @@ const {data, isFetching} = getProducts(params);
 <template>
   <main class="mx-auto max-w-5xl sm:max-w-7xl">
     <BaseWrapper class="relative">
+
       <BaseLandingImg>
         <BaseBlob/>
       </BaseLandingImg>
@@ -79,8 +83,8 @@ const {data, isFetching} = getProducts(params);
           <ProductsFilter v-model="category" class="sticky top-24"/>
         </div>
         <div class="col-span-7 min-h-screen overflow-y-auto relative lg:col-span-5">
-          <ProductLimiter class="mb-8" v-model="pageLimit" :max-length="data?.data.meta.count ?? [].length"
-                          :total-items="Number(data?.data.meta.totalItems ?? 0) ?? 0"/>
+          <ProductLimiter class="mb-8" v-model="pageLimit" :max-length="data?.data.meta.count || '...'"
+                          :total-items="Number(data?.data.meta.totalItems ?? 0) || '...'"/>
           <ProductsContainer :isFetching="isFetching" :products="data?.data.products"/>
           <ProductsPagination
               v-if="data?.data.meta"

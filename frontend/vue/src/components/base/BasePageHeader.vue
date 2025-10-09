@@ -42,15 +42,16 @@ const items = computed<BreadcrumbItem[]>(() => {
 </script>
 
 <template>
-  <main id="page-header" class="h-fit w-full mb-6 overflow-hidden">
-    <div class='relative rounded-lg bg-gradient-to-r from-primary to-blue-600 text-white p-6'>
-      <div v-text="label" class="capitalize mb-4 text-3xl three-dots max-w-[70%] font-bold"/>
+  <main id="page-header" class="h-fit w-full mb-(--ui-gap) overflow-hidden">
+    <div class='relative rounded-lg bg-gradient-to-r from-primary to-blue-600 text-white p-5'>
+      <div v-text="label" class="capitalize mb-[calc(var(--ui-gap)/2)] text-3xl three-dots max-w-[70%] font-bold"/>
       <UBreadcrumb
-          :items="items" class="text-white  capitalize"
+          :items="items" class="text-white capitalize"
           :ui="{
-         link: 'text-white/80 !text-xs dark:text-white/80 three-dots max-w-48',
-        separator:'text-white w-4',
-        item:'!text-white dark:text-white !text-xs hover:text-white hover:underline'
+         link: 'text-white/80 !text-xs dark:text-white/80 three-dots hover:text-white max-w-48',
+        separator:'!text-white dark:text-white w-4',
+        item:'!text-white dark:text-white !text-xs hover:text-white hover:underline',
+        separatorIcon:'text-white/60 size-4'
         }"/>
       <BaseCircle class="top-1/2 -translate-y-1/2 right-0 translate-x-1/4"/>
       <BaseCircle class="bottom-0 -translate-x-1/2 left-1/2 translate-y-1/4"/>

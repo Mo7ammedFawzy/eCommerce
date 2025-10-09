@@ -2,6 +2,7 @@
 import {computed} from "vue";
 import {ProductCard} from "@/types/common.ts";
 import {useCartStore} from "@/store/cart.ts";
+import {ButtonAction} from "@/utils/ButtonAction.ts";
 
 const props = defineProps<{ product: ProductCard }>()
 const cartStore = useCartStore();
@@ -11,19 +12,21 @@ const canIncreaseQuantity = computed(() => cartStore.getProductQuantity(props.pr
 </script>
 
 <template>
-  <div class='max-w-32 mx-auto'>
+  <div class='max-w-32'>
     <div class="ui-ring flex items-center justify-center rounded-md gap-2 py-2 px-3 md:px-4 md:gap-3">
       <UButton
+          v-bind="{...ButtonAction.getDisabledButtonProp(!canDecreaseQuantity).value}"
           icon="i-heroicons-minus" square class="rounded-full"
-          :ui="{base: 'ui-ring bg-transparent'}" size="xs"
+          :ui="{base: 'ui-ring bg-transparent ui-disabled-btn'}" size="xs"
           variant="outline" color="neutral"
-          @click="cartStore.decreaseQuantity(product)" :disabled="!canDecreaseQuantity"/>
+          @click="ButtonAction.performAction(()=>cartStore.decreaseQuantity(product))"/>
       <div v-text="cartStore.getProductQuantity(product)" class="w-8 text-sm three-dots max-w-8 text-center"/>
       <UButton
+          v-bind="{...ButtonAction.getDisabledButtonProp(!canIncreaseQuantity).value}"
           icon="i-heroicons-plus" square class="rounded-full"
-          :ui="{base: 'ui-ring bg-transparent'}" size="xs"
+          :ui="{base: 'ui-ring bg-transparent ui-disabled-btn'}" size="xs"
           variant="outline" color="neutral"
-          @click="cartStore.increaseQuantity(product)" :disabled="!canIncreaseQuantity"/>
+          @click="ButtonAction.performAction(()=>cartStore.increaseQuantity(product))"/>
     </div>
   </div>
 </template>
