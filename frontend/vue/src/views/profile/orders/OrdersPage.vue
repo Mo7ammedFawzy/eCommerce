@@ -41,7 +41,7 @@ const orderStore = useOrderStore()
             </template>
           </div>
           <div v-else class="py-10">
-            <img :src="CommonUtils.getImgUrl('/products/empty-data.png')" class="max-h-40 mx-auto" alt="empty-img"
+            <img :src="CommonUtils.getImgUrl('/empty.svg')" class="max-h-40 mx-auto" alt="empty-img"
             />
           </div>
         </div>
