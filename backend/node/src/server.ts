@@ -17,6 +17,7 @@ async function start() {
 if (isDevMode)
   start();
 
-export default function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+  await connectDB()
   return app(req, res);
 }
