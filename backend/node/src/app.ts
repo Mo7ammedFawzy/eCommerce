@@ -4,11 +4,11 @@ import {todoRouter} from "./routes/todoRoutes";
 import {authRouter} from "./routes/authRoutes";
 import {productRouter} from "./routes/productRoutes";
 
-const app = express();
 const allowedOrigins = [
   "http://localhost:5173",
   "https://ecommercelytics.vercel.app/"
 ]
+const app = express();
 
 app.use(express.json());
 app.use(cors());
