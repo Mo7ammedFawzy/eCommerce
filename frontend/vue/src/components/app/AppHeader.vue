@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Logo from "@/components/Logo.vue";
-import {MaybeRefOrGetter, useColorMode, useDark, useToggle} from "@vueuse/core";
+import {MaybeRefOrGetter} from "@vueuse/core";
 import {computed, inject, ref, toValue, useTemplateRef} from "vue";
 import {Base} from "@/types/common.ts";
 import {useRoute, useRouter} from "vue-router";
@@ -29,11 +29,9 @@ interface HeaderAction {
 }
 
 const headerRef = useTemplateRef<HTMLHeadElement>("headerRef")
-const colorMode = useColorMode();
-const isDark = useDark();
 const route = useRoute();
 const router = useRouter();
-const {isMobileScreen, breakpoints} = useUIBreakpoints()
+const {isMobileScreen} = useUIBreakpoints()
 
 const headerLinks: HeaderLink[] = [
   {label: RouterNames.HOME, routeName: RouterNames.HOME},
@@ -95,18 +93,8 @@ const headerActions = ref<HeaderAction[]>(
           profileMenuModel.value = true;
         }
       },
-      {
-        slot: 'colorMode',
-        icon: computed(() => `material-symbols-light:${colorMode.value}-mode-outline-rounded`),
-        onClick: () => toggleDarkMode(),
-        canShow: breakpoints.greater("md"),
-      },
     ]
 );
-
-function toggleDarkMode() {
-  useToggle(isDark)();
-}
 
 function isProfileAction(action: HeaderAction) {
   return action.label === "user";
